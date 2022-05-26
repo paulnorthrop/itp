@@ -1,0 +1,22 @@
+Package: itp
+Type: Package
+Title: The Interpolate, Truncate, Project (ITP) root finding algorithm
+Version: 0.1.0.9000
+Date: 2022-05-24
+Authors@R: person(c("Paul", "J."), "Northrop", email = "p.northrop@ucl.ac.uk",
+  role = c("aut", "cre", "cph"))
+Maintainer: The package maintainer <yourself@somewhere.net>
+Description: Implements the Interpolate, Truncate, Project (ITP) root finding 
+    algorithm developed by Oliveira and Takahashi(2021) <doi:10.1145/3423597>. 
+License: GPL (>= 2)
+Encoding: UTF-8
+RoxygenNote: 7.1.2
+Suggests: 
+    knitr,
+    rmarkdown,
+    testthat (>= 3.0.0)
+VignetteBuilder: knitr
+URL: https://paulnorthrop.github.io/itp/, https://github.com/paulnorthrop/litp
+BugReports: https://github.com/paulnorthrop/itp/issues
+Config/testthat/edition: 3
+
