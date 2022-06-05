@@ -143,19 +143,4 @@ par(oldpar)
 
 In terms of a naive comparison based on the number of iterations `itp` and `uniroot` perform similarly, except in the repeated-root "Polynomial 3" example, where `itp` requires fewer iterations.  
 
-## ... and finally
-
-The function `itp` has an argument `fsign` that can be used to control the sign of the function at the estimated root $x^*$. This may be unnecessary for most problems, but this is included because I had a problem where I needed to avoid the function having a negative value at the estimated root. We return to the trigonometric and staircase examples above to illustrate this.  We set `fsign = "ge"` to force $f(x^*) \geq 0$ and `fsign = "le"` to force $f(x^*) \leq 0$.
-
-```{r}
-# Trigonometric 1
-itp(trig1, c(-1, 1))
-# Forcing f(root) to be >= 0 requires 1 more iteration
-itp(trig1, c(-1, 1), fsign = "ge")
-
-# Staircase
-itp(staircase, c(-1, 1))
-# Forcing f(root) to be <= 0 requires 24 more iterations
-itp(staircase, c(-1, 1), fsign = "le")
-```
-
+## References
