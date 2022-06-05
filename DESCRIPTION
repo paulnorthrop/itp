@@ -26,4 +26,3 @@ VignetteBuilder: knitr
 URL: https://paulnorthrop.github.io/itp/, https://github.com/paulnorthrop/itp
 BugReports: https://github.com/paulnorthrop/itp/issues
 Config/testthat/edition: 3
-
