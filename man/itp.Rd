@@ -134,6 +134,10 @@ itp(staircase, c(-1, 1))
 # Warsaw
 warsaw <- function(x) ifelse(x > -1, sin(1 / (x + 1)), -1)
 itp(warsaw, c(-1, 1))
+
+# Linear (solution in one iteration)
+linear <- function(x) x
+itp(linear, c(-1, 1))
 }
 \references{
 Oliveira, I. F. D. and Takahashi, R. H. C. (2021). An Enhancement

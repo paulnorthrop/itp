@@ -110,6 +110,10 @@
 #' # Warsaw
 #' warsaw <- function(x) ifelse(x > -1, sin(1 / (x + 1)), -1)
 #' itp(warsaw, c(-1, 1))
+#'
+#' # Linear (solution in one iteration)
+#' linear <- function(x) x
+#' itp(linear, c(-1, 1))
 #' @export
 itp <- function(f, interval, ..., a = min(interval), b = max(interval),
                 epsilon = 1e-10, k1 = 0.2 / (b - a), k2 = 2, n0 = 1) {
@@ -172,7 +176,9 @@ itp <- function(f, interval, ..., a = min(interval), b = max(interval),
       ya <- yITP
     } else {
       a <- xITP
+      ya <- yITP
       b <- xITP
+      yb <- yITP
     }
     root <- (a + b) / 2
     # Update the first term of rk
