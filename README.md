@@ -41,7 +41,7 @@ library(itp)
 #### A continuous function
 
 The Lambert function
-![f(x) = xe^x - 1](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;f%28x%29%20%3D%20xe%5Ex%20-%201 "f(x) = xe^x - 1")
+![l(x) = xe^x - 1](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;l%28x%29%20%3D%20xe%5Ex%20-%201 "l(x) = xe^x - 1")
 is continuous.
 
 <img src="man/figures/README-lambert-1.png" style="display: block; margin: auto;" />
@@ -69,7 +69,7 @@ itp(lambert, c(-1, 1))
 #### A discontinuous function
 
 The staircase function
-![f(x) = \\lceil 10 x - 1 \\rceil + 1/2](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;f%28x%29%20%3D%20%5Clceil%2010%20x%20-%201%20%5Crceil%20%2B%201%2F2 "f(x) = \lceil 10 x - 1 \rceil + 1/2")
+![s(x) = \\lceil 10 x - 1 \\rceil + 1/2](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;s%28x%29%20%3D%20%5Clceil%2010%20x%20-%201%20%5Crceil%20%2B%201%2F2 "s(x) = \lceil 10 x - 1 \rceil + 1/2")
 is discontinuous.
 
 <img src="man/figures/README-staircase-1.png" style="display: block; margin: auto;" />
@@ -78,7 +78,7 @@ The `itp` function finds the discontinuity at
 ![x = 0](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;x%20%3D%200 "x = 0")
 at which the sign of the function changes. The value of 0.5 returned for
 the root `res$root` is the midpoint of the bracketing interval
-(`[res$a, res$b]`) at convergence.
+`[res$a, res$b]` at convergence.
 
 ``` r
 # Staircase
@@ -94,7 +94,7 @@ print(res, all = TRUE)
 #### A function with multiple roots
 
 The Warsaw function
-![f(x) = I(x > -1)\\left(1 + \\sin\\left(\\frac{1}{1+x}\\right)\\right)-1](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;f%28x%29%20%3D%20I%28x%20%3E%20-1%29%5Cleft%281%20%2B%20%5Csin%5Cleft%28%5Cfrac%7B1%7D%7B1%2Bx%7D%5Cright%29%5Cright%29-1 "f(x) = I(x > -1)\left(1 + \sin\left(\frac{1}{1+x}\right)\right)-1")
+![w(x) = I(x > -1)\\left(1 + \\sin\\left(\\frac{1}{1+x}\\right)\\right)-1](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;w%28x%29%20%3D%20I%28x%20%3E%20-1%29%5Cleft%281%20%2B%20%5Csin%5Cleft%28%5Cfrac%7B1%7D%7B1%2Bx%7D%5Cright%29%5Cright%29-1 "w(x) = I(x > -1)\left(1 + \sin\left(\frac{1}{1+x}\right)\right)-1")
 has multiple roots.
 
 <img src="man/figures/README-warsaw-1.png" style="display: block; margin: auto;" />
@@ -111,21 +111,6 @@ warsaw <- function(x) ifelse(x > -1, sin(1 / (x + 1)), -1)
 itp(warsaw, c(-1, 1))
 #>       root     f(root)  iterations  
 #>    -0.6817  -5.472e-11          11
-uniroot(warsaw, c(-1, 1), tol = 1e-10)
-#> $root
-#> [1] -0.6816901
-#> 
-#> $f.root
-#> [1] -3.216286e-16
-#> 
-#> $iter
-#> [1] 9
-#> 
-#> $init.it
-#> [1] NA
-#> 
-#> $estim.prec
-#> [1] 5.409273e-11
 ```
 
 ### Installation

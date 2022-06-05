@@ -34,7 +34,7 @@ library(itp)
 
 #### A continuous function
 
-The Lambert function $f(x) = xe^x - 1$ is continuous.
+The Lambert function $l(x) = xe^x - 1$ is continuous.
 
 ```{r lambert, echo = FALSE, fig.align='center', fig.width=5, fig.height=3}
 oldpar <- par(mar = c(4, 4, 1, 1))
@@ -55,7 +55,7 @@ itp(lambert, c(-1, 1))
 
 #### A discontinuous function
 
-The staircase function $f(x) = \lceil 10 x - 1 \rceil + 1/2$ is discontinuous.
+The staircase function $s(x) = \lceil 10 x - 1 \rceil + 1/2$ is discontinuous.
 
 ```{r staircase, echo = FALSE, fig.align='center', fig.width=5, fig.height=3}
 oldpar <- par(mar = c(4, 4, 1, 1))
@@ -66,7 +66,7 @@ abline(v = itp(staircase, c(-1, 1))$root, lty = 2)
 par(oldpar)
 ```
 
-The `itp` function finds the discontinuity at $x = 0$ at which the sign of the function changes. The value of 0.5 returned for the root `res$root` is the midpoint of the bracketing interval (`[res$a, res$b]`) at convergence.  
+The `itp` function finds the discontinuity at $x = 0$ at which the sign of the function changes. The value of 0.5 returned for the root `res$root` is the midpoint of the bracketing interval `[res$a, res$b]` at convergence.  
 
 ```{r staircase_root}
 # Staircase
@@ -77,7 +77,7 @@ print(res, all = TRUE)
 
 #### A function with multiple roots
 
-The Warsaw function $f(x) = I(x > -1)\left(1 + \sin\left(\frac{1}{1+x}\right)\right)-1$ has multiple roots.
+The Warsaw function $w(x) = I(x > -1)\left(1 + \sin\left(\frac{1}{1+x}\right)\right)-1$ has multiple roots.
 
 ```{r warsaw, echo = FALSE, fig.align='center', fig.width=5, fig.height=3}
 oldpar <- par(mar = c(4, 4, 1, 1))
