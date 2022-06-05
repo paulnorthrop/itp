@@ -1,0 +1,109 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, echo = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-"
+)
+```
+
+# itp
+
+[![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/paulnorthrop/itp?branch=main&svg=true)](https://ci.appveyor.com/project/paulnorthrop/itp)
+[![Coverage Status](https://codecov.io/github/paulnorthrop/itp/coverage.svg?branch=main)](https://codecov.io/github/paulnorthrop/itp?branch=main)
+[![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/itp)](https://cran.r-project.org/package=itp)
+[![Downloads (monthly)](https://cranlogs.r-pkg.org/badges/itp?color=brightgreen)](https://cran.r-project.org/package=itp)
+[![Downloads (total)](https://cranlogs.r-pkg.org/badges/grand-total/itp?color=brightgreen)](https://cran.r-project.org/package=itp)
+
+## The Interpolate, Truncate, Project (ITP) root-finding algorithm
+
+The **itp** package implements the Interpolate, Truncate, Project (ITP) root-finding algorithm of [Oliveira and Takahashi (2021)](https://doi.org/10.1145/3423597). Each iteration of the algorithm results in a bracketing interval for the root that is narrower than the previous interval. It's performance compares favourably with existing methods on both well-behaved functions and ill-behaved functions while retaining the worst-case reliability of the bisection method. For details see the authors' [Kudos summary](https://www.growkudos.com/publications/10.1145%25252F3423597/reader) and the Wikipedia article [ITP method](https://en.wikipedia.org/wiki/ITP_method).
+
+### Examples
+
+We use three examples from Section 3 of [Oliveira and Takahashi (2021)](https://doi.org/10.1145/3423597) to illustrate the use of the `itp` function.  Each of these functions has a root in the interval $(-1, 1)$.
+
+```{r}
+library(itp)
+```
+
+#### A continuous function
+
+The Lambert function $f(x) = xe^x - 1$ is continuous.
+
+```{r lambert, echo = FALSE, fig.align='center', fig.width=5, fig.height=3}
+oldpar <- par(mar = c(4, 4, 1, 1))
+lambert <- function(x) x * exp(x) - 1
+curve(lambert, -1, 1, main = "Lambert")
+abline(h = 0, lty = 2)
+abline(v = itp(lambert, c(-1, 1))$root, lty = 2)
+par(oldpar)
+```
+
+The `itp` function finds an estimate of the root, that is, $x^*$ for which $f(x^*)$ is (approximately) equal to 0.  The algorithm continues until the length of the interval that brackets the root is smaller than $2 \epsilon$, where $\epsilon$ is a user-supplied tolerance.  The default is $\epsilon = 10^{-10}$.
+
+```{r lambert_root}
+# Lambert
+lambert <- function(x) x * exp(x) - 1
+itp(lambert, c(-1, 1))
+```
+
+#### A discontinuous function
+
+The staircase function $f(x) = \lceil 10 x - 1 \rceil + 1/2$ is discontinuous.
+
+```{r staircase, echo = FALSE, fig.align='center', fig.width=5, fig.height=3}
+oldpar <- par(mar = c(4, 4, 1, 1))
+staircase <- function(x) ceiling(10 * x - 1) + 1 / 2
+curve(staircase, -1, 1, main = "Staircase", n = 10000)
+abline(h = 0, lty = 2)
+abline(v = itp(staircase, c(-1, 1))$root, lty = 2)
+par(oldpar)
+```
+
+The `itp` function finds the discontinuity at $x = 0$ at which the sign of the function changes. The value of 0.5 returned for the root `res$root` is the midpoint of the bracketing interval (`[res$a, res$b]`) at convergence.  
+
+```{r staircase_root}
+# Staircase
+staircase <- function(x) ceiling(10 * x - 1) + 1 / 2
+res <- itp(staircase, c(-1, 1))
+print(res, all = TRUE)
+```
+
+#### A function with multiple roots
+
+The Warsaw function $f(x) = I(x > -1)\left(1 + \sin\left(\frac{1}{1+x}\right)\right)-1$ has multiple roots.
+
+```{r warsaw, echo = FALSE, fig.align='center', fig.width=5, fig.height=3}
+oldpar <- par(mar = c(4, 4, 1, 1))
+warsaw <- function(x) ifelse(x > -1, sin(1 / (x + 1)), -1)
+curve(warsaw, -0.9999999, 1, main = "Warsaw", n = 1000)
+abline(h = 0, lty = 2)
+abline(v = itp(warsaw, c(-1, 1))$root, lty = 2)
+par(oldpar)
+```
+
+When the initial interval is $[-1, 1]$ the `itp` function finds the root $x \approx -0.6817$.  There are other roots that could be found from different initial values.
+
+```{r warsaw_root}
+# Warsaw
+warsaw <- function(x) ifelse(x > -1, sin(1 / (x + 1)), -1)
+itp(warsaw, c(-1, 1))
+```
+
+### Installation
+
+To get the current released version from CRAN:
+
+```{r installation, eval = FALSE}
+install.packages("itp")
+```
+
+### Vignette
+
+See `vignette("itp-vignette", package = "itp")` for an overview of the package.
