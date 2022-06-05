@@ -14,7 +14,8 @@ call to \code{\link{itp}}.}
 \item{all}{A logical scalar.  If \code{all = FALSE} then only the estimated
 root, the value of the function at the root an the number of iterations
 are printed.  If \code{all = TRUE} then, in addition, the final bracketing
-interval (\code{a, b}) and the estimation precision are printed.}
+interval (\code{a, b}), the values of the function at the limits of this
+interval and the estimation precision are printed.}
 
 \item{digits}{The argument \code{digits} passed to \code{\link{format}}
 to set the number of significant digits to print.}

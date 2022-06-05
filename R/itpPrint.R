@@ -6,7 +6,8 @@
 #' @param all A logical scalar.  If \code{all = FALSE} then only the estimated
 #'   root, the value of the function at the root an the number of iterations
 #'   are printed.  If \code{all = TRUE} then, in addition, the final bracketing
-#'   interval (\code{a, b}) and the estimation precision are printed.
+#'   interval (\code{a, b}), the values of the function at the limits of this
+#'   interval and the estimation precision are printed.
 #' @param digits The argument \code{digits} passed to \code{\link{format}}
 #'   to set the number of significant digits to print.
 #' @param ... Further arguments to be passed to or from other methods. They are
@@ -35,13 +36,13 @@ print.itp <- function(x, all = FALSE,
     stop("use only with \"itp\" objects")
   }
   temp<- x
-  names(temp) <- c("root", "f(root)", "iterations", "a", "b",
+  names(temp) <- c("root", "f(root)", "iterations", "a", "b", "f.a", "f.b",
                    "precision")
   if (!all) {
     print.default(format(temp[1:3], digits = digits), print.gap = 2L,
                   quote = FALSE)
   } else {
-    print.default(format(temp[1:6], digits = digits), print.gap = 2L,
+    print.default(format(temp[1:8], digits = digits), print.gap = 2L,
                   quote = FALSE)
   }
   invisible(x)

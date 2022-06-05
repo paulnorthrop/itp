@@ -13,8 +13,7 @@ itp(
   tol = 1e-10,
   k1 = 0.2/(b - a),
   k2 = 2,
-  n0 = 1,
-  fsign = c("either", "ge", "le")
+  n0 = 1
 )
 }
 \arguments{
@@ -36,15 +35,6 @@ root is less than or equal to \code{2 * tol}.}
 \ifelse{html}{\eqn{\kappa}\out{<sub>2</sub>}}{\eqn{\kappa_2}},
 \ifelse{html}{\eqn{n}\out{<sub>0</sub>}}{n_0}.
 See \strong{Details}.}
-
-\item{fsign}{A character scalar that may be used to control the sign of the
-function \code{f} at the estimated root, that is, the sign of
-\code{f.root = f(root)} in the returned object. If \code{fsign = "ge"}
-then, if necessary, the algorithm continues beyond convergence based on
-\code{tol} until \code{f.root} is greater than or equal to 0. If
-\code{fsign = "le"} then \code{f.root} will be less than or equal to 0.
-If \code{fsign = "either"} (the default) then the sign of \code{f.root} is
-not constrained.}
 }
 \value{
 An object (a list) of class \code{"itp"} containing the following
@@ -53,7 +43,9 @@ An object (a list) of class \code{"itp"} containing the following
     (\code{a, b}) is the bracketing interval after convergence.}
   \item{f.root}{the value of the function evaluated at root.}
   \item{iter}{the number of iterations performed.}
-  \item{a,b}{the values of the bracketing interval (\code{a, b}) after
+  \item{a,b}{the limits of the bracketing interval (\code{a, b}) after
+    convergence.}
+  \item{f.a,f.b}{the values of function at (\code{a, b}) after
     convergence.}
   \item{estim.prec}{an approximate estimated precision for \code{root},
     equal to the half the width of the final bracket for the root.}
@@ -106,14 +98,10 @@ itp(wiki, c(1, 2), tol = 0.0005, n0 = 1)
 # Lambert
 lambert <- function(x) x * exp(x) - 1
 itp(lambert, c(-1, 1))
-# Forcing f(root) to be <= 0 requires 1 more iteration
-itp(lambert, c(-1, 1), fsign = "le")
 
 # Trigonometric 1
 trig1 <- function(x) tan(x - 1 /10)
 itp(trig1, c(-1, 1))
-# Forcing f(root) to be >= 0 requires 1 more iteration
-itp(trig1, c(-1, 1), fsign = "ge")
 
 ### Ill-behaved functions
 

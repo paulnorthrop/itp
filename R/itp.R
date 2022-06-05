@@ -4,14 +4,8 @@
 #    (lower, upper) -> (a, b)?
 #    Document the thing re epsilon not being too small
 #
-#    Calculate r in an even more clever way?
-#
 # 1. Do stuff like uniroot()
 #    Check for root on boundary and return estim.prec = NA
-# 2. Tidy the code.  Can I make the fsign stuff faster?
-# 3. Document the code.  Give a link to the argument re n0.
-# 4. Examples plus vignette.  Put all the examples in the paper in the vignette
-# 5. Summary method for "itp" objects.
 # 6. Tests
 #    Correct roots, correct number of iterations, correct sign of f.root
 # 7. A package help page. itp-package?
@@ -41,14 +35,6 @@
 #'   \ifelse{html}{\eqn{\kappa}\out{<sub>2</sub>}}{\eqn{\kappa_2}},
 #'   \ifelse{html}{\eqn{n}\out{<sub>0</sub>}}{n_0}.
 #'   See \strong{Details}.
-#' @param fsign A character scalar that may be used to control the sign of the
-#'   function \code{f} at the estimated root, that is, the sign of
-#'   \code{f.root = f(root)} in the returned object. If \code{fsign = "ge"}
-#'   then, if necessary, the algorithm continues beyond convergence based on
-#'   \code{tol} until \code{f.root} is greater than or equal to 0. If
-#'   \code{fsign = "le"} then \code{f.root} will be less than or equal to 0.
-#'   If \code{fsign = "either"} (the default) then the sign of \code{f.root} is
-#'   not constrained.
 #' @details Page 8 of Oliveira and Takahashi (2021) describes the ITP
 #'   algorithm.  The Wikipedia entry for the
 #'   \href{https://en.wikipedia.org/wiki/ITP_method}{ITP method} provides
@@ -78,7 +64,9 @@
 #'     (\code{a, b}) is the bracketing interval after convergence.}
 #'   \item{f.root}{the value of the function evaluated at root.}
 #'   \item{iter}{the number of iterations performed.}
-#'   \item{a,b}{the values of the bracketing interval (\code{a, b}) after
+#'   \item{a,b}{the limits of the bracketing interval (\code{a, b}) after
+#'     convergence.}
+#'   \item{f.a,f.b}{the values of function at (\code{a, b}) after
 #'     convergence.}
 #'   \item{estim.prec}{an approximate estimated precision for \code{root},
 #'     equal to the half the width of the final bracket for the root.}
@@ -101,14 +89,10 @@
 #' # Lambert
 #' lambert <- function(x) x * exp(x) - 1
 #' itp(lambert, c(-1, 1))
-#' # Forcing f(root) to be <= 0 requires 1 more iteration
-#' itp(lambert, c(-1, 1), fsign = "le")
 #'
 #' # Trigonometric 1
 #' trig1 <- function(x) tan(x - 1 /10)
 #' itp(trig1, c(-1, 1))
-#' # Forcing f(root) to be >= 0 requires 1 more iteration
-#' itp(trig1, c(-1, 1), fsign = "ge")
 #'
 #' ### Ill-behaved functions
 #'
@@ -134,9 +118,7 @@
 #' itp(warsaw, c(-1, 1))
 #' @export
 itp <- function(f, interval, ..., a = min(interval), b = max(interval),
-                tol = 1e-10, k1 = 0.2 / (b - a), k2 = 2, n0 = 1,
-                fsign = c("either", "ge", "le")) {
-  fsign <- match.arg(fsign)
+                tol = 1e-10, k1 = 0.2 / (b - a), k2 = 2, n0 = 1) {
   if (!missing(interval) && length(interval) != 2L) {
     stop("'interval' must be a vector of length 2")
   }
@@ -163,9 +145,9 @@ itp <- function(f, interval, ..., a = min(interval), b = max(interval),
     stop("f() values at end points not of opposite sign")
   }
   k <- 0
-  continue <- FALSE
+#  continue <- FALSE
   for_rk <- tol * 2 ^ nmax
-  while (b - a > 2 * tol || !continue) {
+  while (b - a > 2 * tol) {
     # Interpolation. Regular falsi, equation (5)
     xf <- (yb * a - ya * b) / (yb - ya)
     # Truncation
@@ -198,23 +180,13 @@ itp <- function(f, interval, ..., a = min(interval), b = max(interval),
       a <- xITP
       b <- xITP
     }
-    # If necessary, check whether f.root has the required sign
     root <- (a + b) / 2
-    if (fsign == "ge") {
-      f.root <- f(root, ...)
-      continue <- f.root >= 0
-    } else if (fsign == "le") {
-      f.root <- f(root, ...)
-      continue <- f.root <= 0
-    } else {
-      continue <- TRUE
-    }
     # Update the first term of rk
     for_rk <- for_rk * 0.5
     k <- k + 1
   }
   val <- list(root = root, f.root = f(root, ...), iter = k, a = a,
-              b = b, estim.prec = (b - a) / 2)
+              b = b, f.a = ya, f.b = yb, estim.prec = (b - a) / 2)
   class(val) <- "itp"
   return(val)
 }
