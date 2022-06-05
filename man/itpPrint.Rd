@@ -15,7 +15,7 @@ call to \code{\link{itp}}.}
 root, the value of the function at the root an the number of iterations
 are printed.  If \code{all = TRUE} then, in addition, the final bracketing
 interval [\code{a, b}], the values of the function at the end points of
-this interval and the estimation precision are printed.}
+this interval and the estimated precision are printed.}
 
 \item{digits}{The argument \code{digits} passed to \code{\link{format}}
 to set the number of significant digits to print.}

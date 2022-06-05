@@ -59,7 +59,8 @@ Oliveira and Takahashi (2021).  The function \code{itp} searches the
 interval from \code{a} to \code{b} for a root (i.e. a zero) of the
 function \code{f} with respect to its first argument. Each iteration
 results in a bracketing interval for the root that is narrower than the
-previous interval.
+previous interval.  If the function is discontinuous then a point of
+discontinuity at which the function changes sign may be found.
 }
 \details{
 Page 8 of Oliveira and Takahashi (2021) describes the ITP
@@ -78,8 +79,7 @@ Page 8 of Oliveira and Takahashi (2021) describes the ITP
   \ifelse{html}{\eqn{n}\out{<sub>max</sub>} = \eqn{n}\out{<sub>1/2</sub>} +
     \eqn{n}\out{<sub>0</sub>}}{\eqn{n_{\rm max} = n_{1/2} + n_0}} iterations,
   where \ifelse{html}{\eqn{n}\out{<sub>1/2</sub>}}{\eqn{n_{1/2}}} is the
-  smallest integer not less than
-  \ifelse{html}{log\out{<sub>2</sub>}(b-a) / 2\eqn{\epsilon}}{
+  smallest integer not less than \ifelse{html}{log\out{<sub>2</sub>}(b-a) / 2\eqn{\epsilon}}{
   \eqn{\log_2(b-a) / 2 \epsilon}}.
   If \ifelse{html}{\eqn{n}\out{<sub>0</sub>} = 0}{\eqn{n_0 = 0}} then the
   ITP method will require no more iterations than the bisection method.
@@ -90,8 +90,7 @@ Page 8 of Oliveira and Takahashi (2021) describes the ITP
 
   The default values of the other tuning parameters
   (\code{epsilon = 1e-10, k1 = 0.1, k2 = 2 / (b - a)}) are set based on
-  the numerical experiments presented in Section 3 of Oliveira and Takahashi
-  (2021).
+  arguments made in Oliveira and Takahashi (2021).
 }
 \examples{
 #### ----- The example used in the Wikipedia entry for the ITP method
