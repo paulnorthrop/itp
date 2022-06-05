@@ -1,8 +1,8 @@
 #' The Interpolate, Truncate, Project (ITP) root-finding algorithm
 #'
 #' Performs one-dimensional root-finding using the ITP algorithm of
-#' Oliveira and Takahashi (2021).  The function \code{itp} searches the
-#' interval from \code{a} to \code{b} for a root (i.e. a zero) of the
+#' Oliveira and Takahashi (2021).  The function \code{itp} searches an
+#' interval [\eqn{a}, \eqn{b}] for a root (i.e. a zero) of the
 #' function \code{f} with respect to its first argument. Each iteration
 #' results in a bracketing interval for the root that is narrower than the
 #' previous interval.  If the function is discontinuous then a point of
@@ -16,9 +16,13 @@
 #' @param a,b An alternative way to set the lower and upper end points of the
 #'   interval to be searched. The function values at these end points must be
 #'   of opposite signs.
+#' @param f.a,f.b The values of \code{f(a)} and \code{f(b)}, respectively.
 #' @param epsilon A positive numeric scalar. The desired accuracy of the root.
 #'   The algorithm continues until the width of the bracketing interval for the
-#'   root is less than or equal to \code{2 * epsilon}.
+#'   root is less than or equal to \code{2 * epsilon}. The value of
+#'   \code{epsilon} should be greater than
+#'   \ifelse{html}{2\out{<sup>-63</sup>}(b-a)}{\eqn{2^{-63}(b-a)}} to avoid
+#'   integer overflow.
 #' @param k1,k2,n0 the values of the tuning parameters
 #'   \ifelse{html}{\eqn{\kappa}\out{<sub>1</sub>}}{\eqn{\kappa_1}},
 #'   \ifelse{html}{\eqn{\kappa}\out{<sub>2</sub>}}{\eqn{\kappa_2}},
@@ -40,8 +44,8 @@
 #'   \ifelse{html}{\eqn{n}\out{<sub>max</sub>} = \eqn{n}\out{<sub>1/2</sub>} +
 #'     \eqn{n}\out{<sub>0</sub>}}{\eqn{n_{\rm max} = n_{1/2} + n_0}} iterations,
 #'   where \ifelse{html}{\eqn{n}\out{<sub>1/2</sub>}}{\eqn{n_{1/2}}} is the
-#'   smallest integer not less than \ifelse{html}{log\out{<sub>2</sub>}(b-a) / 2\eqn{\epsilon}}{
-#'   \eqn{\log_2(b-a) / 2 \epsilon}}.
+#'   smallest integer not less than \ifelse{html}{log\out{<sub>2</sub>}((b-a) /
+#'   2\eqn{\epsilon})}{\eqn{\log_2 ((b-a) / 2 \epsilon)}}.
 #'   If \ifelse{html}{\eqn{n}\out{<sub>0</sub>} = 0}{\eqn{n_0 = 0}} then the
 #'   ITP method will require no more iterations than the bisection method.
 #'   Depending on the function \code{f}, setting a larger value for
@@ -116,7 +120,8 @@
 #' itp(linear, c(-1, 1))
 #' @export
 itp <- function(f, interval, ..., a = min(interval), b = max(interval),
-                epsilon = 1e-10, k1 = 0.2 / (b - a), k2 = 2, n0 = 1) {
+                f.a = f(a, ...), f.b = f(b, ...), epsilon = 1e-10,
+                k1 = 0.2 / (b - a), k2 = 2, n0 = 1) {
   if (!missing(interval) && length(interval) != 2L) {
     stop("'interval' must be a vector of length 2")
   }
@@ -133,8 +138,8 @@ itp <- function(f, interval, ..., a = min(interval), b = max(interval),
     stop("n0 must be non-negative")
   }
   # Evaluate the function at the end points of the interval
-  ya <- f(a, ...)
-  yb <- f(b, ...)
+  ya <- f.a
+  yb <- f.b
   # Set n_1/2 in equation (3)
   n12 <- max(ceiling(log2((b - a) / epsilon) - 1), 0)
   nmax <- n12 + n0
@@ -143,7 +148,6 @@ itp <- function(f, interval, ..., a = min(interval), b = max(interval),
     stop("f() values at end points not of opposite sign")
   }
   k <- 0
-#  continue <- FALSE
   for_rk <- epsilon * 2 ^ nmax
   while (b - a > 2 * epsilon) {
     # Interpolation. Regular falsi, equation (5)
