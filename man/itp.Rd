@@ -2,7 +2,7 @@
 % Please edit documentation in R/itp.R
 \name{itp}
 \alias{itp}
-\title{The Interpolate, Truncate, Project (ITP) root finding algorithm}
+\title{The Interpolate, Truncate, Project (ITP) root-finding algorithm}
 \usage{
 itp(
   f,
@@ -10,7 +10,7 @@ itp(
   ...,
   a = min(interval),
   b = max(interval),
-  tol = 1e-10,
+  epsilon = 1e-10,
   k1 = 0.2/(b - a),
   k2 = 2,
   n0 = 1
@@ -20,15 +20,18 @@ itp(
 \item{f}{The function for which the root is sought.}
 
 \item{interval}{A numeric vector \code{c(a, b)} of length 2
-containing the end-points of the interval to be searched for the root.}
+containing the end points of the interval to be searched for the root.
+The function values at the end points must be of opposite signs.}
 
 \item{...}{additional named or unnamed arguments to be pass to \code{f}.}
 
-\item{a, b}{a and b}
+\item{a, b}{An alternative way to set the lower and upper end points of the
+interval to be searched. The function values at these end points must be
+of opposite signs.}
 
-\item{tol}{A positive numeric scalar. The desired accuracy of the root.
+\item{epsilon}{A positive numeric scalar. The desired accuracy of the root.
 The algorithm continues until the width of the bracketing interval for the
-root is less than or equal to \code{2 * tol}.}
+root is less than or equal to \code{2 * epsilon}.}
 
 \item{k1, k2, n0}{the values of the tuning parameters
 \ifelse{html}{\eqn{\kappa}\out{<sub>1</sub>}}{\eqn{\kappa_1}},
@@ -43,7 +46,7 @@ An object (a list) of class \code{"itp"} containing the following
     (\code{a, b}) is the bracketing interval after convergence.}
   \item{f.root}{the value of the function evaluated at root.}
   \item{iter}{the number of iterations performed.}
-  \item{a,b}{the limits of the bracketing interval (\code{a, b}) after
+  \item{a,b}{the end points of the bracketing interval (\code{a, b}) after
     convergence.}
   \item{f.a,f.b}{the values of function at (\code{a, b}) after
     convergence.}
@@ -51,7 +54,7 @@ An object (a list) of class \code{"itp"} containing the following
     equal to the half the width of the final bracket for the root.}
 }
 \description{
-Performs one-dimensional root finding using the ITP algorithm of
+Performs one-dimensional root-finding using the ITP algorithm of
 Oliveira and Takahashi (2021).  The function \code{itp} searches the
 interval from \code{a} to \code{b} for a root (i.e. a zero) of the
 function \code{f} with respect to its first argument. Each iteration
@@ -62,7 +65,14 @@ previous interval.
 Page 8 of Oliveira and Takahashi (2021) describes the ITP
   algorithm.  The Wikipedia entry for the
   \href{https://en.wikipedia.org/wiki/ITP_method}{ITP method} provides
-  a summary.
+  a summary.  If the input function \code{f} is continuous over the interval
+  [\code{a}, \code{b}] then the value of \code{f} evaluated at the estimated
+  root is (approximately) equal to 0. If \code{f} is discontinuous over the
+  interval [\code{a}, \code{b}] then the bracketing interval returned after
+  convergence has the property that the signs of the function \code{f} at
+  the end points of this interval are different and therefore the estimated
+  root may be a point of discontinuity at which the sign of \code{f}
+  changes.
 
   The ITP method requires at most
   \ifelse{html}{\eqn{n}\out{<sub>max</sub>} = \eqn{n}\out{<sub>1/2</sub>} +
@@ -79,7 +89,7 @@ Page 8 of Oliveira and Takahashi (2021) describes the ITP
   the \code{itp} function, may result in a smaller number of iterations.
 
   The default values of the other tuning parameters
-  (\code{tol = 1e-10, k1 = 0.1, k2 = 2 / (b - a)}) are set based on
+  (\code{epsilon = 1e-10, k1 = 0.1, k2 = 2 / (b - a)}) are set based on
   the numerical experiments presented in Section 3 of Oliveira and Takahashi
   (2021).
 }
@@ -87,9 +97,9 @@ Page 8 of Oliveira and Takahashi (2021) describes the ITP
 #### ----- The example used in the Wikipedia entry for the ITP method
 
 wiki <- function(x) x ^ 3 - x - 2
-itp(wiki, c(1, 2), tol = 0.0005, k1 = 0.1, n0 = 1)
+itp(wiki, c(1, 2), epsilon = 0.0005, k1 = 0.1, n0 = 1)
 # The default setting (with k1 = 0.2) wins by 1 iteration
-itp(wiki, c(1, 2), tol = 0.0005, n0 = 1)
+itp(wiki, c(1, 2), epsilon = 0.0005, n0 = 1)
 
 #### ----- Some examples from Table 1 of Oliveira and Takahashi (2021)
 
