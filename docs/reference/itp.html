@@ -38,7 +38,7 @@ discontinuity at which the function changes sign may be found."><!-- mathjax -->
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu"><li>
-      <a href="../articles/itp-vignette.html">Overview of package itp</a>
+      <a href="../articles/itp-vignette.html">Overview of the itp package</a>
     </li>
   </ul></li>
       </ul><ul class="nav navbar-nav navbar-right"><li>
@@ -226,6 +226,12 @@ See <strong>Details</strong>.</p></dd>
 <span class="r-in"><span class="fu">itp</span><span class="op">(</span><span class="va">warsaw</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       root     f(root)  iterations  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    -0.6817  -5.472e-11          11  </span>
+<span class="r-in"></span>
+<span class="r-in"><span class="co"># Linear (solution in one iteration)</span></span>
+<span class="r-in"><span class="va">linear</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="va">x</span></span>
+<span class="r-in"><span class="fu">itp</span><span class="op">(</span><span class="va">linear</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       root     f(root)  iterations  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          0           0           1  </span>
 </code></pre></div>
     </div>
   </div>

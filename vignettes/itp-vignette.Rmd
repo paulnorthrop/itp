@@ -1,8 +1,8 @@
 ---
-title: "Overview of package itp"
+title: "Overview of the itp package"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Overview of package itp}
+  %\VignetteIndexEntry{Overview of the itp package}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 bibliography: itp.bib
