@@ -19,11 +19,11 @@ knitr::opts_chunk$set(
 )
 ```
 
-@OliveiraTakahashi2021
+The Interpolate, Truncate, Project (ITP) root finding algorithm was developed in @OliveiraTakahashi2021. It's performance compares favourably with existing methods on both well-behaved functions and ill-behaved functions while retaining the worst-case reliability of the bisection method. For details see the authors' [Kudos summary](https://www.growkudos.com/publications/10.1145%25252F3423597/reader) and the Wikipedia article [ITP method](https://en.wikipedia.org/wiki/ITP_method).
 
-Wikipedia article [ITP method](https://en.wikipedia.org/wiki/ITP_method)
+The `itp` function implements the ITP method to find a root $x^*$ of the function $f: \mathbb{R} \rightarrow \mathbb{R}$ in the interval $[a, b]$, where $f(a)f(b) < 0$. If $f$ is continuous then $f(x^*) = 0$. If $f$ is discontinuous then $x^*$ may be an estimate of the point at which a discontinuity occurs, that is, $f(x^* - \delta)f(x^* + \delta) \leq 0$, where $0 \leq \delta \leq \epsilon$ for some tolerance value $\epsilon$.
 
-We use some of the examples presented in Table 1 of @OliveiraTakahashi2021 to illustrate the use of the function `itp` and run the sample examples using the  `uniroot` function in the `stats` package as a means of comparison, using a convergence tolerance of $10^{-10}$ in both cases. The following function prints output from `uniroot` in the same style as the output from `itp`.
+We use some of the examples presented in Table 1 of @OliveiraTakahashi2021 to illustrate the use of this function and run the examples using the `uniroot` function in the `stats` package as a means of comparison, using a convergence tolerance of $10^{-10}$ in both cases. The `itp` function uses the following default values of the tuning parameters: $\kappa_1 = 0.2 / (b - a)$, $\kappa_2 = 2$ and $n_0 = 1$, but these may be changed by the user.  See Sections 2 and 3 of  @OliveiraTakahashi2021 for information. The following function prints output from `uniroot` in the same style as the output from `itp`.
 
 ```{r}
 # Method to print part of uniroot output
@@ -36,10 +36,6 @@ print.list <- function(x, digits = max(3L, getOption("digits") - 3L)) {
 ```{r setup}
 library(itp)
 ```
-
-$(a, b)$
-
-The function `itp` uses the default values $\kappa_1 = 0.2 / (b - a)$, $\kappa_2 = 2$, $n_0 = 1$.
 
 ## Well-behaved functions
 
@@ -89,7 +85,7 @@ This function has a non-simple root at $10^{-6}$, with a multiplicity of 3.
 # Polynomial 3
 poly3 <- function(x) (x * 1e6 - 1) ^ 3
 itp(poly3, c(-1, 1))
-# Using n0 = 0 leads to 1 (slightly) fewer iterations, in this example
+# Using n0 = 0 leads to (slightly) fewer iterations, in this example
 poly3 <- function(x) (x * 1e6 - 1) ^ 3
 itp(poly3, c(-1, 1), n0 = 0)
 uniroot(poly3, c(-1, 1), tol = 1e-10)
@@ -145,9 +141,11 @@ abline(v = itp(warsaw, c(-1, 1))$root, lty = 2)
 par(oldpar)
 ```
 
+In terms of a naive comparison based on the number of iterations `itp` and `uniroot` perform similarly, except in the repeated-root "Polynomial 3" example, where `itp` requires fewer iterations.  
+
 ## ... and finally
 
-The function `itp` has an argument `fsign` that can be used to control the sign of the function at the estimated root. This may be unnecessary for most problems, but this is included because I had a problem where I needed to avoid the function having a negative value at the estimated root. We return to the trigonometric and staircase examples above to illustrate this.
+The function `itp` has an argument `fsign` that can be used to control the sign of the function at the estimated root $x^*$. This may be unnecessary for most problems, but this is included because I had a problem where I needed to avoid the function having a negative value at the estimated root. We return to the trigonometric and staircase examples above to illustrate this.  We set `fsign = "ge"` to force $f(x^*) \geq 0$ and `fsign = "le"` to force $f(x^*) \leq 0$.
 
 ```{r}
 # Trigonometric 1
