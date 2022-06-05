@@ -21,6 +21,7 @@ RoxygenNote: 7.1.2
 Suggests: 
     knitr,
     rmarkdown,
+    stats,
     testthat (>= 3.0.0)
 VignetteBuilder: knitr
 URL: https://paulnorthrop.github.io/itp/, https://github.com/paulnorthrop/itp
