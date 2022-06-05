@@ -1,4 +1,4 @@
-# Check that for some continuous example function that
+# Check that for some continuous example functions that
 # (a) (b-a) / 2 is no larger than epsilon
 # (b) f(root) is close to zero
 
