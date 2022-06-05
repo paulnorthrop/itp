@@ -59,6 +59,9 @@ An object (a list) of class \code{"itp"} containing the following
     convergence.}
   \item{estim.prec}{an approximate estimated precision for \code{root},
     equal to the half the width of the final bracket for the root.}
+
+  If the root occurs at one of the input endpoints \code{a} or \code{b} then
+  \code{iter = 0} and \code{estim.prec = NA}.)
 }
 \description{
 Performs one-dimensional root-finding using the ITP algorithm of
@@ -142,9 +145,12 @@ itp(staircase, c(-1, 1))
 warsaw <- function(x) ifelse(x > -1, sin(1 / (x + 1)), -1)
 itp(warsaw, c(-1, 1))
 
-# Linear (solution in one iteration)
+# Linear
 linear <- function(x) x
+# Solution in one iteration
 itp(linear, c(-1, 1))
+# Solution at an input endpoint
+itp(linear, c(-1, 0))
 }
 \references{
 Oliveira, I. F. D. and Takahashi, R. H. C. (2021). An Enhancement

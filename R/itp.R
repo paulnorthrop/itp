@@ -68,6 +68,9 @@
 #'     convergence.}
 #'   \item{estim.prec}{an approximate estimated precision for \code{root},
 #'     equal to the half the width of the final bracket for the root.}
+#'
+#'   If the root occurs at one of the input endpoints \code{a} or \code{b} then
+#'   \code{iter = 0} and \code{estim.prec = NA}.)
 #' @references Oliveira, I. F. D. and Takahashi, R. H. C. (2021). An Enhancement
 #'   of the Bisection Method Average Performance Preserving Minmax Optimality,
 #'   \emph{ACM Transactions on Mathematical Software}, \strong{47}(1), 1-24.
@@ -115,9 +118,12 @@
 #' warsaw <- function(x) ifelse(x > -1, sin(1 / (x + 1)), -1)
 #' itp(warsaw, c(-1, 1))
 #'
-#' # Linear (solution in one iteration)
+#' # Linear
 #' linear <- function(x) x
+#' # Solution in one iteration
 #' itp(linear, c(-1, 1))
+#' # Solution at an input endpoint
+#' itp(linear, c(-1, 0))
 #' @export
 itp <- function(f, interval, ..., a = min(interval), b = max(interval),
                 f.a = f(a, ...), f.b = f(b, ...), epsilon = 1e-10,
@@ -136,6 +142,18 @@ itp <- function(f, interval, ..., a = min(interval), b = max(interval),
   }
   if (n0 < 0) {
     stop("n0 must be non-negative")
+  }
+  # Check
+  if (f.a == 0) {
+    val <- list(root = a, f.root = 0, iter = 0, a = a,
+                b = b, f.a = f.a, f.b = f.b, estim.prec = NA)
+    class(val) <- "itp"
+    return(val)
+  } else if (f.b == 0) {
+    val <- list(root = b, f.root = 0, iter = 0, a = a,
+                b = b, f.a = f.a, f.b = f.b, estim.prec = NA)
+    class(val) <- "itp"
+    return(val)
   }
   # Evaluate the function at the end points of the interval
   ya <- f.a
