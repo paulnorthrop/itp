@@ -42,6 +42,6 @@ test_that("Lambert: k2 = upper limit + 0.01", {
 
 # n0 < 0
 test_that("Lambert: n0 < 0", {
-  testthat::expect_error(itp(lambert, c(-1, 1), n0 < 0))
+  testthat::expect_error(itp(lambert, c(-1, 1), n0 = -1))
 })
 
