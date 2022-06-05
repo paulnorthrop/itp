@@ -144,3 +144,7 @@ par(oldpar)
 In terms of a naive comparison based on the number of iterations `itp` and `uniroot` perform similarly, except in the repeated-root "Polynomial 3" example, where `itp` requires fewer iterations.  
 
 ## References
+
+<script type="text/x-mathjax-config">
+   MathJax.Hub.Config({  "HTML-CSS": { minScaleAdjust: 125, availableFonts: [] }  });
+</script>
