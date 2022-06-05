@@ -1,29 +1,3 @@
-# 0. How come uniroot() does so well, at least in terms of the number of
-#    iterations?  Benchmark this comparison in a vignette?
-#    Better than microbenchmark (See Radford Neal)
-#    Put in the vignette?
-#
-#    Even if ITP is poorer than uniroot then I can still put itp on CRAN.
-#
-#    Why do Poly 1 and 2 not give the correct number of iterations?
-#    Are there typos in the paper? I need to check my code very carefully!
-#
-# https://docs.oracle.com/cd/E19957-01/806-3568/ncg_goldberg.html
-#
-# Produce a summary of itpvs uniroot for all the functions in Table 1?
-# Put all the functions in itp-internal.R
-#
-# Problems with ...
-#
-# Polynomial 1, Polynomial 2, logarithmic, posynomial (34 not 32), plot frac,
-#
-# n0 = 1 often performs better. Make this the default and explain in Details
-# and the vignette.  Note that my code doesn't employ any strategies to
-# alleviate the problems cause by floating point arithmetic and direct to
-# the stuff about r in the Oliveira and Takhashi (2021) paper.
-#
-# Is is true that the sign of f alternates? No: see the trig2 example.
-#
 # maxiter unnecessary because convergence is guaranteed.
 #
 #    tol -> epilson?
@@ -49,21 +23,24 @@
 #'
 #' Performs one-dimensional root finding using the ITP algorithm of
 #' Oliveira and Takahashi (2021).  The function \code{itp} searches the
-#' interval from \code{lower} to \code{upper} for a root (i.e. a zero) of the
+#' interval from \code{a} to \code{b} for a root (i.e. a zero) of the
 #' function \code{f} with respect to its first argument. Each iteration
 #' results in a bracketing interval for the root that is narrower than the
 #' previous interval.
 #'
 #' @param f The function for which the root is sought.
-#' @param interval A numeric vector \code{c(lower, upper)} of length 2
+#' @param interval A numeric vector \code{c(a, b)} of length 2
 #'   containing the end-points of the interval to be searched for the root.
 #' @param ... additional named or unnamed arguments to be pass to \code{f}.
-#' @param lower,upper lower and upper
+#' @param a,b a and b
 #' @param tol A positive numeric scalar. The desired accuracy of the root.
 #'   The algorithm continues until the width of the bracketing interval for the
 #'   root is less than or equal to \code{2 * tol}.
-#' @param k1,k2,n0 the values of tuning parameters \eqn{\kappa_1},
-#'   \eqn{\kappa_2} and \eqn{n_0}.  See \strong{Details}.
+#' @param k1,k2,n0 the values of the tuning parameters
+#'   \ifelse{html}{\eqn{\kappa}\out{<sub>1</sub>}}{\eqn{\kappa_1}},
+#'   \ifelse{html}{\eqn{\kappa}\out{<sub>2</sub>}}{\eqn{\kappa_2}},
+#'   \ifelse{html}{\eqn{n}\out{<sub>0</sub>}}{n_0}.
+#'   See \strong{Details}.
 #' @param fsign A character scalar that may be used to control the sign of the
 #'   function \code{f} at the estimated root, that is, the sign of
 #'   \code{f.root = f(root)} in the returned object. If \code{fsign = "ge"}
@@ -77,16 +54,22 @@
 #'   \href{https://en.wikipedia.org/wiki/ITP_method}{ITP method} provides
 #'   a summary.
 #'
-#'   The ITP method requires at most \eqn{n_{max} = n_{1/2} + n_0} iterations,
-#'   where \eqn{n_{1/2}} is the smallest integer not less than
-#'   \eqn{\log_2 (b-a) / 2 \epsilon}.  If \eqn{n_0 = 0}, which is the default
-#'   setting in \code{itp}, then the ITP method will require no more iterations
-#'   than the bisection method. Depending on the function \code{f} setting a
-#'   larger value for \eqn{n_0}, e.g. the default setting \eqn{n_0 = 1} used
-#'   by the \code{itp} function, may result in a smaller number of iterations.
+#'   The ITP method requires at most
+#'   \ifelse{html}{\eqn{n}\out{<sub>max</sub>} = \eqn{n}\out{<sub>1/2</sub>} +
+#'     \eqn{n}\out{<sub>0</sub>}}{\eqn{n_{\rm max} = n_{1/2} + n_0}} iterations,
+#'   where \ifelse{html}{\eqn{n}\out{<sub>1/2</sub>}}{\eqn{n_{1/2}}} is the
+#'   smallest integer not less than
+#'   \ifelse{html}{log\out{<sub>2</sub>}(b-a) / 2\eqn{\epsilon}}{
+#'   \eqn{\log_2(b-a) / 2 \epsilon}}.
+#'   If \ifelse{html}{\eqn{n}\out{<sub>0</sub>} = 0}{\eqn{n_0 = 0}} then the
+#'   ITP method will require no more iterations than the bisection method.
+#'   Depending on the function \code{f}, setting a larger value for
+#'   \ifelse{html}{\eqn{n}\out{<sub>0</sub>}}{\eqn{n_0 = 0}}, e.g. the default
+#'   setting \ifelse{html}{\eqn{n}\out{<sub>0</sub>}=1}{\eqn{n_0 = 1}} used by
+#'   the \code{itp} function, may result in a smaller number of iterations.
 #'
 #'   The default values of the other tuning parameters
-#'   (\code{tol = 1e-10, k1 = 0.1, k2 = 2 / (upper - lower)}) are set based on
+#'   (\code{tol = 1e-10, k1 = 0.1, k2 = 2 / (b - a)}) are set based on
 #'   the numerical experiments presented in Section 3 of Oliveira and Takahashi
 #'   (2021).
 #' @return An object (a list) of class \code{"itp"} containing the following
@@ -95,7 +78,8 @@
 #'     (\code{a, b}) is the bracketing interval after convergence.}
 #'   \item{f.root}{the value of the function evaluated at root.}
 #'   \item{iter}{the number of iterations performed.}
-#'   \item{a,b}{the values in the bracketing interval (\code{a, b}).}
+#'   \item{a,b}{the values of the bracketing interval (\code{a, b}) after
+#'     convergence.}
 #'   \item{estim.prec}{an approximate estimated precision for \code{root},
 #'     equal to the half the width of the final bracket for the root.}
 #' @references Oliveira, I. F. D. and Takahashi, R. H. C. (2021). An Enhancement
@@ -149,15 +133,15 @@
 #' warsaw <- function(x) ifelse(x > -1, sin(1 / (x + 1)), -1)
 #' itp(warsaw, c(-1, 1))
 #' @export
-itp <- function(f, interval, ..., lower = min(interval), upper = max(interval),
-                tol = 1e-10, k1 = 0.2 / (upper - lower), k2 = 2, n0 = 1,
+itp <- function(f, interval, ..., a = min(interval), b = max(interval),
+                tol = 1e-10, k1 = 0.2 / (b - a), k2 = 2, n0 = 1,
                 fsign = c("either", "ge", "le")) {
   fsign <- match.arg(fsign)
   if (!missing(interval) && length(interval) != 2L) {
     stop("'interval' must be a vector of length 2")
   }
-  if (!is.numeric(lower) || !is.numeric(upper) || lower >= upper) {
-    stop("lower < upper  is not fulfilled")
+  if (!is.numeric(a) || !is.numeric(b) || a >= b) {
+    stop("a < b  is not fulfilled")
   }
   if (k1 <= 0) {
     stop("k1 must be positive")
@@ -168,9 +152,6 @@ itp <- function(f, interval, ..., lower = min(interval), upper = max(interval),
   if (n0 < 0) {
     stop("n0 must be non-negative")
   }
-  # a is lower, b is upper
-  a <- lower
-  b <- upper
   # Evaluate the function at the end points of the interval
   ya <- f(a, ...)
   yb <- f(b, ...)
@@ -232,8 +213,8 @@ itp <- function(f, interval, ..., lower = min(interval), upper = max(interval),
     for_rk <- for_rk * 0.5
     k <- k + 1
   }
-  val <- list(root = root, f.root = f(root, ...), iter = k, lower = a,
-              upper = b, estim.prec = (b - a) / 2)
+  val <- list(root = root, f.root = f(root, ...), iter = k, a = a,
+              b = b, estim.prec = (b - a) / 2)
   class(val) <- "itp"
   return(val)
 }
