@@ -1,7 +1,7 @@
 Package: itp
 Type: Package
 Title: The Interpolate, Truncate, Project (ITP) Root-Finding Algorithm
-Version: 0.1.0.9000
+Version: 1.0.0
 Date: 2022-06-05
 Authors@R: person(c("Paul", "J."), "Northrop", email = "p.northrop@ucl.ac.uk",
   role = c("aut", "cre", "cph"))
