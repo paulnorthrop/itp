@@ -71,12 +71,12 @@
 #' @return An object (a list) of class \code{"itp"} containing the following
 #'   components:
 #'   \item{root}{the location of the root, calculated as \code{(a+b)/2}, where
-#'     (\code{a, b}) is the bracketing interval after convergence.}
+#'     [\code{a, b}] is the bracketing interval after convergence.}
 #'   \item{f.root}{the value of the function evaluated at root.}
 #'   \item{iter}{the number of iterations performed.}
-#'   \item{a,b}{the end points of the bracketing interval (\code{a, b}) after
+#'   \item{a,b}{the end points of the bracketing interval [\code{a, b}] after
 #'     convergence.}
-#'   \item{f.a,f.b}{the values of function at (\code{a, b}) after
+#'   \item{f.a,f.b}{the values of function at \code{a} and \code{b} after
 #'     convergence.}
 #'   \item{estim.prec}{an approximate estimated precision for \code{root},
 #'     equal to the half the width of the final bracket for the root.}
