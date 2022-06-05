@@ -32,9 +32,6 @@ NULL
 #' @export
 print.itp <- function(x, all = FALSE,
                       digits = max(3L, getOption("digits") - 3L), ...) {
-  if (!inherits(x, "itp")) {
-    stop("use only with \"itp\" objects")
-  }
   temp<- x
   names(temp) <- c("root", "f(root)", "iterations", "a", "b", "f.a", "f.b",
                    "precision")
