@@ -1,13 +1,20 @@
 Package: itp
 Type: Package
-Title: The Interpolate, Truncate, Project (ITP) root finding algorithm
+Title: The Interpolate, Truncate, Project (ITP) Root-Finding Algorithm
 Version: 0.1.0.9000
 Date: 2022-06-05
 Authors@R: person(c("Paul", "J."), "Northrop", email = "p.northrop@ucl.ac.uk",
   role = c("aut", "cre", "cph"))
-Maintainer: The package maintainer <yourself@somewhere.net>
-Description: Implements the Interpolate, Truncate, Project (ITP) root finding 
-    algorithm developed by Oliveira and Takahashi(2021) <doi:10.1145/3423597>. 
+Description: Implements the Interpolate, Truncate, Project (ITP) root-finding 
+    algorithm developed by Oliveira and Takahashi (2021) <doi:10.1145/3423597>.
+    The user provides a the function, from the real numbers to the real 
+    numbers, and an interval with the property that the values of the function
+    at its endpoints have different signs. If the function is continuous over 
+    this interval then the ITP method estimates the value at which the function
+    is equal to zero. If the function is discontinuous then a point of 
+    discontinuity at which the function changes sign may be found. Tuning 
+    parameters of the ITP algorithm can be set by the user. Sensible default
+    values are set based on arguments in Oliveira and Takahashi (2021). 
 License: GPL (>= 2)
 Encoding: UTF-8
 RoxygenNote: 7.1.2
@@ -16,7 +23,7 @@ Suggests:
     rmarkdown,
     testthat (>= 3.0.0)
 VignetteBuilder: knitr
-URL: https://paulnorthrop.github.io/itp/, https://github.com/paulnorthrop/litp
+URL: https://paulnorthrop.github.io/itp/, https://github.com/paulnorthrop/itp
 BugReports: https://github.com/paulnorthrop/itp/issues
 Config/testthat/edition: 3
 
