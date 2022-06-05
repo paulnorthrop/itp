@@ -1,0 +1,22 @@
+destination: docs
+
+development:
+  mode: unreleased
+
+template:
+  params:
+    bootswatch: paper
+
+reference:
+  - title: Package
+    desc: ~
+    contents:
+      - "itp-package"
+  - title: ITP root-finding algorithm
+    desc: ~
+    contents:
+      - "itp"
+  - title: Generics
+    desc: ~
+    contents:
+      - "itpPrint"
