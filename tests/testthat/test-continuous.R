@@ -34,3 +34,14 @@ test_that("Polynomial 3: tolerance", {
 test_that("Polynomial 3: f approx 0", {
   testthat::expect_equal(res$f.root, 0)
 })
+
+# Linear
+
+linear <- function(x) x
+res <- itp(linear, c(-1, 1), epsilon = epsilon)
+test_that("Linear: tolerance", {
+  testthat::expect_lte(res$b - res$a , 2 * epsilon)
+})
+test_that("Linear: f approx 0", {
+  testthat::expect_equal(res$f.root, 0)
+})
