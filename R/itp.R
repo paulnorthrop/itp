@@ -1,18 +1,3 @@
-# maxiter unnecessary because convergence is guaranteed.
-#
-#    Document the thing re epsilon not being too small
-# 0. DESCRIPTION (add more, inc interval getting smaller and cont vs discont)
-#    itp-package.R
-#    README: maths, read in png files
-# 1. Do stuff like uniroot()
-#    Check for root on boundary and return estim.prec = NA
-# 6. Tests
-#    Correct roots, correct number of iterations, correct sign of f.root
-# 7. A package help page. itp-package?
-# 8. Check package
-# 9. Check that it works with rugs
-# 10. Submit to CRAN
-
 #' The Interpolate, Truncate, Project (ITP) root-finding algorithm
 #'
 #' Performs one-dimensional root-finding using the ITP algorithm of
