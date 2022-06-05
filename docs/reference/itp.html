@@ -137,7 +137,9 @@ See <strong>Details</strong>.</p></dd>
 <dt>estim.prec</dt>
 <dd><p>an approximate estimated precision for <code>root</code>,
     equal to the half the width of the final bracket for the root.</p></dd>
-</dl></div>
+</dl><p>If the root occurs at one of the input endpoints <code>a</code> or <code>b</code> then
+<code>iter = 0</code> and <code>estim.prec = NA</code>.)</p>
+    </div>
     <div id="details">
     <h2>Details</h2>
     <p>Page 8 of Oliveira and Takahashi (2021) describes the ITP
@@ -235,11 +237,16 @@ See <strong>Details</strong>.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       root     f(root)  iterations  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    -0.6817  -5.472e-11          11  </span>
 <span class="r-in"></span>
-<span class="r-in"><span class="co"># Linear (solution in one iteration)</span></span>
+<span class="r-in"><span class="co"># Linear</span></span>
 <span class="r-in"><span class="va">linear</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="va">x</span></span>
+<span class="r-in"><span class="co"># Solution in one iteration</span></span>
 <span class="r-in"><span class="fu">itp</span><span class="op">(</span><span class="va">linear</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       root     f(root)  iterations  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          0           0           1  </span>
+<span class="r-in"><span class="co"># Solution at an input endpoint</span></span>
+<span class="r-in"><span class="fu">itp</span><span class="op">(</span><span class="va">linear</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1</span>, <span class="fl">0</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       root     f(root)  iterations  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          0           0           0  </span>
 </code></pre></div>
     </div>
   </div>
