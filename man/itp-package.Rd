@@ -31,5 +31,5 @@ Oliveira, I. F. D. and Takahashi, R. H. C. (2021). An Enhancement
 \code{\link{itp}} for the ITP root-finding algorithm
 
 \code{\link{print.itp}} to print objects of class \code{"itp"}
-  returned from \code{\link{itp}}.
+  returned from \code{itp}.
 }
