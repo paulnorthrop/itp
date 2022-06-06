@@ -20,15 +20,6 @@
 #' @return The argument \code{x} is returned, invisibly.
 #' @seealso \code{\link{itp}} for the Interpolate, Truncate, Project (ITP) root
 #'   finding algorithm.
-#' @name itpPrint
-NULL
-## NULL
-
-# ================================ print.itp ================================ #
-
-#' Print method for objects of class \code{"summary.itp"}
-#'
-#' @rdname itpPrint
 #' @export
 print.itp <- function(x, all = FALSE,
                       digits = max(3L, getOption("digits") - 3L), ...) {
