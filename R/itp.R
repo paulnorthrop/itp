@@ -21,15 +21,19 @@
 #'   The algorithm continues until the width of the bracketing interval for the
 #'   root is less than or equal to \code{2 * epsilon}. The value of
 #'   \code{epsilon} should be greater than
-#'   \ifelse{html}{2\out{<sup>-63</sup>}(b-a)}{\eqn{2^{-63}(b-a)}} to avoid
-#'   integer overflow.
+#'   \ifelse{html}{2\out{<sup>-63</sup>}\code{(b-a)}}{\eqn{2^{-63}}(\code{b-a})}
+#'   to avoid integer overflow.
 #' @param k1,k2,n0 the values of the tuning parameters
 #'   \ifelse{html}{\eqn{\kappa}\out{<sub>1</sub>}}{\eqn{\kappa_1}},
 #'   \ifelse{html}{\eqn{\kappa}\out{<sub>2</sub>}}{\eqn{\kappa_2}},
-#'   \ifelse{html}{\eqn{n}\out{<sub>0</sub>}}{n_0}.
+#'   \ifelse{html}{\eqn{n}\out{<sub>0</sub>}}{\eqn{n_0}}.
 #'   See \strong{Details}.
 #' @details Page 8 of Oliveira and Takahashi (2021) describes the ITP
-#'   algorithm.  The Wikipedia entry for the
+#'   algorithm and the roles of the tuning parameters
+#'   \ifelse{html}{\eqn{\kappa}\out{<sub>1</sub>}}{\eqn{\kappa_1}},
+#'   \ifelse{html}{\eqn{\kappa}\out{<sub>2</sub>}}{\eqn{\kappa_2}} and
+#'   \ifelse{html}{\eqn{n}\out{<sub>0</sub>}}{\eqn{n_0}}.  The algorithm is
+#'   described using pseudocode. The Wikipedia entry for the
 #'   \href{https://en.wikipedia.org/wiki/ITP_method}{ITP method} provides
 #'   a summary.  If the input function \code{f} is continuous over the interval
 #'   [\code{a}, \code{b}] then the value of \code{f} evaluated at the estimated
@@ -70,11 +74,13 @@
 #'     equal to the half the width of the final bracket for the root.}
 #'
 #'   If the root occurs at one of the input endpoints \code{a} or \code{b} then
-#'   \code{iter = 0} and \code{estim.prec = NA}.)
+#'   \code{iter = 0} and \code{estim.prec = NA}.
 #' @references Oliveira, I. F. D. and Takahashi, R. H. C. (2021). An Enhancement
 #'   of the Bisection Method Average Performance Preserving Minmax Optimality,
 #'   \emph{ACM Transactions on Mathematical Software}, \strong{47}(1), 1-24.
 #'   \doi{10.1145/3423597}
+#' @seealso \code{\link{print.itp}} to print objects of class \code{"itp"}
+#'   returned from \code{\link{itp}}.
 #' @examples
 #' #### ----- The example used in the Wikipedia entry for the ITP method
 #'
