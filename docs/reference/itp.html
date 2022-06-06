@@ -108,8 +108,8 @@ of opposite signs.</p></dd>
 The algorithm continues until the width of the bracketing interval for the
 root is less than or equal to <code>2 * epsilon</code>. The value of
 <code>epsilon</code> should be greater than
-2<sup>-63</sup>(b-a) to avoid
-integer overflow.</p></dd>
+2<sup>-63</sup><code>(b-a)</code>
+to avoid integer overflow.</p></dd>
 <dt>k1, k2, n0</dt>
 <dd><p>the values of the tuning parameters
 \(\kappa\)<sub>1</sub>,
@@ -138,12 +138,16 @@ See <strong>Details</strong>.</p></dd>
 <dd><p>an approximate estimated precision for <code>root</code>,
     equal to the half the width of the final bracket for the root.</p></dd>
 </dl><p>If the root occurs at one of the input endpoints <code>a</code> or <code>b</code> then
-<code>iter = 0</code> and <code>estim.prec = NA</code>.)</p>
+<code>iter = 0</code> and <code>estim.prec = NA</code>.</p>
     </div>
     <div id="details">
     <h2>Details</h2>
     <p>Page 8 of Oliveira and Takahashi (2021) describes the ITP
-  algorithm.  The Wikipedia entry for the
+  algorithm and the roles of the tuning parameters
+  \(\kappa\)<sub>1</sub>,
+  \(\kappa\)<sub>2</sub> and
+  \(n\)<sub>0</sub>.  The algorithm is
+  described using pseudocode. The Wikipedia entry for the
   <a href="https://en.wikipedia.org/wiki/ITP_method" class="external-link">ITP method</a> provides
   a summary.  If the input function <code>f</code> is continuous over the interval
   [<code>a</code>, <code>b</code>] then the value of <code>f</code> evaluated at the estimated
@@ -175,6 +179,11 @@ See <strong>Details</strong>.</p></dd>
   of the Bisection Method Average Performance Preserving Minmax Optimality,
   <em>ACM Transactions on Mathematical Software</em>, <strong>47</strong>(1), 1-24.
   doi: <a href="https://doi.org/10.1145/3423597" class="external-link">10.1145/3423597</a></p>
+    </div>
+    <div id="see-also">
+    <h2>See also</h2>
+    <div class="dont-index"><p><code><a href="print.itp.html">print.itp</a></code> to print objects of class <code>"itp"</code>
+  returned from <code>itp</code>.</p></div>
     </div>
 
     <div id="ref-examples">
