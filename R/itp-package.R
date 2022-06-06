@@ -19,7 +19,7 @@
 #'   \emph{ACM Transactions on Mathematical Software}, \strong{47}(1), 1-24.
 #'   \doi{10.1145/3423597}
 #' @seealso \code{\link{itp}} for the ITP root-finding algorithm
-#' @seealso \code{\link{itpPrint}} to print objects of class \code{"itp"}
+#' @seealso \code{\link{print.itp}} to print objects of class \code{"itp"}
 #'   returned from \code{\link{itp}}.
 #' @docType package
 #' @name itp-package
