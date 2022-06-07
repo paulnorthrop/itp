@@ -42,7 +42,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">itp</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">1.0.0</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">1.0.0.9000</span>
       </span>
     </div>
 
@@ -62,6 +62,9 @@
       <a href="articles/itp-vignette.html">Overview of the itp package</a>
     </li>
   </ul>
+</li>
+<li>
+  <a href="news/index.html">Changelog</a>
 </li>
       </ul>
 <ul class="nav navbar-nav navbar-right">
@@ -88,7 +91,7 @@
 </h1></div>
 
 <div class="section level2">
-<h2 id="the-interpolate-truncate-project-itp-root-finding-algorithm">The Interpolate, Truncate, Project (ITP) root-finding algorithm<a class="anchor" aria-label="anchor" href="#the-interpolate-truncate-project-itp-root-finding-algorithm"></a>
+<h2 id="the-interpolate-truncate-project-itp-root-finding-algorithm">The Interpolate, Truncate, Project (ITP) Root-Finding Algorithm<a class="anchor" aria-label="anchor" href="#the-interpolate-truncate-project-itp-root-finding-algorithm"></a>
 </h2>
 <p>The <strong>itp</strong> package implements the Interpolate, Truncate, Project (ITP) root-finding algorithm of <a href="https://doi.org/10.1145/3423597" class="external-link">Oliveira and Takahashi (2021)</a>. Each iteration of the algorithm results in a bracketing interval for the root that is narrower than the previous interval. It’s performance compares favourably with existing methods on both well-behaved functions and ill-behaved functions while retaining the worst-case reliability of the bisection method. For details see the authors’ <a href="https://www.growkudos.com/publications/10.1145%25252F3423597/reader" class="external-link">Kudos summary</a> and the Wikipedia article <a href="https://en.wikipedia.org/wiki/ITP_method" class="external-link">ITP method</a>.</p>
 <div class="section level3">
@@ -160,6 +163,7 @@
     <div class="links">
 <h2 data-toc-skip>Links</h2>
 <ul class="list-unstyled">
+<li><a href="https://cloud.r-project.org/package=itp" class="external-link">View on CRAN</a></li>
 <li><a href="https://github.com/paulnorthrop/itp/" class="external-link">Browse source code</a></li>
 <li><a href="https://github.com/paulnorthrop/itp/issues" class="external-link">Report a bug</a></li>
 </ul>
