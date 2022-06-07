@@ -20,7 +20,7 @@ knitr::opts_chunk$set(
 [![Downloads (monthly)](https://cranlogs.r-pkg.org/badges/itp?color=brightgreen)](https://cran.r-project.org/package=itp)
 [![Downloads (total)](https://cranlogs.r-pkg.org/badges/grand-total/itp?color=brightgreen)](https://cran.r-project.org/package=itp)
 
-## The Interpolate, Truncate, Project (ITP) root-finding algorithm
+## The Interpolate, Truncate, Project (ITP) Root-Finding Algorithm
 
 The **itp** package implements the Interpolate, Truncate, Project (ITP) root-finding algorithm of [Oliveira and Takahashi (2021)](https://doi.org/10.1145/3423597). Each iteration of the algorithm results in a bracketing interval for the root that is narrower than the previous interval. It's performance compares favourably with existing methods on both well-behaved functions and ill-behaved functions while retaining the worst-case reliability of the bisection method. For details see the authors' [Kudos summary](https://www.growkudos.com/publications/10.1145%25252F3423597/reader) and the Wikipedia article [ITP method](https://en.wikipedia.org/wiki/ITP_method).
 

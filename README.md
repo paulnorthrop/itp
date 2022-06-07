@@ -13,7 +13,7 @@ Status](https://codecov.io/github/paulnorthrop/itp/coverage.svg?branch=main)](ht
 [![Downloads
 (total)](https://cranlogs.r-pkg.org/badges/grand-total/itp?color=brightgreen)](https://cran.r-project.org/package=itp)
 
-## The Interpolate, Truncate, Project (ITP) root-finding algorithm
+## The Interpolate, Truncate, Project (ITP) Root-Finding Algorithm
 
 The **itp** package implements the Interpolate, Truncate, Project (ITP)
 root-finding algorithm of [Oliveira and Takahashi
