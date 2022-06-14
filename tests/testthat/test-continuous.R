@@ -62,6 +62,16 @@ test_that("-Polynomial 3: f approx 0", {
   testthat::expect_equal(res$f.root, 0)
 })
 
+# Logarithmic
+logarithmic <- function(x) log(abs(x - 10 / 9))
+res <- itp(logarithmic, c(-1, 1), epsilon = epsilon)
+test_that("Logarithmic: tolerance", {
+  testthat::expect_lte(res$b - res$a , 2 * epsilon)
+})
+test_that("Logarithmic: f approx 0", {
+  testthat::expect_equal(res$f.root, 0)
+})
+
 # Linear
 
 linear <- function(x) x
