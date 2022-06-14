@@ -105,6 +105,14 @@
 #' logarithmic <- function(x) log(abs(x - 10 / 9))
 #' itp(logarithmic, c(-1, 1))
 #'
+#'
+#' # Linear
+#' linear <- function(x) x
+#' # Solution in one iteration
+#' itp(linear, c(-1, 1))
+#' # Solution at an input endpoint
+#' itp(linear, c(-1, 0))
+#'
 #' ### Ill-behaved functions
 #'
 #' ## Non-simple zero
@@ -127,13 +135,6 @@
 #' # Warsaw
 #' warsaw <- function(x) ifelse(x > -1, sin(1 / (x + 1)), -1)
 #' itp(warsaw, c(-1, 1))
-#'
-#' # Linear
-#' linear <- function(x) x
-#' # Solution in one iteration
-#' itp(linear, c(-1, 1))
-#' # Solution at an input endpoint
-#' itp(linear, c(-1, 0))
 #' @export
 itp <- function(f, interval, ..., a = min(interval), b = max(interval),
                 f.a = f(a, ...), f.b = f(b, ...), epsilon = 1e-10,
