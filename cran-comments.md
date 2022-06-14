@@ -1,8 +1,8 @@
+This is a patch to correct a bug that caused incorrect results for some examples
+
 ## R CMD check results
 
 0 errors | 0 warnings | 0 notes
-
-win-builder: the 3 possibly misspelled words (ITP, Oliveira Takahashi) are false positives.
 
 ## Test environments
 
@@ -13,4 +13,4 @@ win-builder: the 3 possibly misspelled words (ITP, Oliveira Takahashi) are false
 
 ## Downstream dependencies
 
-This is a new submission
+None
