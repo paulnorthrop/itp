@@ -105,7 +105,6 @@
 #' logarithmic <- function(x) log(abs(x - 10 / 9))
 #' itp(logarithmic, c(-1, 1))
 #'
-#'
 #' # Linear
 #' linear <- function(x) x
 #' # Solution in one iteration
