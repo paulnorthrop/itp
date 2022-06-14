@@ -126,6 +126,10 @@ itp(lambert, c(-1, 1))
 trig1 <- function(x) tan(x - 1 /10)
 itp(trig1, c(-1, 1))
 
+# Logarithmic
+logarithmic <- function(x) log(abs(x - 10 / 9))
+itp(logarithmic, c(-1, 1))
+
 ### Ill-behaved functions
 
 ## Non-simple zero
