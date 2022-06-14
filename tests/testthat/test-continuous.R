@@ -13,6 +13,15 @@ test_that("Wiki cubic: tolerance", {
 test_that("Wiki cubic: f approx 0", {
   testthat::expect_equal(res$f.root, 0)
 })
+# Repeat for -wiki, to check for a locally decreasing function
+neg_wiki <- function(x) -wiki(x)
+res <- itp(neg_wiki, c(1, 2), k1 = 0.1, n0 = 1, epsilon = epsilon)
+test_that("-Wiki cubic: tolerance", {
+  testthat::expect_lte(res$b - res$a , 2 * epsilon)
+})
+test_that("-Wiki cubic: f approx 0", {
+  testthat::expect_equal(res$f.root, 0)
+})
 
 # Lambert
 
@@ -22,6 +31,15 @@ test_that("Lambert: tolerance", {
   testthat::expect_lte(res$b - res$a , 2 * epsilon)
 })
 test_that("Lambert: f approx 0", {
+  testthat::expect_equal(res$f.root, 0)
+})
+# Repeat for -lambert
+neg_lambert <- function(x) -lambert(x)
+res <- itp(neg_lambert, c(-1, 1), epsilon = epsilon)
+test_that("-Lambert: tolerance", {
+  testthat::expect_lte(res$b - res$a , 2 * epsilon)
+})
+test_that("-Lambert: f approx 0", {
   testthat::expect_equal(res$f.root, 0)
 })
 
@@ -34,6 +52,15 @@ test_that("Polynomial 3: tolerance", {
 test_that("Polynomial 3: f approx 0", {
   testthat::expect_equal(res$f.root, 0)
 })
+# Repeat for -poly3
+neg_poly3 <- function(x) -poly3(x)
+res <- itp(neg_poly3, c(-1, 1), epsilon = epsilon)
+test_that("-Polynomial 3: tolerance", {
+  testthat::expect_lte(res$b - res$a , 2 * epsilon)
+})
+test_that("-Polynomial 3: f approx 0", {
+  testthat::expect_equal(res$f.root, 0)
+})
 
 # Linear
 
@@ -43,6 +70,15 @@ test_that("Linear: tolerance", {
   testthat::expect_lte(res$b - res$a , 2 * epsilon)
 })
 test_that("Linear: f approx 0", {
+  testthat::expect_equal(res$f.root, 0)
+})
+# Repeat for -linear
+neg_linear <- function(x) -linear(x)
+res <- itp(neg_linear, c(-1, 1), epsilon = epsilon)
+test_that("-Linear: tolerance", {
+  testthat::expect_lte(res$b - res$a , 2 * epsilon)
+})
+test_that("-Linear: f approx 0", {
   testthat::expect_equal(res$f.root, 0)
 })
 

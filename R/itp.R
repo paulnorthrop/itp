@@ -149,7 +149,7 @@ itp <- function(f, interval, ..., a = min(interval), b = max(interval),
   if (n0 < 0) {
     stop("n0 must be non-negative")
   }
-  # Check
+  # Check whether the root lies on a limit of the input interval
   if (f.a == 0) {
     val <- list(root = a, f.root = 0, iter = 0, a = a,
                 b = b, f.a = f.a, f.b = f.b, estim.prec = NA)
@@ -196,10 +196,10 @@ itp <- function(f, interval, ..., a = min(interval), b = max(interval),
     }
     # Update (a, b)
     yITP <- f(xITP, ...)
-    if (yITP > 0) {
+    if (sign(yITP) == sign(yb)) {
       b <- xITP
       yb <- yITP
-    } else if (yITP < 0) {
+    } else if (sign(yITP) == sign(ya)) {
       a <- xITP
       ya <- yITP
     } else {
