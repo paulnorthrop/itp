@@ -218,6 +218,23 @@ See <strong>Details</strong>.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       root     f(root)  iterations  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>        0.1  -8.238e-14           8  </span>
 <span class="r-in"></span>
+<span class="r-in"><span class="co"># Logarithmic</span></span>
+<span class="r-in"><span class="va">logarithmic</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">log</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">abs</a></span><span class="op">(</span><span class="va">x</span> <span class="op">-</span> <span class="fl">10</span> <span class="op">/</span> <span class="fl">9</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span class="fu">itp</span><span class="op">(</span><span class="va">logarithmic</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       root     f(root)  iterations  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     0.1111   8.991e-13           7  </span>
+<span class="r-in"></span>
+<span class="r-in"><span class="co"># Linear</span></span>
+<span class="r-in"><span class="va">linear</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="va">x</span></span>
+<span class="r-in"><span class="co"># Solution in one iteration</span></span>
+<span class="r-in"><span class="fu">itp</span><span class="op">(</span><span class="va">linear</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       root     f(root)  iterations  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          0           0           1  </span>
+<span class="r-in"><span class="co"># Solution at an input endpoint</span></span>
+<span class="r-in"><span class="fu">itp</span><span class="op">(</span><span class="va">linear</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1</span>, <span class="fl">0</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       root     f(root)  iterations  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          0           0           0  </span>
+<span class="r-in"></span>
 <span class="r-in"><span class="co">### Ill-behaved functions</span></span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co">## Non-simple zero</span></span>
@@ -248,17 +265,6 @@ See <strong>Details</strong>.</p></dd>
 <span class="r-in"><span class="fu">itp</span><span class="op">(</span><span class="va">warsaw</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       root     f(root)  iterations  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    -0.6817  -5.472e-11          11  </span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Linear</span></span>
-<span class="r-in"><span class="va">linear</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="va">x</span></span>
-<span class="r-in"><span class="co"># Solution in one iteration</span></span>
-<span class="r-in"><span class="fu">itp</span><span class="op">(</span><span class="va">linear</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       root     f(root)  iterations  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>          0           0           1  </span>
-<span class="r-in"><span class="co"># Solution at an input endpoint</span></span>
-<span class="r-in"><span class="fu">itp</span><span class="op">(</span><span class="va">linear</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1</span>, <span class="fl">0</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       root     f(root)  iterations  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>          0           0           0  </span>
 </code></pre></div>
     </div>
   </div>
