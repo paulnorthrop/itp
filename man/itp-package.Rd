@@ -3,7 +3,7 @@
 \docType{package}
 \name{itp-package}
 \alias{itp-package}
-\title{itp: the Interpolate, Truncate, Project (ITP) Root-Finding Algorithm}
+\title{itp: The Interpolate, Truncate, Project (ITP) Root-Finding Algorithm}
 \description{
 Implements the Interpolate, Truncate, Project (ITP) root-finding
 algorithm developed by Oliveira and Takahashi (2021).

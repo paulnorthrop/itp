@@ -1,4 +1,4 @@
-#' itp: the Interpolate, Truncate, Project (ITP) Root-Finding Algorithm
+#' itp: The Interpolate, Truncate, Project (ITP) Root-Finding Algorithm
 #'
 #' Implements the Interpolate, Truncate, Project (ITP) root-finding
 #' algorithm developed by Oliveira and Takahashi (2021).
