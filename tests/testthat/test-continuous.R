@@ -130,7 +130,7 @@ res <- itp(linear, c(-1, 0))
 test_that("Linear: solution at a", {
   testthat::expect_equal(c(res$iter, res$root, res$f.root), c(0, 0, 0))
 })
-res <- itp(linear, c(0, 1))
+res <- itp(function(x) x, c(0, 1))
 test_that("Linear: solution at b", {
   testthat::expect_equal(c(res$iter, res$root, res$f.root), c(0, 0, 0))
 })
