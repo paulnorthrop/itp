@@ -72,9 +72,16 @@
 #'     convergence.}
 #'   \item{estim.prec}{an approximate estimated precision for \code{root},
 #'     equal to the half the width of the final bracket for the root.}
-#'
 #'   If the root occurs at one of the input endpoints \code{a} or \code{b} then
 #'   \code{iter = 0} and \code{estim.prec = NA}.
+#'
+#'   The return object also has the attributes \code{f} (the input function
+#'   \code{f}), \code{f_args} (a list of arguments to \code{f} provided in
+#'   \code{...}), \code{f_name} (the name of the input function) and
+#'   \code{input_a} and \code{input_b} (the input values of \code{a} and
+#'   \code{b}).  These attributes are used in \code{\link{plot.itp}} to produce
+#'   a plot of the function \code{f} over the interval
+#'   \code{(input_a, input_b)}.
 #' @references Oliveira, I. F. D. and Takahashi, R. H. C. (2021). An Enhancement
 #'   of the Bisection Method Average Performance Preserving Minmax Optimality,
 #'   \emph{ACM Transactions on Mathematical Software}, \strong{47}(1), 1-24.
@@ -87,7 +94,8 @@
 #' wiki <- function(x) x ^ 3 - x - 2
 #' itp(wiki, c(1, 2), epsilon = 0.0005, k1 = 0.1, n0 = 1)
 #' # The default setting (with k1 = 0.2) wins by 1 iteration
-#' itp(wiki, c(1, 2), epsilon = 0.0005, n0 = 1)
+#' x <- itp(wiki, c(1, 2), epsilon = 0.0005, n0 = 1)
+#' plot(x)
 #'
 #' #### ----- Some examples from Table 1 of Oliveira and Takahashi (2021)
 #'
@@ -153,6 +161,9 @@ itp <- function(f, interval, ..., a = min(interval), b = max(interval),
   if (n0 < 0) {
     stop("n0 must be non-negative")
   }
+  # Save the input values of a and b for use in plot.itp
+  input_a <- a
+  input_b <- b
   # Check whether the root lies on a limit of the input interval
   if (f.a == 0) {
     val <- list(root = a, f.root = 0, iter = 0, a = a,
@@ -219,6 +230,11 @@ itp <- function(f, interval, ..., a = min(interval), b = max(interval),
   }
   val <- list(root = root, f.root = f(root, ...), iter = k, a = a,
               b = b, f.a = ya, f.b = yb, estim.prec = (b - a) / 2)
+  attr(val, "f") <- f
+  attr(val, "f_args") <- list(...)
+  attr(val, "input_a") <- input_a
+  attr(val, "input_b") <- input_b
+  attr(val, "f_name") <- as.character(substitute(f))
   class(val) <- "itp"
   return(val)
 }

@@ -59,9 +59,16 @@ An object (a list) of class \code{"itp"} containing the following
     convergence.}
   \item{estim.prec}{an approximate estimated precision for \code{root},
     equal to the half the width of the final bracket for the root.}
-
   If the root occurs at one of the input endpoints \code{a} or \code{b} then
   \code{iter = 0} and \code{estim.prec = NA}.
+
+  The return object also has the attributes \code{f} (the input function
+  \code{f}), \code{f_args} (a list of arguments to \code{f} provided in
+  \code{...}), \code{f_name} (the name of the input function) and
+  \code{input_a} and \code{input_b} (the input values of \code{a} and
+  \code{b}).  These attributes are used in \code{\link{plot.itp}} to produce
+  a plot of the function \code{f} over the interval
+  \code{(input_a, input_b)}.
 }
 \description{
 Performs one-dimensional root-finding using the ITP algorithm of
@@ -112,7 +119,8 @@ Page 8 of Oliveira and Takahashi (2021) describes the ITP
 wiki <- function(x) x ^ 3 - x - 2
 itp(wiki, c(1, 2), epsilon = 0.0005, k1 = 0.1, n0 = 1)
 # The default setting (with k1 = 0.2) wins by 1 iteration
-itp(wiki, c(1, 2), epsilon = 0.0005, n0 = 1)
+x <- itp(wiki, c(1, 2), epsilon = 0.0005, n0 = 1)
+plot(x)
 
 #### ----- Some examples from Table 1 of Oliveira and Takahashi (2021)
 
