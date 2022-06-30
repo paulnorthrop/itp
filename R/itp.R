@@ -172,7 +172,7 @@ itp <- function(f, interval, ..., a = min(interval), b = max(interval),
   n12 <- max(ceiling(log2((b - a) / epsilon) - 1), 0)
   nmax <- n12 + n0
   # Check that they have opposite signs
-  if (!isTRUE(as.vector(sign(ya) * sign(yb) <= 0))) {
+  if (isFALSE(sign(ya) * sign(yb) <= 0)) {
     stop("f() values at end points not of opposite sign")
   }
   k <- 0
