@@ -77,11 +77,11 @@
 #'
 #'   The return object also has the attributes \code{f} (the input function
 #'   \code{f}), \code{f_args} (a list of arguments to \code{f} provided in
-#'   \code{...}), \code{f_name} (the name of the input function) and
-#'   \code{input_a} and \code{input_b} (the input values of \code{a} and
-#'   \code{b}).  These attributes are used in \code{\link{plot.itp}} to produce
-#'   a plot of the function \code{f} over the interval
-#'   \code{(input_a, input_b)}.
+#'   \code{...}), \code{f_name} (the name of the input function, if it is
+#'   named, and the form of the function if not) and \code{input_a} and
+#'   \code{input_b} (the input values of \code{a} and \code{b}).  These
+#'   attributes are used in \code{\link{plot.itp}} to produce a plot of the
+#'   function \code{f} over the interval \code{(input_a, input_b)}.
 #' @references Oliveira, I. F. D. and Takahashi, R. H. C. (2021). An Enhancement
 #'   of the Bisection Method Average Performance Preserving Minmax Optimality,
 #'   \emph{ACM Transactions on Mathematical Software}, \strong{47}(1), 1-24.
@@ -234,7 +234,13 @@ itp <- function(f, interval, ..., a = min(interval), b = max(interval),
   attr(val, "f_args") <- list(...)
   attr(val, "input_a") <- input_a
   attr(val, "input_b") <- input_b
-  attr(val, "f_name") <- as.character(substitute(f))
+  temp <- as.character(substitute(f))
+  if (length(temp) > 1) {
+    f_name <- temp[3]
+  } else {
+    f_name<- temp
+  }
+  attr(val, "f_name") <- f_name
   class(val) <- "itp"
   return(val)
 }

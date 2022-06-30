@@ -64,11 +64,11 @@ An object (a list) of class \code{"itp"} containing the following
 
   The return object also has the attributes \code{f} (the input function
   \code{f}), \code{f_args} (a list of arguments to \code{f} provided in
-  \code{...}), \code{f_name} (the name of the input function) and
-  \code{input_a} and \code{input_b} (the input values of \code{a} and
-  \code{b}).  These attributes are used in \code{\link{plot.itp}} to produce
-  a plot of the function \code{f} over the interval
-  \code{(input_a, input_b)}.
+  \code{...}), \code{f_name} (the name of the input function, if it is
+  named, and the form of the function if not) and \code{input_a} and
+  \code{input_b} (the input values of \code{a} and \code{b}).  These
+  attributes are used in \code{\link{plot.itp}} to produce a plot of the
+  function \code{f} over the interval \code{(input_a, input_b)}.
 }
 \description{
 Performs one-dimensional root-finding using the ITP algorithm of
