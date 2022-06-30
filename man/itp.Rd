@@ -123,12 +123,12 @@ lambert <- function(x) x * exp(x) - 1
 itp(lambert, c(-1, 1))
 
 # Trigonometric 1
-trig1 <- function(x) tan(x - 1 /10)
-itp(trig1, c(-1, 1))
+trig1 <- function(x, root) tan(x - root)
+itp(trig1, c(-1, 1), root = 1 / 10)
 
 # Logarithmic
-logarithmic <- function(x) log(abs(x - 10 / 9))
-itp(logarithmic, c(-1, 1))
+logarithmic <- function(x, shift) log(abs(x - shift))
+itp(logarithmic, c(-1, 1), shift = 10 /9)
 
 # Linear
 linear <- function(x) x
