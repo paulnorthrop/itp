@@ -238,7 +238,7 @@ itp <- function(f, interval, ..., a = min(interval), b = max(interval),
   if (length(temp) > 1) {
     f_name <- temp[3]
   } else {
-    f_name<- temp
+    f_name <- temp
   }
   attr(val, "f_name") <- f_name
   class(val) <- "itp"
