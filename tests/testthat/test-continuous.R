@@ -44,6 +44,7 @@ test_that("-Lambert: f approx 0", {
 })
 
 # Polynomial 3
+
 poly3 <- function(x) (x * 1e6 - 1) ^ 3
 res <- itp(poly3, c(-1, 1), epsilon = epsilon)
 test_that("Polynomial 3: tolerance", {
@@ -62,14 +63,45 @@ test_that("-Polynomial 3: f approx 0", {
   testthat::expect_equal(res$f.root, 0)
 })
 
+# Trigonmetric 1
+
+root <- 1 / 10
+trig1 <- function(x, root) tan(x - root)
+res <- itp(trig1, c(-1, 1), root = root, epsilon = epsilon)
+test_that("Trigonometric 1: tolerance", {
+  testthat::expect_lte(res$b - res$a , 2 * epsilon)
+})
+test_that("Trigonometric 1: f approx 0", {
+  testthat::expect_equal(res$f.root, 0)
+})
+test_that("Trigonometric 1: root correct", {
+  testthat::expect_equal(res$root, root)
+})
+
 # Logarithmic
-logarithmic <- function(x) log(abs(x - 10 / 9))
-res <- itp(logarithmic, c(-1, 1), epsilon = epsilon)
+
+shift <- 10 / 9
+logarithmic <- function(x, shift) log(abs(x - shift))
+res <- itp(logarithmic, c(-1, 1), shift = shift, epsilon = epsilon)
 test_that("Logarithmic: tolerance", {
   testthat::expect_lte(res$b - res$a , 2 * epsilon)
 })
 test_that("Logarithmic: f approx 0", {
   testthat::expect_equal(res$f.root, 0)
+})
+test_that("Logarithmic: root correct", {
+  testthat::expect_equal(res$root, shift - 1)
+})
+# Look for the root at 2.1
+res <- itp(logarithmic, c(1, 3), shift = shift, epsilon = epsilon)
+test_that("Logarithmic: tolerance", {
+  testthat::expect_lte(res$b - res$a , 2 * epsilon)
+})
+test_that("Logarithmic: f approx 0", {
+  testthat::expect_equal(res$f.root, 0)
+})
+test_that("Logarithmic: root correct", {
+  testthat::expect_equal(res$root, shift + 1)
 })
 
 # Linear
@@ -93,6 +125,7 @@ test_that("-Linear: f approx 0", {
 })
 
 # Linear, solution at an input endpoint
+
 res <- itp(linear, c(-1, 0))
 test_that("Linear: solution at a", {
   testthat::expect_equal(c(res$iter, res$root, res$f.root), c(0, 0, 0))
