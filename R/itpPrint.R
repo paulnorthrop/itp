@@ -23,7 +23,7 @@
 #' @export
 print.itp <- function(x, all = FALSE,
                       digits = max(3L, getOption("digits") - 3L), ...) {
-  temp<- x
+  temp <- x
   names(temp) <- c("root", "f(root)", "iterations", "a", "b", "f.a", "f.b",
                    "precision")
   cat("function:", attr(x, "f_name"), "\n")
