@@ -171,15 +171,15 @@ itp <- function(f, interval, ..., a = min(interval), b = max(interval),
   if (f.a == 0) {
     val <- list(root = a, f.root = 0, iter = 0, a = a,
                 b = b, f.a = f.a, f.b = f.b, estim.prec = NA)
-    attributes(val) <- list(f = f, f_args = list(...), input_a = input_a,
-                            input_b = input_b, f_name = f_name)
+    attributes(val) <- c(attributes(val), list(f = f, f_args = list(...),
+                        input_a = input_a, input_b = input_b, f_name = f_name))
     class(val) <- "itp"
     return(val)
   } else if (f.b == 0) {
     val <- list(root = b, f.root = 0, iter = 0, a = a,
                 b = b, f.a = f.a, f.b = f.b, estim.prec = NA)
-    attributes(val) <- list(f = f, f_args = list(...), input_a = input_a,
-                            input_b = input_b, f_name = f_name)
+    attributes(val) <- c(attributes(val), list(f = f, f_args = list(...),
+                         input_a = input_a, input_b = input_b, f_name = f_name))
     class(val) <- "itp"
     return(val)
   }
@@ -237,8 +237,8 @@ itp <- function(f, interval, ..., a = min(interval), b = max(interval),
   }
   val <- list(root = root, f.root = f(root, ...), iter = k, a = a,
               b = b, f.a = ya, f.b = yb, estim.prec = (b - a) / 2)
-  attributes(val) <- list(f = f, f_args = list(...), input_a = input_a,
-                          input_b = input_b, f_name = f_name)
+  attributes(val) <- c(attributes(val), list(f = f, f_args = list(...),
+                       input_a = input_a, input_b = input_b, f_name = f_name))
   class(val) <- "itp"
   return(val)
 }
