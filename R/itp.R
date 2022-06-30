@@ -164,15 +164,22 @@ itp <- function(f, interval, ..., a = min(interval), b = max(interval),
   # Save the input values of a and b for use in plot.itp
   input_a <- a
   input_b <- b
+  # Create a function name
+  temp <- as.character(substitute(f))
+  f_name <- ifelse(length(temp) > 1, temp[3], temp)
   # Check whether the root lies on a limit of the input interval
   if (f.a == 0) {
     val <- list(root = a, f.root = 0, iter = 0, a = a,
                 b = b, f.a = f.a, f.b = f.b, estim.prec = NA)
+    attributes(val) <- list(f = f, f_args = list(...), input_a = input_a,
+                            input_b = input_b, f_name = f_name)
     class(val) <- "itp"
     return(val)
   } else if (f.b == 0) {
     val <- list(root = b, f.root = 0, iter = 0, a = a,
                 b = b, f.a = f.a, f.b = f.b, estim.prec = NA)
+    attributes(val) <- list(f = f, f_args = list(...), input_a = input_a,
+                            input_b = input_b, f_name = f_name)
     class(val) <- "itp"
     return(val)
   }
@@ -230,17 +237,8 @@ itp <- function(f, interval, ..., a = min(interval), b = max(interval),
   }
   val <- list(root = root, f.root = f(root, ...), iter = k, a = a,
               b = b, f.a = ya, f.b = yb, estim.prec = (b - a) / 2)
-  attr(val, "f") <- f
-  attr(val, "f_args") <- list(...)
-  attr(val, "input_a") <- input_a
-  attr(val, "input_b") <- input_b
-  temp <- as.character(substitute(f))
-  if (length(temp) > 1) {
-    f_name <- temp[3]
-  } else {
-    f_name <- temp
-  }
-  attr(val, "f_name") <- f_name
+  attributes(val) <- list(f = f, f_args = list(...), input_a = input_a,
+                          input_b = input_b, f_name = f_name)
   class(val) <- "itp"
   return(val)
 }
