@@ -26,6 +26,7 @@ print.itp <- function(x, all = FALSE,
   temp<- x
   names(temp) <- c("root", "f(root)", "iterations", "a", "b", "f.a", "f.b",
                    "precision")
+  cat("function:", attr(x, "f_name"), "\n")
   if (!all) {
     print.default(format(temp[1:3], digits = digits), print.gap = 2L,
                   quote = FALSE)
