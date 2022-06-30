@@ -25,7 +25,7 @@ itp(
 containing the end points of the interval to be searched for the root.
 The function values at the end points must be of opposite signs.}
 
-\item{...}{additional named or unnamed arguments to be pass to \code{f}.}
+\item{...}{Additional named or unnamed arguments to be passed to \code{f}.}
 
 \item{a, b}{An alternative way to set the lower and upper end points of the
 interval to be searched. The function values at these end points must be
