@@ -65,7 +65,7 @@ staircase_cpp <- function(x, pars) {
 
 #' Create external pointer to a C++ function for \code{f}
 #'
-#' This function is used in \code{\link[itp]{`itp-package`}} to create
+#' This function is used in \code{\link[itp]{itp-package}} to create
 #' external pointers to the C++ functions used as examples to illustrate the
 #' use of the function \code{\link{itp}}.  These pointers are passed as the
 #' argument \code{f} to \code{\link{itp}}.  To create their own examples
