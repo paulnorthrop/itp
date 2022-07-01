@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">itp</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">1.0.1</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">1.1.0</span>
       </span>
     </div>
 
@@ -58,9 +58,21 @@
     </div>
 
     <div class="section level2">
-<h2 class="page-header" data-toc-text="1.0.0.9000" id="itp-1009000">itp 1.0.0.9000<a class="anchor" aria-label="anchor" href="#itp-1009000"></a></h2>
+<h2 class="page-header" data-toc-text="1.1.0" id="itp-110">itp 1.1.0<a class="anchor" aria-label="anchor" href="#itp-110"></a></h2>
 <div class="section level3">
-<h3 id="bug-fixes-and-minor-improvements-1-0-0-9000">Bug fixes and minor improvements<a class="anchor" aria-label="anchor" href="#bug-fixes-and-minor-improvements-1-0-0-9000"></a></h3>
+<h3 id="new-features-1-1-0">New features<a class="anchor" aria-label="anchor" href="#new-features-1-1-0"></a></h3>
+<ul><li>The argument <code>f</code> to the function <code><a href="../reference/itp.html">itp()</a></code> can now be either an R function or an external pointer to a C++ function. In the latter case, <code><a href="../reference/itp.html">itp()</a></code> makes use of the <a href="https://gallery.rcpp.org/articles/passing-cpp-function-pointers/" class="external-link">Passing user-supplied C++ functions</a> framework offered by the Rcpp package. For the simple examples given in the <code>itp</code> package only a modest improvement in speed is expected and realised. However, being able to call <code><a href="../reference/itp.html">itp()</a></code> on the C++ side may have benefits in more challenging problems.<br></li>
+<li>A plot method is provided, which plots the function <code>f</code> provided to <code>itp</code> over the input interval <code>(a, b)</code>.</li>
+</ul></div>
+<div class="section level3">
+<h3 id="bug-fixes-and-minor-improvements-1-1-0">Bug fixes and minor improvements<a class="anchor" aria-label="anchor" href="#bug-fixes-and-minor-improvements-1-1-0"></a></h3>
+<ul><li>Explicit examples of passing arguments to the input function <code>f</code> have been added.</li>
+</ul></div>
+</div>
+    <div class="section level2">
+<h2 class="page-header" data-toc-text="1.0.1" id="itp-101">itp 1.0.1<small>2022-06-14</small><a class="anchor" aria-label="anchor" href="#itp-101"></a></h2>
+<div class="section level3">
+<h3 id="bug-fixes-and-minor-improvements-1-0-1">Bug fixes and minor improvements<a class="anchor" aria-label="anchor" href="#bug-fixes-and-minor-improvements-1-0-1"></a></h3>
 <ul><li>A bug in the part of <code><a href="../reference/itp.html">itp()</a></code> in which the bracketing interval has been fixed. It caused incorrect results in cases where the function is locally decreasing.</li>
 <li>Tests have been added to check the correction of this bug.</li>
 </ul></div>

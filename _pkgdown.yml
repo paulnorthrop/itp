@@ -16,6 +16,10 @@ reference:
     desc: ~
     contents:
       - "itp"
+  - title: External C++ pointer
+    desc: ~
+    contents:
+      - "create_xptr"
   - title: Generics
     desc: ~
     contents:

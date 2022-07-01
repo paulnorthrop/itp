@@ -19,7 +19,13 @@
     <loc>/news/index.html</loc>
   </url>
   <url>
+    <loc>/reference/create_xptr.html</loc>
+  </url>
+  <url>
     <loc>/reference/index.html</loc>
+  </url>
+  <url>
+    <loc>/reference/itp-internal.html</loc>
   </url>
   <url>
     <loc>/reference/itp-package.html</loc>
@@ -29,6 +35,9 @@
   </url>
   <url>
     <loc>/reference/itpPrint.html</loc>
+  </url>
+  <url>
+    <loc>/reference/plot.itp.html</loc>
   </url>
   <url>
     <loc>/reference/print.itp.html</loc>
