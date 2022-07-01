@@ -5,8 +5,8 @@ using namespace Rcpp;
 // [[Rcpp::interfaces(r, cpp)]]
 
 // [[Rcpp::export]]
-List itp_cpp(const SEXP& f, const List& pars, double& a, double& b, 
-             double& ya, double& yb, const double& epsilon, const double& k1, 
+List itp_cpp(const SEXP& f, const List& pars, double& a, double& b,
+             double& ya, double& yb, const double& epsilon, const double& k1,
              const double& k2, double& for_rk, double& inc) {
   // Unwrap pointer to untransformed target log-density.
   typedef double (*funcPtr)(const double& x, const List& pars) ;
@@ -61,8 +61,33 @@ List itp_cpp(const SEXP& f, const List& pars, double& a, double& b,
                       Named("iter") = k, Named("a") = a, Named("b") = b,
                       Named("f.a") = ya, Named("f.b") = yb,
                       Named("estim.prec") = estimprec) ;
-}  
-  
+}
+
+//' Call a C++ function using an external pointer
+//'
+//' This function is used in \code{\link{plot.itp}} to plot a function and
+//' the root estimated by \code{\link{itp}}.
+//' @param x The main argument of the function.
+//' @param pars A list of additional arguments to the function.  This may be an
+//'   empty list.
+//' @param xpsexp An external pointer to a C++ function.
+//' @details See the
+//' \href{https://gallery.rcpp.org/articles/passing-cpp-function-pointers/}{
+//' Passing user-supplied C++ functions} article in the
+//' \href{https://gallery.rcpp.org/}{Rcpp Gallery} for information.
+//' @examples
+//' lambert_ptr <- create_xptr("lambert")
+//' res <- itp(lambert_ptr, c(-1, 1))
+//'
+//' # Value at lower limit
+//' callViaXPtr(-1, list(), lambert_ptr)
+//'
+//' # Value at upper limit
+//' callViaXPtr(1, list(), lambert_ptr)
+//'
+//' # Value at the estimated root
+//' callViaXPtr(res$root, list(), lambert_ptr)
+//' @seealso \code{\link{create_xptr}}
 // [[Rcpp::export]]
 double callViaXPtr(const double& x, const List&pars, SEXP xpsexp) {
   typedef double (*funcPtr)(const double& x, const List& pars) ;

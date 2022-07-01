@@ -5,6 +5,31 @@ itp_cpp <- function(f, pars, a, b, ya, yb, epsilon, k1, k2, for_rk, inc) {
     .Call(`_itp_itp_cpp`, f, pars, a, b, ya, yb, epsilon, k1, k2, for_rk, inc)
 }
 
+#' Call a C++ function using an external pointer
+#'
+#' This function is used in \code{\link{plot.itp}} to plot a function and
+#' the root estimated by \code{\link{itp}}.
+#' @param x The main argument of the function.
+#' @param pars A list of additional arguments to the function.  This may be an
+#'   empty list.
+#' @param xpsexp An external pointer to a C++ function.
+#' @details See the
+#' \href{https://gallery.rcpp.org/articles/passing-cpp-function-pointers/}{
+#' Passing user-supplied C++ functions} article in the
+#' \href{https://gallery.rcpp.org/}{Rcpp Gallery} for information.
+#' @examples
+#' lambert_ptr <- create_xptr("lambert")
+#' res <- itp(lambert_ptr, c(-1, 1))
+#'
+#' # Value at lower limit
+#' callViaXPtr(-1, list(), lambert_ptr)
+#'
+#' # Value at upper limit
+#' callViaXPtr(1, list(), lambert_ptr)
+#'
+#' # Value at the estimated root
+#' callViaXPtr(res$root, list(), lambert_ptr)
+#' @seealso \code{\link{create_xptr}}
 callViaXPtr <- function(x, pars, xpsexp) {
     .Call(`_itp_callViaXPtr`, x, pars, xpsexp)
 }
@@ -39,13 +64,23 @@ staircase_cpp <- function(x, pars) {
 
 #' Create external pointer to a C++ function for \code{f}
 #'
+#' This function is used in \code{\link[itp]{`itp-package`}} to create
+#' external pointers to the C++ functions used as examples to illustrate the
+#' use of the function \code{\link{itp}}.  These pointers are passed as the
+#' argument \code{f} to \code{\link{itp}}.  To create their own examples
+#' the user will need to create their own C++ function a function that is
+#' similar to \code{create_xptr}.
+#'
 #' @param fstr A string indicating the C++ function required.
 #' @details See the vignette
 #' \href{https://paulnorthrop.github.io/itp/articles/itp-vignette.html}{
 #' Overview of the itp package} and the file
 #' \href{https://raw.githubusercontent.com/paulnorthrop/itp/main/src/user_fns.cpp}{
 #' user_fns.cpp} for information.
-#' @export
+#' @seealso \code{\link{callViaXPtr}} for calling a C++ function using an
+#'   external pointer.
+#' @section Examples:
+#' See the example in \code{\link{callViaXPtr}}.
 create_xptr <- function(fstr) {
     .Call(`_itp_create_xptr`, fstr)
 }

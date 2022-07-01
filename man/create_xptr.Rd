@@ -10,7 +10,12 @@ create_xptr(fstr)
 \item{fstr}{A string indicating the C++ function required.}
 }
 \description{
-Create external pointer to a C++ function for \code{f}
+This function is used in \code{\link[itp]{`itp-package`}} to create
+external pointers to the C++ functions used as examples to illustrate the
+use of the function \code{\link{itp}}.  These pointers are passed as the
+argument \code{f} to \code{\link{itp}}.  To create their own examples
+the user will need to create their own C++ function a function that is
+similar to \code{create_xptr}.
 }
 \details{
 See the vignette
@@ -18,4 +23,13 @@ See the vignette
 Overview of the itp package} and the file
 \href{https://raw.githubusercontent.com/paulnorthrop/itp/main/src/user_fns.cpp}{
 user_fns.cpp} for information.
+}
+\section{Examples}{
+
+See the example in \code{\link{callViaXPtr}}.
+}
+
+\seealso{
+\code{\link{callViaXPtr}} for calling a C++ function using an
+  external pointer.
 }

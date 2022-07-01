@@ -64,13 +64,23 @@ double staircase_cpp(const double& x, const List& pars) {
 
 //' Create external pointer to a C++ function for \code{f}
 //'
+//' This function is used in \code{\link[itp]{`itp-package`}} to create
+//' external pointers to the C++ functions used as examples to illustrate the
+//' use of the function \code{\link{itp}}.  These pointers are passed as the
+//' argument \code{f} to \code{\link{itp}}.  To create their own examples
+//' the user will need to create their own C++ function a function that is
+//' similar to \code{create_xptr}.
+//'
 //' @param fstr A string indicating the C++ function required.
 //' @details See the vignette
 //' \href{https://paulnorthrop.github.io/itp/articles/itp-vignette.html}{
 //' Overview of the itp package} and the file
 //' \href{https://raw.githubusercontent.com/paulnorthrop/itp/main/src/user_fns.cpp}{
 //' user_fns.cpp} for information.
-//' @export
+//' @seealso \code{\link{callViaXPtr}} for calling a C++ function using an
+//'   external pointer.
+//' @section Examples:
+//' See the example in \code{\link{callViaXPtr}}.
 // [[Rcpp::export]]
 SEXP create_xptr(std::string fstr) {
   typedef double (*funcPtr)(const double& x, const List& pars) ;
