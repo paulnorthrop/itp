@@ -45,3 +45,7 @@ test_that("Lambert: n0 < 0", {
   testthat::expect_error(itp(lambert, c(-1, 1), n0 = -1))
 })
 
+# f not an R function or an external pointer
+test_that("Wrong f", {
+  testthat::expect_error(itp(f = "lambert", c(-1, 1)))
+})
