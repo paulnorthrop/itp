@@ -81,6 +81,7 @@ staircase_cpp <- function(x, pars) {
 #'   external pointer.
 #' @section Examples:
 #' See the example in \code{\link{callViaXPtr}}.
+#' @export
 create_xptr <- function(fstr) {
     .Call(`_itp_create_xptr`, fstr)
 }

@@ -81,6 +81,7 @@ double staircase_cpp(const double& x, const List& pars) {
 //'   external pointer.
 //' @section Examples:
 //' See the example in \code{\link{callViaXPtr}}.
+//' @export
 // [[Rcpp::export]]
 SEXP create_xptr(std::string fstr) {
   typedef double (*funcPtr)(const double& x, const List& pars) ;
