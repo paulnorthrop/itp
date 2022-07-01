@@ -93,8 +93,12 @@ discontinuity at which the function changes sign may be found.</p>
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>f</dt>
-<dd><p>An R function or a pointer to a C++ function. The function for
-which the root is sought.</p></dd>
+<dd><p>An R function or an external pointer to a C++ function.  For the
+latter see
+<a href="https://gallery.rcpp.org/articles/passing-cpp-function-pointers/" class="external-link">
+Passing user-supplied C++ functions</a> in the
+<a href="https://gallery.rcpp.org/" class="external-link">Rcpp Gallery</a>. The function for which the
+root is sought.</p></dd>
 <dt>interval</dt>
 <dd><p>A numeric vector <code>c(a, b)</code> of length 2
 containing the end points of the interval to be searched for the root.

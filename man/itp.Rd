@@ -19,8 +19,12 @@ itp(
 )
 }
 \arguments{
-\item{f}{An R function or a pointer to a C++ function. The function for
-which the root is sought.}
+\item{f}{An R function or an external pointer to a C++ function.  For the
+latter see
+\href{https://gallery.rcpp.org/articles/passing-cpp-function-pointers/}{
+Passing user-supplied C++ functions} in the
+\href{https://gallery.rcpp.org/}{Rcpp Gallery}. The function for which the
+root is sought.}
 
 \item{interval}{A numeric vector \code{c(a, b)} of length 2
 containing the end points of the interval to be searched for the root.
