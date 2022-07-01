@@ -9,7 +9,7 @@
 #' discontinuity at which the function changes sign may be found.
 #'
 #' @param f An R function or an external pointer to a C++ function.  For the
-#'   latter see
+#'   latter see the article
 #'   \href{https://gallery.rcpp.org/articles/passing-cpp-function-pointers/}{
 #'   Passing user-supplied C++ functions} in the
 #'   \href{https://gallery.rcpp.org/}{Rcpp Gallery}. The function for which the
