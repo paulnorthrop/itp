@@ -29,6 +29,10 @@ linear_cpp <- function(x, pars) {
     .Call(`_itp_linear_cpp`, x, pars)
 }
 
+warsaw_cpp <- function(x, pars) {
+    .Call(`_itp_warsaw_cpp`, x, pars)
+}
+
 #' Create external pointer to a C++ function for \code{f}
 #'
 #' @param fstr A string indicating the C++ function required.

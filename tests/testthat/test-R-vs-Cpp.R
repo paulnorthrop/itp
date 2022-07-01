@@ -49,3 +49,22 @@ res2 <- itp(linear_ptr, c(-1, 1))
 test_that("Linear: R vs C++", {
   testthat::expect_equal(res1, res2, ignore_attr = TRUE)
 })
+
+# Warsaw
+
+warsaw <- function(x) ifelse(x > -1, sin(1 / (x + 1)), -1)
+warsaw_ptr <- create_xptr("warsaw")
+
+# Function increasing over the interval
+res1 <- itp(warsaw, c(-1, 1))
+res2 <- itp(warsaw_ptr, c(-1, 1))
+test_that("Warsaw: R vs C++ in (-1,1)", {
+  testthat::expect_equal(res1, res2, ignore_attr = TRUE)
+})
+
+# Function decreasing over the interval
+res1 <- itp(warsaw, c(-0.85, -0.8))
+res2 <- itp(warsaw_ptr, c(-0.85, -0.8))
+test_that("Warsaw: R vs C++ in (-0.85,-0.8)", {
+  testthat::expect_equal(res1, res2, ignore_attr = TRUE)
+})

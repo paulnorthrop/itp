@@ -39,6 +39,14 @@ double linear_cpp(const double& x, const List& pars) {
   return x ;
 }
 
+// [[Rcpp::export]]
+double warsaw_cpp(const double& x, const List& pars) {
+  if (x <= -1) {
+    return -1 ;
+  }
+  return sin(1.0 / (1.0 + x)) ;
+}
+
 // A function to create external pointers to the functions to evaluate f.
 // See http://gallery.rcpp.org/articles/passing-cpp-function-pointers/
 // If you write a new function above called new_name then add something
@@ -65,6 +73,8 @@ SEXP create_xptr(std::string fstr) {
     return(XPtr<funcPtr>(new funcPtr(&poly3_cpp))) ;
   else if (fstr == "linear")
     return(XPtr<funcPtr>(new funcPtr(&linear_cpp))) ;
+  else if (fstr == "warsaw")
+    return(XPtr<funcPtr>(new funcPtr(&warsaw_cpp))) ;
   else
     return(XPtr<funcPtr>(R_NilValue)) ;
 }
@@ -78,5 +88,7 @@ ptr_wiki <- create_xptr("wiki")
 ptr_lambert <- create_xptr("lambert")
 ptr_trig1 <- create_xptr("trig1")
 ptr_poly3 <- create_xptr("poly3")
+ptr_linear <- create_xptr("linear")
+ptr_warsaw <- create_xptr("warsaw")
 */
 
