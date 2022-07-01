@@ -85,11 +85,11 @@
 #'   additional arguments to \code{f} provided in \code{...}), \code{f_name}
 #'   (a function name extracted from \code{as.character(substitute(f))} or the
 #'   form of the R function if \code{f} was not named), \code{used_c} (a
-#'   logical scalar indicating whether \code{f} is an R function or a pointer
-#'   to a C++ function) and \code{input_a} and \code{input_b} (the input values
-#'   of \code{a} and \code{b}).  These attributes are used in
-#'   \code{\link{plot.itp}} to produce a plot of the function \code{f} over the
-#'   interval \code{(input_a, input_b)}.
+#'   logical scalar: \code{FALSE}, if \code{f} is an R function and \code{TRUE}
+#'   if \code{f} is a pointer to a C++ function) and \code{input_a} and
+#'   \code{input_b} (the input values of \code{a} and \code{b}).  These
+#'   attributes are used in \code{\link{plot.itp}} to produce a plot of the
+#'   function \code{f} over the interval \code{(input_a, input_b)}.
 #' @references Oliveira, I. F. D. and Takahashi, R. H. C. (2021). An Enhancement
 #'   of the Bisection Method Average Performance Preserving Minmax Optimality,
 #'   \emph{ACM Transactions on Mathematical Software}, \strong{47}(1), 1-24.
