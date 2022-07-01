@@ -30,7 +30,7 @@ root is sought.}
 containing the end points of the interval to be searched for the root.
 The function values at the end points must be of opposite signs.}
 
-\item{...}{Additional named or unnamed arguments to be passed to \code{f}.}
+\item{...}{Additional arguments to be passed to \code{f}.}
 
 \item{a, b}{An alternative way to set the lower and upper end points of the
 interval to be searched. The function values at these end points must be
@@ -81,7 +81,7 @@ An object (a list) of class \code{"itp"} containing the following
 \description{
 Performs one-dimensional root-finding using the ITP algorithm of
 Oliveira and Takahashi (2021).  The function \code{itp} searches an
-interval [\eqn{a}, \eqn{b}] for a root (i.e. a zero) of the
+interval [\eqn{a}, \eqn{b}] for a root (i.e., a zero) of the
 function \code{f} with respect to its first argument. Each iteration
 results in a bracketing interval for the root that is narrower than the
 previous interval.  If the function is discontinuous then a point of
@@ -180,7 +180,10 @@ itp(staircase, c(-1, 1))
 
 # Warsaw
 warsaw <- function(x) ifelse(x > -1, sin(1 / (x + 1)), -1)
+# Function increasing over the interval
 itp(warsaw, c(-1, 1))
+# Function decreasing over the interval
+itp(warsaw, c(-0.85, -0.8))
 }
 \references{
 Oliveira, I. F. D. and Takahashi, R. H. C. (2021). An Enhancement
