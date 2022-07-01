@@ -34,6 +34,11 @@ double poly3_cpp(const double& x, const List& pars) {
   return pow(x * 1e6 - 1.0, 3.0) ;
 }
 
+// [[Rcpp::export]]
+double linear_cpp(const double& x, const List& pars) {
+  return x ;
+}
+
 // A function to create external pointers to the functions to evaluate f.
 // See http://gallery.rcpp.org/articles/passing-cpp-function-pointers/
 // If you write a new function above called new_name then add something
@@ -58,6 +63,8 @@ SEXP create_xptr(std::string fstr) {
     return(XPtr<funcPtr>(new funcPtr(&trig1_cpp))) ;
   else if (fstr == "poly3")
     return(XPtr<funcPtr>(new funcPtr(&poly3_cpp))) ;
+  else if (fstr == "linear")
+    return(XPtr<funcPtr>(new funcPtr(&linear_cpp))) ;
   else
     return(XPtr<funcPtr>(R_NilValue)) ;
 }

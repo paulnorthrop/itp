@@ -150,6 +150,27 @@ namespace itp {
         return Rcpp::as<double >(rcpp_result_gen);
     }
 
+    inline double linear_cpp(const double& x, const List& pars) {
+        typedef SEXP(*Ptr_linear_cpp)(SEXP,SEXP);
+        static Ptr_linear_cpp p_linear_cpp = NULL;
+        if (p_linear_cpp == NULL) {
+            validateSignature("double(*linear_cpp)(const double&,const List&)");
+            p_linear_cpp = (Ptr_linear_cpp)R_GetCCallable("itp", "_itp_linear_cpp");
+        }
+        RObject rcpp_result_gen;
+        {
+            RNGScope RCPP_rngScope_gen;
+            rcpp_result_gen = p_linear_cpp(Shield<SEXP>(Rcpp::wrap(x)), Shield<SEXP>(Rcpp::wrap(pars)));
+        }
+        if (rcpp_result_gen.inherits("interrupted-error"))
+            throw Rcpp::internal::InterruptedException();
+        if (Rcpp::internal::isLongjumpSentinel(rcpp_result_gen))
+            throw Rcpp::LongjumpException(rcpp_result_gen);
+        if (rcpp_result_gen.inherits("try-error"))
+            throw Rcpp::exception(Rcpp::as<std::string>(rcpp_result_gen).c_str());
+        return Rcpp::as<double >(rcpp_result_gen);
+    }
+
     inline SEXP create_xptr(std::string fstr) {
         typedef SEXP(*Ptr_create_xptr)(SEXP);
         static Ptr_create_xptr p_create_xptr = NULL;

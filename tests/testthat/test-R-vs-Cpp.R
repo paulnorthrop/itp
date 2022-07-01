@@ -39,3 +39,13 @@ res2 <- itp(poly3_ptr, c(-1, 1))
 test_that("Poly 3: R vs C++", {
   testthat::expect_equal(res1, res2, ignore_attr = TRUE)
 })
+
+# Linear
+
+linear <- function(x) x
+res1 <- itp(linear, c(-1, 1))
+linear_ptr <- create_xptr("linear")
+res2 <- itp(linear_ptr, c(-1, 1))
+test_that("Linear: R vs C++", {
+  testthat::expect_equal(res1, res2, ignore_attr = TRUE)
+})

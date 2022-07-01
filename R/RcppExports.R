@@ -25,6 +25,10 @@ poly3_cpp <- function(x, pars) {
     .Call(`_itp_poly3_cpp`, x, pars)
 }
 
+linear_cpp <- function(x, pars) {
+    .Call(`_itp_linear_cpp`, x, pars)
+}
+
 #' Create external pointer to a C++ function for \code{f}
 #'
 #' @param fstr A string indicating the C++ function required.
