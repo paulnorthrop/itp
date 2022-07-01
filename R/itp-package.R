@@ -23,4 +23,6 @@
 #'   returned from \code{itp}.
 #' @docType package
 #' @name itp-package
+#' @useDynLib itp, .registration = TRUE
+#' @importFrom Rcpp sourceCpp
 NULL

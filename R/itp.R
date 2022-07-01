@@ -8,7 +8,8 @@
 #' previous interval.  If the function is discontinuous then a point of
 #' discontinuity at which the function changes sign may be found.
 #'
-#' @param f The function for which the root is sought.
+#' @param f An R function or an external pointer to a C++ function. The
+#'   function for which the root is sought.
 #' @param interval A numeric vector \code{c(a, b)} of length 2
 #'   containing the end points of the interval to be searched for the root.
 #'   The function values at the end points must be of opposite signs.
@@ -75,13 +76,16 @@
 #'   If the root occurs at one of the input endpoints \code{a} or \code{b} then
 #'   \code{iter = 0} and \code{estim.prec = NA}.
 #'
-#'   The return object also has the attributes \code{f} (the input function
-#'   \code{f}), \code{f_args} (a list of arguments to \code{f} provided in
-#'   \code{...}), \code{f_name} (the name of the input function, if it is
-#'   named, and the form of the function if not) and \code{input_a} and
-#'   \code{input_b} (the input values of \code{a} and \code{b}).  These
-#'   attributes are used in \code{\link{plot.itp}} to produce a plot of the
-#'   function \code{f} over the interval \code{(input_a, input_b)}.
+#'   The return object also has the attributes \code{f} (the input R function
+#'   or pointer to a C++ function \code{f}), \code{f_args} (a list of
+#'   additional arguments to \code{f} provided in \code{...}), \code{f_name}
+#'   (a function name extracted from \code{as.character(substitute(f))} or the
+#'   form of the R function if \code{f} was not named), \code{used_c} (a
+#'   logical scalar indicating whether \code{f} is an R function or a pointer
+#'   to a C++ function) and \code{input_a} and \code{input_b} (the input values
+#'   of \code{a} and \code{b}).  These attributes are used in
+#'   \code{\link{plot.itp}} to produce a plot of the function \code{f} over the
+#'   interval \code{(input_a, input_b)}.
 #' @references Oliveira, I. F. D. and Takahashi, R. H. C. (2021). An Enhancement
 #'   of the Bisection Method Average Performance Preserving Minmax Optimality,
 #'   \emph{ACM Transactions on Mathematical Software}, \strong{47}(1), 1-24.
@@ -97,6 +101,9 @@
 #' x <- itp(wiki, c(1, 2), epsilon = 0.0005, n0 = 1)
 #' plot(x)
 #'
+#' wiki <- create_xptr("wiki")
+#' itp(f = wiki, c(1, 2), epsilon = 0.0005, k1 = 0.1)
+#'
 #' #### ----- Some examples from Table 1 of Oliveira and Takahashi (2021)
 #'
 #' ### Well-behaved functions
@@ -108,6 +115,9 @@
 #' # Trigonometric 1
 #' trig1 <- function(x, root) tan(x - root)
 #' itp(trig1, c(-1, 1), root = 1 / 10)
+#' #
+#' trig1 <- create_xptr("trig1")
+#' itp(f = trig1, c(-1, 1), root = 1 / 10)
 #'
 #' # Logarithmic
 #' logarithmic <- function(x, shift) log(abs(x - shift))
@@ -146,6 +156,13 @@
 itp <- function(f, interval, ..., a = min(interval), b = max(interval),
                 f.a = f(a, ...), f.b = f(b, ...), epsilon = 1e-10,
                 k1 = 0.2 / (b - a), k2 = 2, n0 = 1) {
+  if (is.function(f)) {
+    using_c <- FALSE
+  } else if (inherits(f, "externalptr")) {
+    using_c <- TRUE
+  } else {
+    stop("''f'' must be an R function or a pointer to a C++ function")
+  }
   if (!missing(interval) && length(interval) != 2L) {
     stop("'interval' must be a vector of length 2")
   }
@@ -164,81 +181,58 @@ itp <- function(f, interval, ..., a = min(interval), b = max(interval),
   # Save the input values of a and b for use in plot.itp
   input_a <- a
   input_b <- b
+  # If we are using C++ then calculate f(a) and f(b)
+  if (using_c) {
+    f.a <- do.call(callViaXPtr, list(a, list(...), f))
+    f.b <- do.call(callViaXPtr, list(b, list(...), f))
+  }
   # Create a function name
   temp <- as.character(substitute(f))
-  f_name <- ifelse(length(temp) > 1, temp[3], temp)
+  if (using_c) {
+    f_name <- ifelse(length(temp) > 1, temp[2], temp)
+  } else {
+    f_name <- ifelse(length(temp) > 1, temp[3], temp)
+  }
   # Check whether the root lies on a limit of the input interval
   if (f.a == 0) {
     val <- list(root = a, f.root = 0, iter = 0, a = a,
                 b = b, f.a = f.a, f.b = f.b, estim.prec = NA)
     attributes(val) <- c(attributes(val), list(f = f, f_args = list(...),
-                        input_a = input_a, input_b = input_b, f_name = f_name))
+                        input_a = input_a, input_b = input_b, f_name = f_name,
+                        used_c = using_c))
     class(val) <- "itp"
     return(val)
   } else if (f.b == 0) {
     val <- list(root = b, f.root = 0, iter = 0, a = a,
                 b = b, f.a = f.a, f.b = f.b, estim.prec = NA)
     attributes(val) <- c(attributes(val), list(f = f, f_args = list(...),
-                         input_a = input_a, input_b = input_b, f_name = f_name))
+                         input_a = input_a, input_b = input_b, f_name = f_name,
+                         used_c = using_c))
     class(val) <- "itp"
     return(val)
   }
-  # Evaluate the function at the end points of the interval
-  ya <- f.a
-  yb <- f.b
   # Set n_1/2 in equation (3)
   n12 <- max(ceiling(log2((b - a) / epsilon) - 1), 0)
   nmax <- n12 + n0
   # Check that they have opposite signs
-  if (isFALSE(sign(ya) * sign(yb) <= 0)) {
+  if (isFALSE(sign(f.a) * sign(f.b) <= 0)) {
     stop("f() values at end points not of opposite sign")
   }
-  k <- 0
   for_rk <- epsilon * 2 ^ nmax
-  while (b - a > 2 * epsilon) {
-    # Interpolation. Regular falsi, equation (5)
-    xf <- (yb * a - ya * b) / (yb - ya)
-    # Truncation
-    x12 <- (a + b) / 2
-    # Equation (13)
-    sigma <- sign(x12 - xf)
-    delta <- k1 * (b - a) ^ k2
-    # Equation (14)
-    if (delta <= abs(x12 - xf)) {
-      xt <- xf + sigma * delta
-    } else {
-      xt <- x12
-    }
-    # Projection, equation (15)
-    rk <- for_rk - (b - a) / 2
-    if (abs(xt - x12) <= rk) {
-      xITP <- xt
-    } else {
-      xITP <- x12 - sigma * rk
-    }
-    # Update (a, b)
-    yITP <- f(xITP, ...)
-    if (sign(yITP) == sign(yb)) {
-      b <- xITP
-      yb <- yITP
-    } else if (sign(yITP) == sign(ya)) {
-      a <- xITP
-      ya <- yITP
-    } else {
-      a <- xITP
-      ya <- yITP
-      b <- xITP
-      yb <- yITP
-    }
-    root <- (a + b) / 2
-    # Update the first term of rk
-    for_rk <- for_rk * 0.5
-    k <- k + 1
+  # Call itp_r() or itp_cpp() as appropriate
+  if (using_c) {
+    for_itp_cpp <- list(f = f, pars = list(...), a = a, b = b, ya = f.a,
+                        yb = f.b, epsilon = epsilon, k1 = k1, k2 = k2,
+                        for_rk = for_rk, inc = sign(f.b))
+    val <- do.call("itp_cpp", for_itp_cpp)
+  } else {
+    val <- itp_r(f = f, ..., a = a, b = b, ya = f.a, yb = f.b,
+                 epsilon = epsilon, k1 = k1, k2 = k2, for_rk = for_rk,
+                 inc = sign(f.b))
   }
-  val <- list(root = root, f.root = f(root, ...), iter = k, a = a,
-              b = b, f.a = ya, f.b = yb, estim.prec = (b - a) / 2)
   attributes(val) <- c(attributes(val), list(f = f, f_args = list(...),
-                       input_a = input_a, input_b = input_b, f_name = f_name))
+                       input_a = input_a, input_b = input_b, f_name = f_name,
+                       used_c = using_c))
   class(val) <- "itp"
   return(val)
 }

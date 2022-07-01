@@ -19,7 +19,8 @@ itp(
 )
 }
 \arguments{
-\item{f}{The function for which the root is sought.}
+\item{f}{An R function or a pointer to a C++ function. The function for
+which the root is sought.}
 
 \item{interval}{A numeric vector \code{c(a, b)} of length 2
 containing the end points of the interval to be searched for the root.
@@ -62,13 +63,16 @@ An object (a list) of class \code{"itp"} containing the following
   If the root occurs at one of the input endpoints \code{a} or \code{b} then
   \code{iter = 0} and \code{estim.prec = NA}.
 
-  The return object also has the attributes \code{f} (the input function
-  \code{f}), \code{f_args} (a list of arguments to \code{f} provided in
-  \code{...}), \code{f_name} (the name of the input function, if it is
-  named, and the form of the function if not) and \code{input_a} and
-  \code{input_b} (the input values of \code{a} and \code{b}).  These
-  attributes are used in \code{\link{plot.itp}} to produce a plot of the
-  function \code{f} over the interval \code{(input_a, input_b)}.
+  The return object also has the attributes \code{f} (the input R function
+  or pointer to a C++ function \code{f}), \code{f_args} (a list of
+  additional arguments to \code{f} provided in \code{...}), \code{f_name}
+  (a function name extracted from \code{as.character(substitute(f))} or the
+  form of the R function if \code{f} was not named), \code{used_c} (a
+  logical scalar indicating whether \code{f} is an R function or a pointer
+  to a C++ function) and \code{input_a} and \code{input_b} (the input values
+  of \code{a} and \code{b}).  These attributes are used in
+  \code{\link{plot.itp}} to produce a plot of the function \code{f} over the
+  interval \code{(input_a, input_b)}.
 }
 \description{
 Performs one-dimensional root-finding using the ITP algorithm of
@@ -122,6 +126,9 @@ itp(wiki, c(1, 2), epsilon = 0.0005, k1 = 0.1, n0 = 1)
 x <- itp(wiki, c(1, 2), epsilon = 0.0005, n0 = 1)
 plot(x)
 
+wiki <- create_xptr("wiki")
+itp(f = wiki, c(1, 2), epsilon = 0.0005, k1 = 0.1)
+
 #### ----- Some examples from Table 1 of Oliveira and Takahashi (2021)
 
 ### Well-behaved functions
@@ -133,6 +140,9 @@ itp(lambert, c(-1, 1))
 # Trigonometric 1
 trig1 <- function(x, root) tan(x - root)
 itp(trig1, c(-1, 1), root = 1 / 10)
+#
+trig1 <- create_xptr("trig1")
+itp(f = trig1, c(-1, 1), root = 1 / 10)
 
 # Logarithmic
 logarithmic <- function(x, shift) log(abs(x - shift))

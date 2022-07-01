@@ -24,12 +24,24 @@
 #'   finding algorithm.
 #' @export
 plot.itp <- function(x, ...) {
+  # Extract f and any additional arguments to f
+  f <- attr(x, "f")
   f_args <- attr(x, "f_args")
-  if (length(f_args) == 0) {
-    plotfun <- attr(x, "f")
-  } else {
+  # If f is a C++ function
+  if (attr(x, "used_c")) {
     plotfun <- function(x) {
-      do.call(attr(x, "f"), attr(x, "f_args"))
+      not_vectorised <- function(x) {
+        do.call(callViaXPtr, list(x, f_args, f))
+      }
+      return(vapply(x, not_vectorised, 0.0))
+    }
+  } else {
+    if (length(f_args) == 0) {
+      plotfun <- f
+    } else {
+      plotfun <- function(x) {
+        return(do.call(f, c(list(x = x), f_args)))
+      }
     }
   }
   curvefn <- function(x, ..., from = attr(x, "input_a"),
