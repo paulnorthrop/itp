@@ -17,9 +17,16 @@
 #' @return No return value, only the plot is produced.
 #' @examples
 #' # Lambert
+#'
+#' # Supplying an R function
 #' lambert <- function(x) x * exp(x) - 1
 #' x <- itp(lambert, c(-1, 1))
 #' plot(x)
+#'
+#' # Supplying an external pointer to a C++ function
+#' lambert_ptr <- xptr_create("lambert")
+#' x <- itp(lambert_ptr, c(-1, 1))
+#' plot(x, main = "Lambert")
 #' @seealso \code{\link{itp}} for the Interpolate, Truncate, Project (ITP) root
 #'   finding algorithm.
 #' @export
@@ -46,11 +53,11 @@ plot.itp <- function(x, ...) {
   }
   curvefn <- function(x, ..., from = attr(x, "input_a"),
                       to = attr(x, "input_b"), xlab = "x", ylab = "f(x)",
-                      main = attr(x, "f_name"), lwd = 2) {
+                      main = attr(x, "f_name")) {
     graphics::curve(plotfun, ..., from = from, to = to, xlab = xlab,
-                    ylab = ylab, main = main, lwd = lwd)
-    graphics::abline(h = 0)
-    graphics::abline(v = x$root)
+                    ylab = ylab, main = main)
+    graphics::abline(h = 0, lty = 2)
+    graphics::abline(v = x$root, lty = 2)
   }
   curvefn(x, ...)
   return(invisible())

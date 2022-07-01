@@ -32,9 +32,16 @@ Uses \code{\link[graphics]{curve}} to produce a plot of the
 }
 \examples{
 # Lambert
+
+# Supplying an R function
 lambert <- function(x) x * exp(x) - 1
 x <- itp(lambert, c(-1, 1))
 plot(x)
+
+# Supplying an external pointer to a C++ function
+lambert_ptr <- xptr_create("lambert")
+x <- itp(lambert_ptr, c(-1, 1))
+plot(x, main = "Lambert")
 }
 \seealso{
 \code{\link{itp}} for the Interpolate, Truncate, Project (ITP) root
