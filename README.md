@@ -79,7 +79,7 @@ vignette.
 
 ``` r
 # Lambert, using an external pointer to a C++ function
-lambert_ptr <- create_xptr("lambert")
+lambert_ptr <- xptr_create("lambert")
 itp(lambert_ptr, c(-1, 1))
 #> function: lambert_ptr 
 #>       root     f(root)  iterations  

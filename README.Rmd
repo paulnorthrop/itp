@@ -62,7 +62,7 @@ Now, we create an external pointer to a C++ function that has been provided in t
 
 ```{r lambert_root_Cpp}
 # Lambert, using an external pointer to a C++ function
-lambert_ptr <- create_xptr("lambert")
+lambert_ptr <- xptr_create("lambert")
 itp(lambert_ptr, c(-1, 1))
 ```
 
