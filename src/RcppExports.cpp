@@ -303,6 +303,41 @@ RcppExport SEXP _itp_warsaw_cpp(SEXP xSEXP, SEXP parsSEXP) {
     UNPROTECT(1);
     return rcpp_result_gen;
 }
+// staircase_cpp
+double staircase_cpp(const double& x, const List& pars);
+static SEXP _itp_staircase_cpp_try(SEXP xSEXP, SEXP parsSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::traits::input_parameter< const double& >::type x(xSEXP);
+    Rcpp::traits::input_parameter< const List& >::type pars(parsSEXP);
+    rcpp_result_gen = Rcpp::wrap(staircase_cpp(x, pars));
+    return rcpp_result_gen;
+END_RCPP_RETURN_ERROR
+}
+RcppExport SEXP _itp_staircase_cpp(SEXP xSEXP, SEXP parsSEXP) {
+    SEXP rcpp_result_gen;
+    {
+        Rcpp::RNGScope rcpp_rngScope_gen;
+        rcpp_result_gen = PROTECT(_itp_staircase_cpp_try(xSEXP, parsSEXP));
+    }
+    Rboolean rcpp_isInterrupt_gen = Rf_inherits(rcpp_result_gen, "interrupted-error");
+    if (rcpp_isInterrupt_gen) {
+        UNPROTECT(1);
+        Rf_onintr();
+    }
+    bool rcpp_isLongjump_gen = Rcpp::internal::isLongjumpSentinel(rcpp_result_gen);
+    if (rcpp_isLongjump_gen) {
+        Rcpp::internal::resumeJump(rcpp_result_gen);
+    }
+    Rboolean rcpp_isError_gen = Rf_inherits(rcpp_result_gen, "try-error");
+    if (rcpp_isError_gen) {
+        SEXP rcpp_msgSEXP_gen = Rf_asChar(rcpp_result_gen);
+        UNPROTECT(1);
+        Rf_error(CHAR(rcpp_msgSEXP_gen));
+    }
+    UNPROTECT(1);
+    return rcpp_result_gen;
+}
 // create_xptr
 SEXP create_xptr(std::string fstr);
 static SEXP _itp_create_xptr_try(SEXP fstrSEXP) {
@@ -350,6 +385,7 @@ static int _itp_RcppExport_validate(const char* sig) {
         signatures.insert("double(*poly3_cpp)(const double&,const List&)");
         signatures.insert("double(*linear_cpp)(const double&,const List&)");
         signatures.insert("double(*warsaw_cpp)(const double&,const List&)");
+        signatures.insert("double(*staircase_cpp)(const double&,const List&)");
         signatures.insert("SEXP(*create_xptr)(std::string)");
     }
     return signatures.find(sig) != signatures.end();
@@ -365,6 +401,7 @@ RcppExport SEXP _itp_RcppExport_registerCCallable() {
     R_RegisterCCallable("itp", "_itp_poly3_cpp", (DL_FUNC)_itp_poly3_cpp_try);
     R_RegisterCCallable("itp", "_itp_linear_cpp", (DL_FUNC)_itp_linear_cpp_try);
     R_RegisterCCallable("itp", "_itp_warsaw_cpp", (DL_FUNC)_itp_warsaw_cpp_try);
+    R_RegisterCCallable("itp", "_itp_staircase_cpp", (DL_FUNC)_itp_staircase_cpp_try);
     R_RegisterCCallable("itp", "_itp_create_xptr", (DL_FUNC)_itp_create_xptr_try);
     R_RegisterCCallable("itp", "_itp_RcppExport_validate", (DL_FUNC)_itp_RcppExport_validate);
     return R_NilValue;
@@ -379,6 +416,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_itp_poly3_cpp", (DL_FUNC) &_itp_poly3_cpp, 2},
     {"_itp_linear_cpp", (DL_FUNC) &_itp_linear_cpp, 2},
     {"_itp_warsaw_cpp", (DL_FUNC) &_itp_warsaw_cpp, 2},
+    {"_itp_staircase_cpp", (DL_FUNC) &_itp_staircase_cpp, 2},
     {"_itp_create_xptr", (DL_FUNC) &_itp_create_xptr, 1},
     {"_itp_RcppExport_registerCCallable", (DL_FUNC) &_itp_RcppExport_registerCCallable, 0},
     {NULL, NULL, 0}

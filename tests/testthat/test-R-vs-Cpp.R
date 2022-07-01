@@ -68,3 +68,13 @@ res2 <- itp(warsaw_ptr, c(-0.85, -0.8))
 test_that("Warsaw: R vs C++ in (-0.85,-0.8)", {
   testthat::expect_equal(res1, res2, ignore_attr = TRUE)
 })
+
+# Staircase
+
+staircase <- function(x) ceiling(10 * x - 1) + 1 / 2
+res1 <- itp(staircase, c(-1, 1))
+staircase_ptr <- create_xptr("staircase")
+res2 <- itp(staircase_ptr, c(-1, 1))
+test_that("Staircase: R vs C++ in (-1,1)", {
+  testthat::expect_equal(res1, res2, ignore_attr = TRUE)
+})

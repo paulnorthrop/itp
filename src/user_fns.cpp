@@ -7,7 +7,9 @@ using namespace Rcpp;
 // User-supplied C++ functions for f.
 
 // Note that currently the only interface available in itp is
-// double fun(const double& x, const List& pars).
+// double fun(const double& x, const List& pars). The second argument,
+// that is, const List& pars must be included even if the function has no
+// additional arguments.
 
 // Each function must be prefaced by the line: // [[Rcpp::export]]
 
@@ -47,6 +49,11 @@ double warsaw_cpp(const double& x, const List& pars) {
   return sin(1.0 / (1.0 + x)) ;
 }
 
+// [[Rcpp::export]]
+double staircase_cpp(const double& x, const List& pars) {
+  return ceil(10.0 * x - 1.0) + 0.5 ;
+}
+
 // A function to create external pointers to the functions to evaluate f.
 // See http://gallery.rcpp.org/articles/passing-cpp-function-pointers/
 // If you write a new function above called new_name then add something
@@ -58,7 +65,11 @@ double warsaw_cpp(const double& x, const List& pars) {
 //' Create external pointer to a C++ function for \code{f}
 //'
 //' @param fstr A string indicating the C++ function required.
-//'
+//' @details See the vignette
+//' \href{https://paulnorthrop.github.io/itp/articles/itp-vignette.html}{
+//' Overview of the itp package} and the file
+//' \href{https://raw.githubusercontent.com/paulnorthrop/itp/main/src/user_fns.cpp}{
+//' user_fns.cpp} for information.
 //' @export
 // [[Rcpp::export]]
 SEXP create_xptr(std::string fstr) {
@@ -75,6 +86,8 @@ SEXP create_xptr(std::string fstr) {
     return(XPtr<funcPtr>(new funcPtr(&linear_cpp))) ;
   else if (fstr == "warsaw")
     return(XPtr<funcPtr>(new funcPtr(&warsaw_cpp))) ;
+  else if (fstr == "staircase")
+    return(XPtr<funcPtr>(new funcPtr(&staircase_cpp))) ;
   else
     return(XPtr<funcPtr>(R_NilValue)) ;
 }
@@ -90,5 +103,6 @@ ptr_trig1 <- create_xptr("trig1")
 ptr_poly3 <- create_xptr("poly3")
 ptr_linear <- create_xptr("linear")
 ptr_warsaw <- create_xptr("warsaw")
+ptr_staircase <- create_xptr("staircase")
 */
 

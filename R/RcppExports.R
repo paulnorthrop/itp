@@ -33,10 +33,18 @@ warsaw_cpp <- function(x, pars) {
     .Call(`_itp_warsaw_cpp`, x, pars)
 }
 
+staircase_cpp <- function(x, pars) {
+    .Call(`_itp_staircase_cpp`, x, pars)
+}
+
 #' Create external pointer to a C++ function for \code{f}
 #'
 #' @param fstr A string indicating the C++ function required.
-#'
+#' @details See the vignette
+#' \href{https://paulnorthrop.github.io/itp/articles/itp-vignette.html}{
+#' Overview of the itp package} and the file
+#' \href{https://raw.githubusercontent.com/paulnorthrop/itp/main/src/user_fns.cpp}{
+#' user_fns.cpp} for information.
 #' @export
 create_xptr <- function(fstr) {
     .Call(`_itp_create_xptr`, fstr)

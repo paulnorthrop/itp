@@ -12,3 +12,10 @@ create_xptr(fstr)
 \description{
 Create external pointer to a C++ function for \code{f}
 }
+\details{
+See the vignette
+\href{https://paulnorthrop.github.io/itp/articles/itp-vignette.html}{
+Overview of the itp package} and the file
+\href{https://raw.githubusercontent.com/paulnorthrop/itp/main/src/user_fns.cpp}{
+user_fns.cpp} for information.
+}
