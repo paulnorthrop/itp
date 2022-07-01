@@ -1,6 +1,11 @@
 ---
 title: "Overview of the itp package"
-output: rmarkdown::html_vignette
+author: "Paul Northrop"
+date: "`r Sys.Date()`"
+output:
+  rmarkdown::html_vignette:
+    toc: true
+    toc_depth: 2
 vignette: >
   %\VignetteIndexEntry{Overview of the itp package}
   %\VignetteEngine{knitr::rmarkdown}
@@ -15,6 +20,7 @@ knitr::opts_chunk$set(
   comment = "#>",
   fig.width = 5, 
   fig.height = 3,
+  fig.align='center',
   global.par = TRUE
 )
 ```
@@ -37,11 +43,15 @@ print.list <- function(x, digits = max(3L, getOption("digits") - 3L)) {
 library(itp)
 ```
 
-## Well-behaved functions
+First, we consider supplying the argument `f` to `itp` using an R function.  Then we show how to supply an external pointer to a C++ function. For the simple examples given in the `itp` package only a modest improvement in speed is observed (and expected).  However, being able to call `itp()` on the C++ side may have benefits in more challenging problems.  
+
+## Supplying an R function
+
+### Well-behaved functions
 
 These functions are infinitely differentiable and contain only one simple root over $[−1, 1]$.
 
-### Lambert: $f(x) = x e^x - 1$
+#### Lambert: $f(x) = x e^x - 1$
 
 ```{r}
 # Lambert
@@ -50,7 +60,7 @@ itp(lambert, c(-1, 1))
 uniroot(lambert, c(-1, 1), tol = 1e-10)
 ```
 
-```{r, echo = FALSE, fig.align='center'}
+```{r, echo = FALSE}
 oldpar <- par(mar = c(4, 4, 1, 1))
 curve(lambert, -1, 1, main = "Lambert")
 abline(h = 0, lty = 2)
@@ -58,7 +68,7 @@ abline(v = itp(lambert, c(-1, 1))$root, lty = 2)
 par(oldpar)
 ```
 
-### Trigonometric 1: $f(x) = \tan(x - 1 / 10)$
+#### Trigonometric 1: $f(x) = \tan(x - 1 / 10)$
 
 ```{r}
 # Trigonometric 1
@@ -67,7 +77,7 @@ itp(trig1, c(-1, 1))
 uniroot(trig1, c(-1, 1), tol = 1e-10)
 ```
 
-```{r, echo = FALSE, fig.align='center'}
+```{r, echo = FALSE}
 oldpar <- par(mar = c(4, 4, 1, 1))
 curve(trig1, -1, 1, main = "Trigonometric 1")
 abline(h = 0, lty = 2)
@@ -75,9 +85,9 @@ abline(v = itp(trig1, c(-1, 1))$root, lty = 2)
 par(oldpar)
 ```
 
-## Ill-behaved functions
+### Ill-behaved functions
 
-### Polynomial 3: $f(x) = (10^6 x - 1) ^ 3$
+#### Polynomial 3 (non-simple root): $f(x) = (10^6 x - 1) ^ 3$
 
 This function has a non-simple root at $10^{-6}$, with a multiplicity of 3.
 
@@ -91,7 +101,7 @@ itp(poly3, c(-1, 1), n0 = 0)
 uniroot(poly3, c(-1, 1), tol = 1e-10)
 ```
 
-```{r, echo = FALSE, fig.align='center'}
+```{r, echo = FALSE}
 oldpar <- par(mar = c(4, 4, 1, 1))
 curve(poly3, -1, 1, main = "Polynomial 3")
 abline(h = 0, lty = 2)
@@ -99,9 +109,7 @@ abline(v = itp(poly3, c(-1, 1))$root, lty = 2)
 par(oldpar)
 ```
 
-### Discontinuous
-
-### Staircase: $f(x) = \lceil 10 x - 1 \rceil + 1/2$
+#### Staircase (discontinuous): $f(x) = \lceil 10 x - 1 \rceil + 1/2$
 
 This function has discontinuities, including one at the location of the root.
 
@@ -112,7 +120,7 @@ itp(staircase, c(-1, 1))
 uniroot(staircase, c(-1, 1), tol = 1e-10)
 ```
 
-```{r, echo = FALSE, fig.align='center'}
+```{r, echo = FALSE}
 oldpar <- par(mar = c(4, 4, 1, 1))
 curve(staircase, -1, 1, main = "Staircase", n = 10000)
 abline(h = 0, lty = 2)
@@ -120,9 +128,7 @@ abline(v = itp(staircase, c(-1, 1))$root, lty = 2)
 par(oldpar)
 ```
 
-### Multiple roots
-
-### Warsaw: $f(x) = I(x > -1)\left(1 + \sin\left(\frac{1}{1+x}\right)\right)-1$
+#### Warsaw (multiple roots): $f(x) = I(x > -1)\left(1 + \sin\left(\frac{1}{1+x}\right)\right)-1$
 
 This function has multiple roots: we find two of them.
 
@@ -137,7 +143,7 @@ itp(warsaw, c(-0.85, -0.8))
 uniroot(warsaw, c(-0.85, -0.8), tol = 1e-10)
 ```
 
-```{r, echo = FALSE, fig.align='center'}
+```{r, echo = FALSE}
 oldpar <- par(mar = c(4, 4, 1, 1))
 curve(warsaw, -0.9999999, 1, main = "Warsaw", n = 1000)
 abline(h = 0, lty = 2)
@@ -147,6 +153,71 @@ par(oldpar)
 ```
 
 In terms of a naive comparison based on the number of iterations `itp` and `uniroot` perform similarly, except in the repeated-root "Polynomial 3" example, where `itp` requires fewer iterations.  
+
+## Supplying an external pointer to a C++ function
+
+The general approach follows the article [Passing user-supplied C++ functions](https://gallery.rcpp.org/articles/passing-cpp-function-pointers/) in the [Rcpp Gallery](https://gallery.rcpp.org/). The user writes a C++ function to calculate $f$. This function must have a particular structure.  As an example consider the following function, which implements the Lambert function considered above.
+
+    double lambert_cpp(const double& x, const List& pars) {
+      return x * exp(x) - 1.0 ;
+    }
+
+The function returns a value of double type and has two arguments: the first is the main argument and is of double type and the second is a list containing the values of additional parameters whose values are not specified inside the function. This list must be present, even if an empty list will be passed to the function. This allows the user to change the values of any parameters in $f$ without editing the function.  
+
+One way to provide C++ functions is to create them in a file, say `user_fns.cpp`.  Example content is provided below.  
+
+    #include <Rcpp.h>
+    using namespace Rcpp;
+
+    // [[Rcpp::interfaces(r, cpp)]]
+
+    // User-supplied C++ functions for f.
+    // The only interface is double fun(const double& x, const List& pars).
+    // The second (List) argument must be included even if the function has no
+    // additional arguments.
+    // Each function must be prefaced by the line: // [[Rcpp::export]]
+
+    // [[Rcpp::export]]
+    double lambert_cpp(const double& x, const List& pars) {
+      return x * exp(x) - 1.0 ;
+    }
+
+    // [[Rcpp::export]]
+    SEXP xptr_create(std::string fstr) {
+      typedef double (*funcPtr)(const double& x, const List& pars) ;
+      if (fstr == "lambert")
+        return(XPtr<funcPtr>(new funcPtr(&wiki_cpp))) ;
+      else
+        return(XPtr<funcPtr>(R_NilValue)) ;
+    }
+
+The full file is available on the [itp Github page](https://raw.githubusercontent.com/paulnorthrop/itp/main/src/user_fns.cpp).  The functions in this file are compiled and made available to R, either using the `Rcpp::sourceCpp` function (e.g. `Rcpp::sourceCpp("user_fns.cpp")`) or using RStudio's Source button on the editor toolbar.  The example content below also includes the function `xptr_create`, which creates an external pointer to a C++ function. It is this external pointer that is passed to `itp`.  If the user has written a C++ function, say `new_name`, then they need to add to `xptr_create` (or their own version of this function) two lines of code:
+
+    else if (fstr == "new_name")  
+      return(Rcpp::XPtr<funcPtr>(new funcPtr(&new_name))) ;
+
+to create an external pointer for `new_name` using `create_xptr`.  
+
+### Lambert: $f(x) = x e^x - 1$
+
+We repeat the Lambert example, obtaining the same results as above when we used an R function to supply the function.
+
+```{r lambert_root_Cpp}
+# Lambert, using an external pointer to a C++ function
+lambert_ptr <- xptr_create("lambert")
+res <- itp(lambert_ptr, c(-1, 1))
+res
+```
+
+## Plot method
+
+Objects of class `itp` have a plot method that, by default, produces a plot of the function over the interval over which the root was sought and indicates the location of the root using dashed lines.
+
+```{r plot_itp, fig.show='hold'}
+oldpar <- par(mar = c(4, 4, 1, 1))
+plot(res, main = "Lambert")
+par(oldpar)
+```
 
 ## References
 
