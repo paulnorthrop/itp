@@ -102,10 +102,18 @@ such as graphical parameters.</p></dd>
     <div id="ref-examples">
     <h2>Examples</h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co"># Lambert</span></span>
+<span class="r-in"></span>
+<span class="r-in"><span class="co"># Supplying an R function</span></span>
 <span class="r-in"><span class="va">lambert</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="va">x</span> <span class="op">*</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">exp</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">-</span> <span class="fl">1</span></span>
 <span class="r-in"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="itp.html">itp</a></span><span class="op">(</span><span class="va">lambert</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
 <span class="r-plt img"><img src="plot.itp-1.png" alt="" width="700" height="433"></span>
+<span class="r-in"></span>
+<span class="r-in"><span class="co"># Supplying an external pointer to a C++ function</span></span>
+<span class="r-in"><span class="va">lambert_ptr</span> <span class="op">&lt;-</span> <span class="fu"><a href="xptr_create.html">xptr_create</a></span><span class="op">(</span><span class="st">"lambert"</span><span class="op">)</span></span>
+<span class="r-in"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="itp.html">itp</a></span><span class="op">(</span><span class="va">lambert_ptr</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">x</span>, main <span class="op">=</span> <span class="st">"Lambert"</span><span class="op">)</span></span>
+<span class="r-plt img"><img src="plot.itp-2.png" alt="" width="700" height="433"></span>
 </code></pre></div>
     </div>
   </div>

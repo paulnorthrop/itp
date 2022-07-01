@@ -42,4 +42,10 @@
   <url>
     <loc>/reference/print.itp.html</loc>
   </url>
+  <url>
+    <loc>/reference/xptr_create.html</loc>
+  </url>
+  <url>
+    <loc>/reference/xptr_eval.html</loc>
+  </url>
 </urlset>
