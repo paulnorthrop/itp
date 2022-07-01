@@ -5,15 +5,10 @@ using namespace Rcpp;
 // [[Rcpp::interfaces(r, cpp)]]
 
 // User-supplied C++ functions for f.
-
-// Note that currently the only interface available in itp is
-// double fun(const double& x, const List& pars). The second argument,
-// that is, const List& pars must be included even if the function has no
+// The only interface is double fun(const double& x, const List& pars).
+// The second (List) argument must be included even if the function has no
 // additional arguments.
-
 // Each function must be prefaced by the line: // [[Rcpp::export]]
-
-// One-dimensional standard normal.
 
 // [[Rcpp::export]]
 double wiki_cpp(const double& x, const List& pars) {
