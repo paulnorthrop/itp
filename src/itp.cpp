@@ -15,7 +15,7 @@ List itp_cpp(const SEXP& f, const List& pars, double& a, double& b,
   // Initialise the counter k and implement the loop
   int k = 0 ;
   double xf, x12, delta, rk, xt, xITP, yITP, root, froot, estimprec ;
-  while (b - a > 2 * epsilon) {
+  while (b - a > 2.0 * epsilon) {
     // Interpolation. Regular falsi, equation (5)
     xf = (yb * a - ya * b) / (yb - ya) ;
     // Truncation

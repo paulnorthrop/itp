@@ -12,7 +12,7 @@ using namespace Rcpp;
 
 // [[Rcpp::export]]
 double wiki_cpp(const double& x, const List& pars) {
-  return pow(x, 3.0) - x - 2 ;
+  return pow(x, 3.0) - x - 2.0 ;
 }
 
 // [[Rcpp::export]]
