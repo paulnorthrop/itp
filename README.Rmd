@@ -8,6 +8,9 @@ output: github_document
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
+  fig.width = 5, 
+  fig.height = 3,
+  fig.align='center',
   fig.path = "man/figures/README-"
 )
 ```
@@ -26,7 +29,7 @@ The **itp** package implements the Interpolate, Truncate, Project (ITP) root-fin
 
 ### Examples
 
-We use three examples from Section 3 of [Oliveira and Takahashi (2021)](https://doi.org/10.1145/3423597) to illustrate the use of the `itp` function.  Each of these functions has a root in the interval $(-1, 1)$.
+We use three examples from Section 3 of [Oliveira and Takahashi (2021)](https://doi.org/10.1145/3423597) to illustrate the use of the `itp` function.  Each of these functions has a root in the interval $(-1, 1)$. The function can be supplied either as an R function or as an external pointer to a C++ function.
 
 ```{r}
 library(itp)
@@ -36,8 +39,8 @@ library(itp)
 
 The Lambert function $l(x) = xe^x - 1$ is continuous.
 
-```{r lambert, echo = FALSE, fig.align='center', fig.width=5, fig.height=3}
-oldpar <- par(mar = c(4, 4, 1, 1))
+```{r lambert, echo = FALSE}
+oldpar <- par(mar = c(4.5, 4, 1, 1))
 lambert <- function(x) x * exp(x) - 1
 curve(lambert, -1, 1, main = "Lambert")
 abline(h = 0, lty = 2)
@@ -47,18 +50,28 @@ par(oldpar)
 
 The `itp` function finds an estimate of the root, that is, $x^*$ for which $f(x^*)$ is (approximately) equal to 0.  The algorithm continues until the length of the interval that brackets the root is smaller than $2 \epsilon$, where $\epsilon$ is a user-supplied tolerance.  The default is $\epsilon = 10^{-10}$.
 
-```{r lambert_root}
-# Lambert
+First, we supply an R function that evaluates the Lambert function.
+
+```{r lambert_root_r}
+# Lambert, using an R function
 lambert <- function(x) x * exp(x) - 1
 itp(lambert, c(-1, 1))
+```
+
+Now, we create an external pointer to a C++ function that has been provided in the `itp` package and pass this pointer to the function `itp()`.  For more information see the [Overview of the itp package](https://paulnorthrop.github.io/itp/articles/itp-vignette.html) vignette.
+
+```{r lambert_root_Cpp}
+# Lambert, using an external pointer to a C++ function
+lambert_ptr <- create_xptr("lambert")
+itp(lambert_ptr, c(-1, 1))
 ```
 
 #### A discontinuous function
 
 The staircase function $s(x) = \lceil 10 x - 1 \rceil + 1/2$ is discontinuous.
 
-```{r staircase, echo = FALSE, fig.align='center', fig.width=5, fig.height=3}
-oldpar <- par(mar = c(4, 4, 1, 1))
+```{r staircase, echo = FALSE}
+oldpar <- par(mar = c(4.5, 4, 1, 1))
 staircase <- function(x) ceiling(10 * x - 1) + 1 / 2
 curve(staircase, -1, 1, main = "Staircase", n = 10000)
 abline(h = 0, lty = 2)
@@ -79,8 +92,8 @@ print(res, all = TRUE)
 
 The Warsaw function $w(x) = I(x > -1)\left(1 + \sin\left(\frac{1}{1+x}\right)\right)-1$ has multiple roots.
 
-```{r warsaw, echo = FALSE, fig.align='center', fig.width=5, fig.height=3}
-oldpar <- par(mar = c(4, 4, 1, 1))
+```{r warsaw, echo = FALSE}
+oldpar <- par(mar = c(4.5, 4, 1, 1))
 warsaw <- function(x) ifelse(x > -1, sin(1 / (x + 1)), -1)
 curve(warsaw, -0.9999999, 1, main = "Warsaw", n = 1000)
 abline(h = 0, lty = 2)
@@ -88,7 +101,7 @@ abline(v = itp(warsaw, c(-1, 1))$root, lty = 2)
 par(oldpar)
 ```
 
-When the initial interval is $[-1, 1]$ the `itp` function finds the root $x \approx -0.6817$.  There are other roots that could be found from different initial values.
+When the initial interval is $[-1, 1]$ the `itp` function finds the root $x \approx -0.6817$.  There are other roots that could be found from a different initial interval.
 
 ```{r warsaw_root}
 # Warsaw

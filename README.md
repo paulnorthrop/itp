@@ -33,6 +33,8 @@ We use three examples from Section 3 of [Oliveira and Takahashi
 (2021)](https://doi.org/10.1145/3423597) to illustrate the use of the
 `itp` function. Each of these functions has a root in the interval
 ![(-1, 1)](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;%28-1%2C%201%29 "(-1, 1)").
+The function can be supplied either as an R function or as an external
+pointer to a C++ function.
 
 ``` r
 library(itp)
@@ -58,10 +60,28 @@ where
 is a user-supplied tolerance. The default is
 ![\\epsilon = 10^{-10}](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;%5Cepsilon%20%3D%2010%5E%7B-10%7D "\epsilon = 10^{-10}").
 
+First, we supply an R function that evaluates the Lambert function.
+
 ``` r
-# Lambert
+# Lambert, using an R function
 lambert <- function(x) x * exp(x) - 1
 itp(lambert, c(-1, 1))
+#> function: lambert 
+#>       root     f(root)  iterations  
+#>     0.5671   2.048e-12           8
+```
+
+Now, we create an external pointer to a C++ function that has been
+provided in the `itp` package and pass this pointer to the function
+`itp()`. For more information see the [Overview of the itp
+package](https://paulnorthrop.github.io/itp/articles/itp-vignette.html)
+vignette.
+
+``` r
+# Lambert, using an external pointer to a C++ function
+lambert_ptr <- create_xptr("lambert")
+itp(lambert_ptr, c(-1, 1))
+#> function: lambert_ptr 
 #>       root     f(root)  iterations  
 #>     0.5671   2.048e-12           8
 ```
@@ -85,6 +105,7 @@ the root `res$root` is the midpoint of the bracketing interval
 staircase <- function(x) ceiling(10 * x - 1) + 1 / 2
 res <- itp(staircase, c(-1, 1))
 print(res, all = TRUE)
+#> function: staircase 
 #>       root     f(root)  iterations           a           b         f.a  
 #>  7.404e-11         0.5          31           0   1.481e-10        -0.5  
 #>        f.b   precision  
@@ -103,12 +124,14 @@ When the initial interval is
 ![\[-1, 1\]](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;%5B-1%2C%201%5D "[-1, 1]")
 the `itp` function finds the root
 ![x \\approx -0.6817](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;x%20%5Capprox%20-0.6817 "x \approx -0.6817").
-There are other roots that could be found from different initial values.
+There are other roots that could be found from a different initial
+interval.
 
 ``` r
 # Warsaw
 warsaw <- function(x) ifelse(x > -1, sin(1 / (x + 1)), -1)
 itp(warsaw, c(-1, 1))
+#> function: warsaw 
 #>       root     f(root)  iterations  
 #>    -0.6817  -5.472e-11          11
 ```
