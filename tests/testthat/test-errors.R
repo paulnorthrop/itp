@@ -49,3 +49,8 @@ test_that("Lambert: n0 < 0", {
 test_that("Wrong f", {
   testthat::expect_error(itp(f = "lambert", c(-1, 1)))
 })
+
+# Trying to create a pointer based on a function that does not exist
+test_that("No C++ function", {
+  testthat::expect_error(create_xptr("fn_does_not_exist"))
+})
