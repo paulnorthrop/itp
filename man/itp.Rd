@@ -132,7 +132,7 @@ x <- itp(wiki, c(1, 2), epsilon = 0.0005, n0 = 1)
 plot(x)
 
 # Supplying an external pointer to a C++ function
-wiki <- create_xptr("wiki")
+wiki <- xptr_create("wiki")
 itp(f = wiki, c(1, 2), epsilon = 0.0005, k1 = 0.1)
 plot(x)
 
@@ -149,7 +149,7 @@ itp(lambert, c(-1, 1))
 trig1 <- function(x, root) tan(x - root)
 itp(trig1, c(-1, 1), root = 1 / 10)
 # Supplying an external pointer to a C++ function
-trig1 <- create_xptr("trig1")
+trig1 <- xptr_create("trig1")
 itp(f = trig1, c(-1, 1), root = 1 / 10)
 
 # Logarithmic

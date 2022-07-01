@@ -24,6 +24,9 @@
 #' @seealso \code{\link{itp}} for the ITP root-finding algorithm
 #' @seealso \code{\link{print.itp}} and \code{\link{plot.itp}} for print and
 #'   plot methods for objects of class \code{"itp"} returned from \code{itp}.
+#' @seealso \code{\link{xptr_create}} and \code{\link{xptr_eval}} for
+#'   creating external pointers to the C++ functions used as examples in this
+#'   package and evaluating those functions.
 #' @docType package
 #' @name itp-package
 #' @useDynLib itp, .registration = TRUE

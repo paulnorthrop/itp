@@ -52,5 +52,5 @@ test_that("Wrong f", {
 
 # Trying to create a pointer based on a function that does not exist
 test_that("No C++ function", {
-  testthat::expect_error(create_xptr("fn_does_not_exist"))
+  testthat::expect_error(xptr_create("fn_does_not_exist"))
 })

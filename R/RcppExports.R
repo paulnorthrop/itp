@@ -17,22 +17,25 @@ itp_cpp <- function(f, pars, a, b, ya, yb, epsilon, k1, k2, for_rk, inc) {
 #' \href{https://gallery.rcpp.org/articles/passing-cpp-function-pointers/}{
 #' Passing user-supplied C++ functions} article in the
 #' \href{https://gallery.rcpp.org/}{Rcpp Gallery} for information.
+#' @return A numeric scalar: the value of the C++ function evaluated at the
+#'   input values \code{x} and \code{pars}.
 #' @examples
-#' lambert_ptr <- create_xptr("lambert")
+#' lambert_ptr <- xptr_create("lambert")
 #' res <- itp(lambert_ptr, c(-1, 1))
 #'
 #' # Value at lower limit
-#' callViaXPtr(-1, list(), lambert_ptr)
+#' xptr_eval(-1, list(), lambert_ptr)
 #'
 #' # Value at upper limit
-#' callViaXPtr(1, list(), lambert_ptr)
+#' xptr_eval(1, list(), lambert_ptr)
 #'
 #' # Value at the estimated root
-#' callViaXPtr(res$root, list(), lambert_ptr)
-#' @seealso \code{\link{create_xptr}}
+#' xptr_eval(res$root, list(), lambert_ptr)
+#' @seealso \code{\link{xptr_create}} for creating an external pointer to a
+#'   C++ function.
 #' @export
-callViaXPtr <- function(x, pars, xpsexp) {
-    .Call(`_itp_callViaXPtr`, x, pars, xpsexp)
+xptr_eval <- function(x, pars, xpsexp) {
+    .Call(`_itp_xptr_eval`, x, pars, xpsexp)
 }
 
 wiki_cpp <- function(x, pars) {
@@ -63,14 +66,14 @@ staircase_cpp <- function(x, pars) {
     .Call(`_itp_staircase_cpp`, x, pars)
 }
 
-#' Create external pointer to a C++ function for \code{f}
+#' Create an external pointer to a C++ function
 #'
 #' This function is used in \code{\link[itp]{itp-package}} to create
 #' external pointers to the C++ functions used as examples to illustrate the
 #' use of the function \code{\link{itp}}.  These pointers are passed as the
 #' argument \code{f} to \code{\link{itp}}.  To create their own examples
 #' the user will need to create their own C++ function a function that is
-#' similar to \code{create_xptr}.
+#' similar to \code{xptr_create}.
 #'
 #' @param fstr A string indicating the C++ function required.
 #' @details See the vignette
@@ -78,13 +81,19 @@ staircase_cpp <- function(x, pars) {
 #' Overview of the itp package} and the file
 #' \href{https://raw.githubusercontent.com/paulnorthrop/itp/main/src/user_fns.cpp}{
 #' user_fns.cpp} for information.
-#' @seealso \code{\link{callViaXPtr}} for calling a C++ function using an
+#'
+#' The example C++ functions available in \code{itp} are: \code{"wiki"},
+#' \code{"lambert"}, \code{"trig1"}, \code{"poly3"}, \code{"linear"},
+#' \code{"warsaw"} and \code{staircase}.
+#' @return The external pointer.
+#' @seealso \code{\link{xptr_eval}} for calling a C++ function using an
 #'   external pointer.
-#' @section Examples:
-#' See the example in \code{\link{callViaXPtr}}.
+#' @examples
+#' lambert_ptr <- xptr_create("lambert")
+#' res <- itp(lambert_ptr, c(-1, 1))
 #' @export
-create_xptr <- function(fstr) {
-    .Call(`_itp_create_xptr`, fstr)
+xptr_create <- function(fstr) {
+    .Call(`_itp_xptr_create`, fstr)
 }
 
 # Register entry points for exported C++ functions

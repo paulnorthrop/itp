@@ -62,14 +62,14 @@ double staircase_cpp(const double& x, const List& pars) {
 // else if (fstr == "new_name")
 //   return(XPtr<funcPtr>(new funcPtr(&new_name))) ;
 
-//' Create external pointer to a C++ function for \code{f}
+//' Create an external pointer to a C++ function
 //'
 //' This function is used in \code{\link[itp]{itp-package}} to create
 //' external pointers to the C++ functions used as examples to illustrate the
 //' use of the function \code{\link{itp}}.  These pointers are passed as the
 //' argument \code{f} to \code{\link{itp}}.  To create their own examples
 //' the user will need to create their own C++ function a function that is
-//' similar to \code{create_xptr}.
+//' similar to \code{xptr_create}.
 //'
 //' @param fstr A string indicating the C++ function required.
 //' @details See the vignette
@@ -77,13 +77,19 @@ double staircase_cpp(const double& x, const List& pars) {
 //' Overview of the itp package} and the file
 //' \href{https://raw.githubusercontent.com/paulnorthrop/itp/main/src/user_fns.cpp}{
 //' user_fns.cpp} for information.
-//' @seealso \code{\link{callViaXPtr}} for calling a C++ function using an
+//'
+//' The example C++ functions available in \code{itp} are: \code{"wiki"},
+//' \code{"lambert"}, \code{"trig1"}, \code{"poly3"}, \code{"linear"},
+//' \code{"warsaw"} and \code{staircase}.
+//' @return The external pointer.
+//' @seealso \code{\link{xptr_eval}} for calling a C++ function using an
 //'   external pointer.
-//' @section Examples:
-//' See the example in \code{\link{callViaXPtr}}.
+//' @examples
+//' lambert_ptr <- xptr_create("lambert")
+//' res <- itp(lambert_ptr, c(-1, 1))
 //' @export
 // [[Rcpp::export]]
-SEXP create_xptr(std::string fstr) {
+SEXP xptr_create(std::string fstr) {
   typedef double (*funcPtr)(const double& x, const List& pars) ;
   if (fstr == "wiki")
     return(XPtr<funcPtr>(new funcPtr(&wiki_cpp))) ;
@@ -108,12 +114,12 @@ SEXP create_xptr(std::string fstr) {
 // pointer-creation functions in an R session or R package.
 
 /*** R
-ptr_wiki <- create_xptr("wiki")
-ptr_lambert <- create_xptr("lambert")
-ptr_trig1 <- create_xptr("trig1")
-ptr_poly3 <- create_xptr("poly3")
-ptr_linear <- create_xptr("linear")
-ptr_warsaw <- create_xptr("warsaw")
-ptr_staircase <- create_xptr("staircase")
+ptr_wiki <- xptr_create("wiki")
+ptr_lambert <- xptr_create("lambert")
+ptr_trig1 <- xptr_create("trig1")
+ptr_poly3 <- xptr_create("poly3")
+ptr_linear <- xptr_create("linear")
+ptr_warsaw <- xptr_create("warsaw")
+ptr_staircase <- xptr_create("staircase")
 */
 

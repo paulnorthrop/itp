@@ -14,7 +14,7 @@ test_that("Lambert in R: plot.itp OK", {
 })
 
 # (b)
-lambert_ptr <- create_xptr("lambert")
+lambert_ptr <- xptr_create("lambert")
 res <- itp(lambert_ptr, c(-1, 1))
 test_that("Lambert in C++: plot.itp OK", {
   testthat::expect_silent(plot(res))
@@ -30,7 +30,7 @@ test_that("Trig 1 in R: plot.itp OK", {
 })
 
 # (d)
-trig1_ptr <- create_xptr("trig1")
+trig1_ptr <- xptr_create("trig1")
 itp(f = trig1_ptr, c(-1, 1), root = 1 / 10)
 test_that("Lambert in C++: plot.itp OK", {
   testthat::expect_silent(plot(res))

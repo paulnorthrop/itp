@@ -2,8 +2,8 @@
 
 S3method(plot,itp)
 S3method(print,itp)
-export(callViaXPtr)
-export(create_xptr)
 export(itp)
+export(xptr_create)
+export(xptr_eval)
 importFrom(Rcpp,sourceCpp)
 useDynLib(itp, .registration = TRUE)

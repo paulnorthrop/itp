@@ -75,22 +75,25 @@ List itp_cpp(const SEXP& f, const List& pars, double& a, double& b,
 //' \href{https://gallery.rcpp.org/articles/passing-cpp-function-pointers/}{
 //' Passing user-supplied C++ functions} article in the
 //' \href{https://gallery.rcpp.org/}{Rcpp Gallery} for information.
+//' @return A numeric scalar: the value of the C++ function evaluated at the
+//'   input values \code{x} and \code{pars}.
 //' @examples
-//' lambert_ptr <- create_xptr("lambert")
+//' lambert_ptr <- xptr_create("lambert")
 //' res <- itp(lambert_ptr, c(-1, 1))
 //'
 //' # Value at lower limit
-//' callViaXPtr(-1, list(), lambert_ptr)
+//' xptr_eval(-1, list(), lambert_ptr)
 //'
 //' # Value at upper limit
-//' callViaXPtr(1, list(), lambert_ptr)
+//' xptr_eval(1, list(), lambert_ptr)
 //'
 //' # Value at the estimated root
-//' callViaXPtr(res$root, list(), lambert_ptr)
-//' @seealso \code{\link{create_xptr}}
+//' xptr_eval(res$root, list(), lambert_ptr)
+//' @seealso \code{\link{xptr_create}} for creating an external pointer to a
+//'   C++ function.
 //' @export
 // [[Rcpp::export]]
-double callViaXPtr(const double& x, const List&pars, SEXP xpsexp) {
+double xptr_eval(const double& x, const List&pars, SEXP xpsexp) {
   typedef double (*funcPtr)(const double& x, const List& pars) ;
   XPtr<funcPtr> xpfun(xpsexp);
   funcPtr fun = *xpfun;

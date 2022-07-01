@@ -35,4 +35,8 @@ Oliveira, I. F. D. and Takahashi, R. H. C. (2021). An Enhancement
 
 \code{\link{print.itp}} and \code{\link{plot.itp}} for print and
   plot methods for objects of class \code{"itp"} returned from \code{itp}.
+
+\code{\link{xptr_create}} and \code{\link{xptr_eval}} for
+  creating external pointers to the C++ functions used as examples in this
+  package and evaluating those functions.
 }

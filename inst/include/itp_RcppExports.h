@@ -45,17 +45,17 @@ namespace itp {
         return Rcpp::as<List >(rcpp_result_gen);
     }
 
-    inline double callViaXPtr(const double& x, const List& pars, SEXP xpsexp) {
-        typedef SEXP(*Ptr_callViaXPtr)(SEXP,SEXP,SEXP);
-        static Ptr_callViaXPtr p_callViaXPtr = NULL;
-        if (p_callViaXPtr == NULL) {
-            validateSignature("double(*callViaXPtr)(const double&,const List&,SEXP)");
-            p_callViaXPtr = (Ptr_callViaXPtr)R_GetCCallable("itp", "_itp_callViaXPtr");
+    inline double xptr_eval(const double& x, const List& pars, SEXP xpsexp) {
+        typedef SEXP(*Ptr_xptr_eval)(SEXP,SEXP,SEXP);
+        static Ptr_xptr_eval p_xptr_eval = NULL;
+        if (p_xptr_eval == NULL) {
+            validateSignature("double(*xptr_eval)(const double&,const List&,SEXP)");
+            p_xptr_eval = (Ptr_xptr_eval)R_GetCCallable("itp", "_itp_xptr_eval");
         }
         RObject rcpp_result_gen;
         {
             RNGScope RCPP_rngScope_gen;
-            rcpp_result_gen = p_callViaXPtr(Shield<SEXP>(Rcpp::wrap(x)), Shield<SEXP>(Rcpp::wrap(pars)), Shield<SEXP>(Rcpp::wrap(xpsexp)));
+            rcpp_result_gen = p_xptr_eval(Shield<SEXP>(Rcpp::wrap(x)), Shield<SEXP>(Rcpp::wrap(pars)), Shield<SEXP>(Rcpp::wrap(xpsexp)));
         }
         if (rcpp_result_gen.inherits("interrupted-error"))
             throw Rcpp::internal::InterruptedException();
@@ -213,17 +213,17 @@ namespace itp {
         return Rcpp::as<double >(rcpp_result_gen);
     }
 
-    inline SEXP create_xptr(std::string fstr) {
-        typedef SEXP(*Ptr_create_xptr)(SEXP);
-        static Ptr_create_xptr p_create_xptr = NULL;
-        if (p_create_xptr == NULL) {
-            validateSignature("SEXP(*create_xptr)(std::string)");
-            p_create_xptr = (Ptr_create_xptr)R_GetCCallable("itp", "_itp_create_xptr");
+    inline SEXP xptr_create(std::string fstr) {
+        typedef SEXP(*Ptr_xptr_create)(SEXP);
+        static Ptr_xptr_create p_xptr_create = NULL;
+        if (p_xptr_create == NULL) {
+            validateSignature("SEXP(*xptr_create)(std::string)");
+            p_xptr_create = (Ptr_xptr_create)R_GetCCallable("itp", "_itp_xptr_create");
         }
         RObject rcpp_result_gen;
         {
             RNGScope RCPP_rngScope_gen;
-            rcpp_result_gen = p_create_xptr(Shield<SEXP>(Rcpp::wrap(fstr)));
+            rcpp_result_gen = p_xptr_create(Shield<SEXP>(Rcpp::wrap(fstr)));
         }
         if (rcpp_result_gen.inherits("interrupted-error"))
             throw Rcpp::internal::InterruptedException();

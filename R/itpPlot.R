@@ -31,7 +31,7 @@ plot.itp <- function(x, ...) {
   if (attr(x, "used_c")) {
     plotfun <- function(x) {
       not_vectorised <- function(x) {
-        do.call(callViaXPtr, list(x, f_args, f))
+        do.call(xptr_eval, list(x, f_args, f))
       }
       return(vapply(x, not_vectorised, 0.0))
     }

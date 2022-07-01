@@ -107,7 +107,7 @@
 #' plot(x)
 #'
 #' # Supplying an external pointer to a C++ function
-#' wiki <- create_xptr("wiki")
+#' wiki <- xptr_create("wiki")
 #' itp(f = wiki, c(1, 2), epsilon = 0.0005, k1 = 0.1)
 #' plot(x)
 #'
@@ -124,7 +124,7 @@
 #' trig1 <- function(x, root) tan(x - root)
 #' itp(trig1, c(-1, 1), root = 1 / 10)
 #' # Supplying an external pointer to a C++ function
-#' trig1 <- create_xptr("trig1")
+#' trig1 <- xptr_create("trig1")
 #' itp(f = trig1, c(-1, 1), root = 1 / 10)
 #'
 #' # Logarithmic
@@ -194,8 +194,8 @@ itp <- function(f, interval, ..., a = min(interval), b = max(interval),
   input_b <- b
   # If we are using C++ then calculate f(a) and f(b)
   if (using_c) {
-    f.a <- do.call(callViaXPtr, list(a, list(...), f))
-    f.b <- do.call(callViaXPtr, list(b, list(...), f))
+    f.a <- do.call(xptr_eval, list(a, list(...), f))
+    f.b <- do.call(xptr_eval, list(b, list(...), f))
   }
   # Create a function name
   temp <- as.character(substitute(f))
