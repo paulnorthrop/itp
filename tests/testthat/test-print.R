@@ -9,6 +9,6 @@ test_that("print, all = FALSE", {
   testthat::expect_equal(res, res1)
 })
 res2 <- print(res, all = TRUE)
-test_that("print, all = FALSE", {
+test_that("print, all = TRUE", {
   testthat::expect_equal(res, res2)
 })
