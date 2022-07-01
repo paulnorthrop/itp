@@ -88,6 +88,7 @@ List itp_cpp(const SEXP& f, const List& pars, double& a, double& b,
 //' # Value at the estimated root
 //' callViaXPtr(res$root, list(), lambert_ptr)
 //' @seealso \code{\link{create_xptr}}
+//' @export
 // [[Rcpp::export]]
 double callViaXPtr(const double& x, const List&pars, SEXP xpsexp) {
   typedef double (*funcPtr)(const double& x, const List& pars) ;

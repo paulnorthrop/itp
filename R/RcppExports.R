@@ -30,6 +30,7 @@ itp_cpp <- function(f, pars, a, b, ya, yb, epsilon, k1, k2, for_rk, inc) {
 #' # Value at the estimated root
 #' callViaXPtr(res$root, list(), lambert_ptr)
 #' @seealso \code{\link{create_xptr}}
+#' @export
 callViaXPtr <- function(x, pars, xpsexp) {
     .Call(`_itp_callViaXPtr`, x, pars, xpsexp)
 }
