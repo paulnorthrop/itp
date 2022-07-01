@@ -200,7 +200,7 @@ itp <- function(f, interval, ..., a = min(interval), b = max(interval),
   # Create a function name
   temp <- as.character(substitute(f))
   if (using_c) {
-    f_name <- ifelse(length(temp) > 1, temp[2], temp)
+    f_name <- temp
   } else {
     f_name <- ifelse(length(temp) > 1, temp[3], temp)
   }
