@@ -94,8 +94,8 @@
 #'   of the Bisection Method Average Performance Preserving Minmax Optimality,
 #'   \emph{ACM Transactions on Mathematical Software}, \strong{47}(1), 1-24.
 #'   \doi{10.1145/3423597}
-#' @seealso \code{\link{print.itp}} to print objects of class \code{"itp"}
-#'   returned from \code{\link{itp}}.
+#' @seealso \code{\link{print.itp}} and \code{\link{plot.itp}} for print and
+#'   plot methods for objects of class \code{"itp"} returned from \code{itp}.
 #' @examples
 #' #### ----- The example used in the Wikipedia entry for the ITP method
 #'

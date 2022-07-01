@@ -196,6 +196,6 @@ Oliveira, I. F. D. and Takahashi, R. H. C. (2021). An Enhancement
   \doi{10.1145/3423597}
 }
 \seealso{
-\code{\link{print.itp}} to print objects of class \code{"itp"}
-  returned from \code{\link{itp}}.
+\code{\link{print.itp}} and \code{\link{plot.itp}} for print and
+  plot methods for objects of class \code{"itp"} returned from \code{itp}.
 }
