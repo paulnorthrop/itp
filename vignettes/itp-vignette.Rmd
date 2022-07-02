@@ -145,7 +145,7 @@ uniroot(warsaw, c(-0.85, -0.8), tol = 1e-10)
 
 ```{r, echo = FALSE}
 oldpar <- par(mar = c(4, 4, 1, 1))
-curve(warsaw, -0.9999999, 1, main = "Warsaw", n = 1000)
+curve(warsaw, -1, 1, main = "Warsaw", n = 1000)
 abline(h = 0, lty = 2)
 abline(v = itp(warsaw, c(-1, 1))$root, lty = 2)
 abline(v = itp(warsaw, c(-0.85, -0.8))$root, lty = 2)
