@@ -103,13 +103,15 @@
 #' wiki <- function(x) x ^ 3 - x - 2
 #' itp(wiki, c(1, 2), epsilon = 0.0005, k1 = 0.1, n0 = 1)
 #' # The default setting (with k1 = 0.2) wins by 1 iteration
-#' x <- itp(wiki, c(1, 2), epsilon = 0.0005, n0 = 1)
-#' plot(x)
+#' wres <- itp(wiki, c(1, 2), epsilon = 0.0005, n0 = 1)
+#' wres
+#' plot(wres)
 #'
 #' # Supplying an external pointer to a C++ function
 #' wiki_ptr <- xptr_create("wiki")
-#' itp(f = wiki_ptr, c(1, 2), epsilon = 0.0005, k1 = 0.1)
-#' plot(x)
+#' wres_c <- itp(f = wiki_ptr, c(1, 2), epsilon = 0.0005, k1 = 0.1)
+#' wres_c
+#' plot(wres_c)
 #'
 #' #### ----- Some examples from Table 1 of Oliveira and Takahashi (2021)
 #'
@@ -222,13 +224,13 @@ itp <- function(f, interval, ..., a = min(interval), b = max(interval),
     class(val) <- "itp"
     return(val)
   }
+  # Check that f(a) and f(b) have opposite signs
+  if (isFALSE(sign(f.a) * sign(f.b) <= 0)) {
+    stop("the f() values at the end points are not of opposite sign")
+  }
   # Set n_1/2 in equation (3)
   n12 <- max(ceiling(log2((b - a) / epsilon) - 1), 0)
   nmax <- n12 + n0
-  # Check that they have opposite signs
-  if (isFALSE(sign(f.a) * sign(f.b) <= 0)) {
-    stop("f() values at end points not of opposite sign")
-  }
   for_rk <- epsilon * 2 ^ nmax
   # Call itp_r() or itp_cpp() as appropriate
   if (using_c) {
