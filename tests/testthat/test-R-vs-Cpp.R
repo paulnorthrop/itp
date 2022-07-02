@@ -10,6 +10,15 @@ test_that("Wiki: R vs C++", {
   testthat::expect_equal(res1, res2, ignore_attr = TRUE)
 })
 
+# Repeat for -wiki, to check for a locally decreasing function
+neg_wiki <- function(x) -wiki(x)
+res1 <- itp(neg_wiki, c(1, 2), k1 = 0.1, n0 = 1)
+neg_wiki_ptr <- xptr_create("neg_wiki")
+res2 <- itp(neg_wiki_ptr, c(1, 2), k1 = 0.1, n0 = 1)
+test_that("Negated wiki: R vs C++", {
+  testthat::expect_equal(res1, res2, ignore_attr = TRUE)
+})
+
 ## Lambert
 
 lambert <- function(x) x * exp(x) - 1
@@ -50,25 +59,6 @@ test_that("Linear: R vs C++", {
   testthat::expect_equal(res1, res2, ignore_attr = TRUE)
 })
 
-# Warsaw
-
-warsaw <- function(x) ifelse(x > -1, sin(1 / (x + 1)), -1)
-warsaw_ptr <- xptr_create("warsaw")
-
-# Function increasing over the interval
-res1 <- itp(warsaw, c(-1, 1))
-res2 <- itp(warsaw_ptr, c(-1, 1))
-test_that("Warsaw: R vs C++ in (-1,1)", {
-  testthat::expect_equal(res1, res2, ignore_attr = TRUE)
-})
-
-# Function decreasing over the interval
-res1 <- itp(warsaw, c(-0.85, -0.8))
-res2 <- itp(warsaw_ptr, c(-0.85, -0.8))
-test_that("Warsaw: R vs C++ in (-0.85,-0.8)", {
-  testthat::expect_equal(res1, res2, ignore_attr = TRUE)
-})
-
 # Staircase
 
 staircase <- function(x) ceiling(10 * x - 1) + 1 / 2
@@ -78,3 +68,5 @@ res2 <- itp(staircase_ptr, c(-1, 1))
 test_that("Staircase: R vs C++ in (-1,1)", {
   testthat::expect_equal(res1, res2, ignore_attr = TRUE)
 })
+
+#
