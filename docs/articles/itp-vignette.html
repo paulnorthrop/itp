@@ -239,7 +239,7 @@ double lambert_cpp(const double&amp; x, const List&amp; pars) {
 SEXP xptr_create(std::string fstr) {
   typedef double (*funcPtr)(const double&amp; x, const List&amp; pars) ;
   if (fstr == "lambert")
-    return(XPtr&lt;funcPtr&gt;(new funcPtr(&amp;wiki_cpp))) ;
+    return(XPtr&lt;funcPtr&gt;(new funcPtr(&amp;lambert_cpp))) ;
   else
     return(XPtr&lt;funcPtr&gt;(R_NilValue)) ;
 }</code></pre>

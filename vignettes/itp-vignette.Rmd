@@ -186,7 +186,7 @@ One way to provide C++ functions is to create them in a file, say `user_fns.cpp`
     SEXP xptr_create(std::string fstr) {
       typedef double (*funcPtr)(const double& x, const List& pars) ;
       if (fstr == "lambert")
-        return(XPtr<funcPtr>(new funcPtr(&wiki_cpp))) ;
+        return(XPtr<funcPtr>(new funcPtr(&lambert_cpp))) ;
       else
         return(XPtr<funcPtr>(R_NilValue)) ;
     }
