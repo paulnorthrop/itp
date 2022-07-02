@@ -5,6 +5,7 @@
 
 [![AppVeyor Build
 Status](https://ci.appveyor.com/api/projects/status/github/paulnorthrop/itp?branch=main&svg=true)](https://ci.appveyor.com/project/paulnorthrop/itp)
+[![R-CMD-check](https://github.com/paulnorthrop/itp/workflows/R-CMD-check/badge.svg)](https://github.com/paulnorthrop/itp/actions)
 [![Coverage
 Status](https://codecov.io/github/paulnorthrop/itp/coverage.svg?branch=main)](https://codecov.io/github/paulnorthrop/itp?branch=main)
 [![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/itp)](https://cran.r-project.org/package=itp)
