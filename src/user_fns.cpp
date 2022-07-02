@@ -38,8 +38,8 @@ double linear_cpp(const double& x, const List& pars) {
 
 // [[Rcpp::export]]
 double warsaw_cpp(const double& x, const List& pars) {
-  if (x <= -1) {
-    return -1 ;
+  if (x <= -1.0) {
+    return -1.0 ;
   }
   return sin(1.0 / (1.0 + x)) ;
 }
