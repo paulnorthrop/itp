@@ -107,8 +107,8 @@
 #' plot(x)
 #'
 #' # Supplying an external pointer to a C++ function
-#' wiki <- xptr_create("wiki")
-#' itp(f = wiki, c(1, 2), epsilon = 0.0005, k1 = 0.1)
+#' wiki_ptr <- xptr_create("wiki")
+#' itp(f = wiki_ptr, c(1, 2), epsilon = 0.0005, k1 = 0.1)
 #' plot(x)
 #'
 #' #### ----- Some examples from Table 1 of Oliveira and Takahashi (2021)
@@ -124,8 +124,8 @@
 #' trig1 <- function(x, root) tan(x - root)
 #' itp(trig1, c(-1, 1), root = 1 / 10)
 #' # Supplying an external pointer to a C++ function
-#' trig1 <- xptr_create("trig1")
-#' itp(f = trig1, c(-1, 1), root = 1 / 10)
+#' trig1_ptr <- xptr_create("trig1")
+#' itp(f = trig1_ptr, c(-1, 1), root = 1 / 10)
 #'
 #' # Logarithmic
 #' logarithmic <- function(x, shift) log(abs(x - shift))
