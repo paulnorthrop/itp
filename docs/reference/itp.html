@@ -217,9 +217,9 @@ See <strong>Details</strong>.</p></dd>
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># Supplying an external pointer to a C++ function</span></span>
-<span class="r-in"><span class="va">wiki</span> <span class="op">&lt;-</span> <span class="fu"><a href="xptr_create.html">xptr_create</a></span><span class="op">(</span><span class="st">"wiki"</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">itp</span><span class="op">(</span>f <span class="op">=</span> <span class="va">wiki</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span>, epsilon <span class="op">=</span> <span class="fl">0.0005</span>, k1 <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> function: wiki </span>
+<span class="r-in"><span class="va">wiki_ptr</span> <span class="op">&lt;-</span> <span class="fu"><a href="xptr_create.html">xptr_create</a></span><span class="op">(</span><span class="st">"wiki"</span><span class="op">)</span></span>
+<span class="r-in"><span class="fu">itp</span><span class="op">(</span>f <span class="op">=</span> <span class="va">wiki_ptr</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span>, epsilon <span class="op">=</span> <span class="fl">0.0005</span>, k1 <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> function: wiki_ptr </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       root     f(root)  iterations  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      1.521   7.698e-06           5  </span>
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
@@ -244,9 +244,9 @@ See <strong>Details</strong>.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       root     f(root)  iterations  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>        0.1  -8.238e-14           8  </span>
 <span class="r-in"><span class="co"># Supplying an external pointer to a C++ function</span></span>
-<span class="r-in"><span class="va">trig1</span> <span class="op">&lt;-</span> <span class="fu"><a href="xptr_create.html">xptr_create</a></span><span class="op">(</span><span class="st">"trig1"</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">itp</span><span class="op">(</span>f <span class="op">=</span> <span class="va">trig1</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span>, root <span class="op">=</span> <span class="fl">1</span> <span class="op">/</span> <span class="fl">10</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> function: trig1 </span>
+<span class="r-in"><span class="va">trig1_ptr</span> <span class="op">&lt;-</span> <span class="fu"><a href="xptr_create.html">xptr_create</a></span><span class="op">(</span><span class="st">"trig1"</span><span class="op">)</span></span>
+<span class="r-in"><span class="fu">itp</span><span class="op">(</span>f <span class="op">=</span> <span class="va">trig1_ptr</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span>, root <span class="op">=</span> <span class="fl">1</span> <span class="op">/</span> <span class="fl">10</span><span class="op">)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> function: trig1_ptr </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       root     f(root)  iterations  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>        0.1  -8.238e-14           8  </span>
 <span class="r-in"></span>

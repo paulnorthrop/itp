@@ -204,6 +204,7 @@
 <span class="fu"><a href="https://rdrr.io/r/stats/uniroot.html" class="external-link">uniroot</a></span><span class="op">(</span><span class="va">warsaw</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.85</span>, <span class="op">-</span><span class="fl">0.8</span><span class="op">)</span>, tol <span class="op">=</span> <span class="fl">1e-10</span><span class="op">)</span>
 <span class="co">#&gt;       root     f(root)  iterations  </span>
 <span class="co">#&gt;    -0.8408  -3.021e-12           6</span></code></pre></div>
+<pre><code><span class="co">#&gt; Warning in sin(1/(x + 1)): NaNs produced</span></code></pre>
 <p><img src="itp-vignette_files/figure-html/unnamed-chunk-12-1.png" width="480" style="display: block; margin: auto;"></p>
 <p>In terms of a naive comparison based on the number of iterations <code>itp</code> and <code>uniroot</code> perform similarly, except in the repeated-root “Polynomial 3” example, where <code>itp</code> requires fewer iterations.</p>
 </div>
@@ -250,7 +251,7 @@ SEXP xptr_create(std::string fstr) {
 <h3 id="lambert-fx-x-ex---1-1">Lambert: <span class="math inline">\(f(x) = x e^x - 1\)</span><a class="anchor" aria-label="anchor" href="#lambert-fx-x-ex---1-1"></a>
 </h3>
 <p>We repeat the Lambert example, obtaining the same results as above when we used an R function to supply the function.</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Lambert, using an external pointer to a C++ function</span>
 <span class="va">lambert_ptr</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/xptr_create.html">xptr_create</a></span><span class="op">(</span><span class="st">"lambert"</span><span class="op">)</span>
 <span class="va">res</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/itp.html">itp</a></span><span class="op">(</span><span class="va">lambert_ptr</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span>
@@ -264,7 +265,7 @@ SEXP xptr_create(std::string fstr) {
 <h2 id="plot-method">Plot method<a class="anchor" aria-label="anchor" href="#plot-method"></a>
 </h2>
 <p>Objects of class <code>itp</code> have a plot method that, by default, produces a plot of the function over the interval over which the root was sought and indicates the location of the root using dashed lines.</p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">oldpar</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mar <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">4</span>, <span class="fl">4</span>, <span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">res</span>, main <span class="op">=</span> <span class="st">"Lambert"</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span><span class="va">oldpar</span><span class="op">)</span></code></pre></div>
