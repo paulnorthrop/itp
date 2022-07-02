@@ -16,6 +16,11 @@ double wiki_cpp(const double& x, const List& pars) {
 }
 
 // [[Rcpp::export]]
+double neg_wiki_cpp(const double& x, const List& pars) {
+  return 2.0 + x - pow(x, 3.0) ;
+}
+
+// [[Rcpp::export]]
 double lambert_cpp(const double& x, const List& pars) {
   return x * exp(x) - 1.0 ;
 }
@@ -34,14 +39,6 @@ double poly3_cpp(const double& x, const List& pars) {
 // [[Rcpp::export]]
 double linear_cpp(const double& x, const List& pars) {
   return x ;
-}
-
-// [[Rcpp::export]]
-double warsaw_cpp(const double& x, const List& pars) {
-  if (x <= -1.0) {
-    return -1.0 ;
-  }
-  return sin(1.0 / (1.0 + x)) ;
 }
 
 // [[Rcpp::export]]
@@ -88,6 +85,8 @@ SEXP xptr_create(std::string fstr) {
   typedef double (*funcPtr)(const double& x, const List& pars) ;
   if (fstr == "wiki")
     return(XPtr<funcPtr>(new funcPtr(&wiki_cpp))) ;
+  else if (fstr == "neg_wiki")
+    return(XPtr<funcPtr>(new funcPtr(&neg_wiki_cpp))) ;
   else if (fstr == "lambert")
     return(XPtr<funcPtr>(new funcPtr(&lambert_cpp))) ;
   else if (fstr == "trig1")
@@ -96,8 +95,6 @@ SEXP xptr_create(std::string fstr) {
     return(XPtr<funcPtr>(new funcPtr(&poly3_cpp))) ;
   else if (fstr == "linear")
     return(XPtr<funcPtr>(new funcPtr(&linear_cpp))) ;
-  else if (fstr == "warsaw")
-    return(XPtr<funcPtr>(new funcPtr(&warsaw_cpp))) ;
   else if (fstr == "staircase")
     return(XPtr<funcPtr>(new funcPtr(&staircase_cpp))) ;
   else
@@ -110,6 +107,7 @@ SEXP xptr_create(std::string fstr) {
 
 /*** R
 ptr_wiki <- xptr_create("wiki")
+ptr_neg_wiki <- xptr_create("neg_wiki")
 ptr_lambert <- xptr_create("lambert")
 ptr_trig1 <- xptr_create("trig1")
 ptr_poly3 <- xptr_create("poly3")

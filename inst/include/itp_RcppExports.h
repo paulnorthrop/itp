@@ -87,6 +87,27 @@ namespace itp {
         return Rcpp::as<double >(rcpp_result_gen);
     }
 
+    inline double neg_wiki_cpp(const double& x, const List& pars) {
+        typedef SEXP(*Ptr_neg_wiki_cpp)(SEXP,SEXP);
+        static Ptr_neg_wiki_cpp p_neg_wiki_cpp = NULL;
+        if (p_neg_wiki_cpp == NULL) {
+            validateSignature("double(*neg_wiki_cpp)(const double&,const List&)");
+            p_neg_wiki_cpp = (Ptr_neg_wiki_cpp)R_GetCCallable("itp", "_itp_neg_wiki_cpp");
+        }
+        RObject rcpp_result_gen;
+        {
+            RNGScope RCPP_rngScope_gen;
+            rcpp_result_gen = p_neg_wiki_cpp(Shield<SEXP>(Rcpp::wrap(x)), Shield<SEXP>(Rcpp::wrap(pars)));
+        }
+        if (rcpp_result_gen.inherits("interrupted-error"))
+            throw Rcpp::internal::InterruptedException();
+        if (Rcpp::internal::isLongjumpSentinel(rcpp_result_gen))
+            throw Rcpp::LongjumpException(rcpp_result_gen);
+        if (rcpp_result_gen.inherits("try-error"))
+            throw Rcpp::exception(Rcpp::as<std::string>(rcpp_result_gen).c_str());
+        return Rcpp::as<double >(rcpp_result_gen);
+    }
+
     inline double lambert_cpp(const double& x, const List& pars) {
         typedef SEXP(*Ptr_lambert_cpp)(SEXP,SEXP);
         static Ptr_lambert_cpp p_lambert_cpp = NULL;
@@ -161,27 +182,6 @@ namespace itp {
         {
             RNGScope RCPP_rngScope_gen;
             rcpp_result_gen = p_linear_cpp(Shield<SEXP>(Rcpp::wrap(x)), Shield<SEXP>(Rcpp::wrap(pars)));
-        }
-        if (rcpp_result_gen.inherits("interrupted-error"))
-            throw Rcpp::internal::InterruptedException();
-        if (Rcpp::internal::isLongjumpSentinel(rcpp_result_gen))
-            throw Rcpp::LongjumpException(rcpp_result_gen);
-        if (rcpp_result_gen.inherits("try-error"))
-            throw Rcpp::exception(Rcpp::as<std::string>(rcpp_result_gen).c_str());
-        return Rcpp::as<double >(rcpp_result_gen);
-    }
-
-    inline double warsaw_cpp(const double& x, const List& pars) {
-        typedef SEXP(*Ptr_warsaw_cpp)(SEXP,SEXP);
-        static Ptr_warsaw_cpp p_warsaw_cpp = NULL;
-        if (p_warsaw_cpp == NULL) {
-            validateSignature("double(*warsaw_cpp)(const double&,const List&)");
-            p_warsaw_cpp = (Ptr_warsaw_cpp)R_GetCCallable("itp", "_itp_warsaw_cpp");
-        }
-        RObject rcpp_result_gen;
-        {
-            RNGScope RCPP_rngScope_gen;
-            rcpp_result_gen = p_warsaw_cpp(Shield<SEXP>(Rcpp::wrap(x)), Shield<SEXP>(Rcpp::wrap(pars)));
         }
         if (rcpp_result_gen.inherits("interrupted-error"))
             throw Rcpp::internal::InterruptedException();

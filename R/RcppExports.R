@@ -42,6 +42,10 @@ wiki_cpp <- function(x, pars) {
     .Call(`_itp_wiki_cpp`, x, pars)
 }
 
+neg_wiki_cpp <- function(x, pars) {
+    .Call(`_itp_neg_wiki_cpp`, x, pars)
+}
+
 lambert_cpp <- function(x, pars) {
     .Call(`_itp_lambert_cpp`, x, pars)
 }
@@ -56,10 +60,6 @@ poly3_cpp <- function(x, pars) {
 
 linear_cpp <- function(x, pars) {
     .Call(`_itp_linear_cpp`, x, pars)
-}
-
-warsaw_cpp <- function(x, pars) {
-    .Call(`_itp_warsaw_cpp`, x, pars)
 }
 
 staircase_cpp <- function(x, pars) {
