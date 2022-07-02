@@ -147,5 +147,7 @@ install.packages("itp")
 
 ### Vignette
 
-See `vignette("itp-vignette", package = "itp")` for an overview of the
-package.
+See the [Overview of the itp
+package](https://paulnorthrop.github.io/itp/articles/itp-vignette.html)
+vignette, which can also be accessed using
+`vignette("itp-vignette", package = "itp")`.
