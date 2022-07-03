@@ -24,10 +24,7 @@
 #' @param f.a,f.b The values of \code{f(a)} and \code{f(b)}, respectively.
 #' @param epsilon A positive numeric scalar. The desired accuracy of the root.
 #'   The algorithm continues until the width of the bracketing interval for the
-#'   root is less than or equal to \code{2 * epsilon}. The value of
-#'   \code{epsilon} should be greater than
-#'   \ifelse{html}{2\out{<sup>-63</sup>}\code{(b-a)}}{\eqn{2^{-63}}(\code{b-a})}
-#'   to avoid integer overflow.
+#'   root is less than or equal to \code{2 * epsilon}.
 #' @param k1,k2,n0 the values of the tuning parameters
 #'   \ifelse{html}{\eqn{\kappa}\out{<sub>1</sub>}}{\eqn{\kappa_1}},
 #'   \ifelse{html}{\eqn{\kappa}\out{<sub>2</sub>}}{\eqn{\kappa_2}},
@@ -77,8 +74,8 @@
 #'     convergence.}
 #'   \item{estim.prec}{an approximate estimated precision for \code{root},
 #'     equal to the half the width of the final bracket for the root.}
-#'   If the root occurs at one of the input endpoints \code{a} or \code{b} then
-#'   \code{iter = 0} and \code{estim.prec = NA}.
+#'     the root occurs at one of the input endpoints \code{a} or \code{b} then
+#'     \code{iter = 0} and \code{estim.prec = NA}.
 #'
 #'   The return object also has the attributes \code{f} (the input R function
 #'   or pointer to a C++ function \code{f}), \code{f_args} (a list of
@@ -199,6 +196,10 @@ itp <- function(f, interval, ..., a = min(interval), b = max(interval),
     f.a <- do.call(xptr_eval, list(a, list(...), f))
     f.b <- do.call(xptr_eval, list(b, list(...), f))
   }
+  # Check that f(a) and f(b) are finite
+  if (!all(is.finite(c(f.a, f.b)))) {
+    stop("f(a) and f(b) must be finite")
+  }
   # Create a function name
   temp <- as.character(substitute(f))
   if (using_c) {
@@ -206,13 +207,24 @@ itp <- function(f, interval, ..., a = min(interval), b = max(interval),
   } else {
     f_name <- ifelse(length(temp) > 1, temp[3], temp)
   }
+  # Check whether (a, b) already satisfies the convergence criterion
+  if (b - a <= 2 * epsilon) {
+    root <- (a + b) / 2
+    val <- list(root = root, f.root = f(root, ...), iter = 0, a = a,
+                b = b, f.a = f.a, f.b = f.b, estim.prec = (b - a) / 2)
+    attributes(val) <- c(attributes(val), list(f = f, f_args = list(...),
+                         input_a = input_a, input_b = input_b, f_name = f_name,
+                         used_c = using_c))
+    class(val) <- "itp"
+    return(val)
+  }
   # Check whether the root lies on a limit of the input interval
   if (f.a == 0) {
     val <- list(root = a, f.root = 0, iter = 0, a = a,
                 b = b, f.a = f.a, f.b = f.b, estim.prec = NA)
     attributes(val) <- c(attributes(val), list(f = f, f_args = list(...),
-                        input_a = input_a, input_b = input_b, f_name = f_name,
-                        used_c = using_c))
+                         input_a = input_a, input_b = input_b, f_name = f_name,
+                         used_c = using_c))
     class(val) <- "itp"
     return(val)
   } else if (f.b == 0) {
@@ -225,13 +237,15 @@ itp <- function(f, interval, ..., a = min(interval), b = max(interval),
     return(val)
   }
   # Check that f(a) and f(b) have opposite signs
-  if (isFALSE(sign(f.a) * sign(f.b) <= 0)) {
+  if (sign(f.a) * sign(f.b) > 0) {
     stop("the f() values at the end points are not of opposite sign")
   }
-  # Set n_1/2 in equation (3)
-  n12 <- max(ceiling(log2((b - a) / epsilon) - 1), 0)
-  nmax <- n12 + n0
-  for_rk <- epsilon * 2 ^ nmax
+  log2e <- log2(epsilon)
+  log2bma <- log2(b - a)
+  # for_rk = epsilon * 2 ^ (n12 + n0)
+  # log(for_rk) = log2(epsilon) + (n12 + n0)
+  # n_1/2 (in eqn (3)) = ceiling(log2bma - log2e) - 1
+  for_rk <- 2 ^ (n0 - 1 + log2e + ceiling(log2bma - log2e))
   # Call itp_r() or itp_cpp() as appropriate
   if (using_c) {
     for_itp_cpp <- list(f = f, pars = list(...), a = a, b = b, ya = f.a,

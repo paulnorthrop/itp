@@ -40,10 +40,7 @@ of opposite signs.}
 
 \item{epsilon}{A positive numeric scalar. The desired accuracy of the root.
 The algorithm continues until the width of the bracketing interval for the
-root is less than or equal to \code{2 * epsilon}. The value of
-\code{epsilon} should be greater than
-\ifelse{html}{2\out{<sup>-63</sup>}\code{(b-a)}}{\eqn{2^{-63}}(\code{b-a})}
-to avoid integer overflow.}
+root is less than or equal to \code{2 * epsilon}.}
 
 \item{k1, k2, n0}{the values of the tuning parameters
 \ifelse{html}{\eqn{\kappa}\out{<sub>1</sub>}}{\eqn{\kappa_1}},
@@ -64,8 +61,8 @@ An object (a list) of class \code{"itp"} containing the following
     convergence.}
   \item{estim.prec}{an approximate estimated precision for \code{root},
     equal to the half the width of the final bracket for the root.}
-  If the root occurs at one of the input endpoints \code{a} or \code{b} then
-  \code{iter = 0} and \code{estim.prec = NA}.
+    the root occurs at one of the input endpoints \code{a} or \code{b} then
+    \code{iter = 0} and \code{estim.prec = NA}.
 
   The return object also has the attributes \code{f} (the input R function
   or pointer to a C++ function \code{f}), \code{f_args} (a list of
