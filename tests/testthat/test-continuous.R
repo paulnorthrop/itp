@@ -13,6 +13,15 @@ test_that("Wiki cubic: tolerance", {
 test_that("Wiki cubic: f approx 0", {
   testthat::expect_equal(res$f.root, 0)
 })
+# If (a,b) satisfy the convergence criterion then we stop immediately
+res2 <- itp(wiki, c(res$a, res$b), k1 = 0.1, n0 = 1, epsilon = epsilon)
+test_that("Wiki cubic: if (a,b) good enough then stop immediately, iter", {
+  testthat::expect_equal(res2$iter, 0)
+})
+test_that("Wiki cubic: if (a,b) good enough then stop immediately, root", {
+  testthat::expect_equal(res2$root, res$root)
+})
+
 # Repeat for -wiki, to check for a locally decreasing function
 neg_wiki <- function(x) -wiki(x)
 res <- itp(neg_wiki, c(1, 2), k1 = 0.1, n0 = 1, epsilon = epsilon)
@@ -22,6 +31,7 @@ test_that("-Wiki cubic: tolerance", {
 test_that("-Wiki cubic: f approx 0", {
   testthat::expect_equal(res$f.root, 0)
 })
+
 
 # Lambert
 
