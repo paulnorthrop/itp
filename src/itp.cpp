@@ -52,8 +52,8 @@ List itp_cpp(const SEXP& f, const List& pars, double& a, double& b,
     }
     root = (a + b) * 0.5 ;
     // Update the first term of rk
-    for_rk = for_rk * 0.5 ;
-    k = k + 1 ;
+    for_rk *= 0.5 ;
+    k += 1 ;
   }
   froot = fun(root, pars) ;
   estimprec = (b - a) * 0.5 ;
