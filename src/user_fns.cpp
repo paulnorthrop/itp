@@ -46,6 +46,11 @@ double staircase_cpp(const double& x, const List& pars) {
   return ceil(10.0 * x - 1.0) + 0.5 ;
 }
 
+// [[Rcpp::export]]
+double log_cpp(const double& x, const List& pars) {
+  return log(x) ;
+}
+
 // A function to create external pointers to the functions to evaluate f.
 // See http://gallery.rcpp.org/articles/passing-cpp-function-pointers/
 // If you write a new function above called new_name then add something
@@ -97,6 +102,8 @@ SEXP xptr_create(std::string fstr) {
     return(XPtr<funcPtr>(new funcPtr(&linear_cpp))) ;
   else if (fstr == "staircase")
     return(XPtr<funcPtr>(new funcPtr(&staircase_cpp))) ;
+  else if (fstr == "log")
+    return(XPtr<funcPtr>(new funcPtr(&log_cpp))) ;
   else
     return(XPtr<funcPtr>(R_NilValue)) ;
 }

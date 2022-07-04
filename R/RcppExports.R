@@ -98,6 +98,10 @@ staircase_cpp <- function(x, pars) {
     .Call(`_itp_staircase_cpp`, x, pars)
 }
 
+log_cpp <- function(x, pars) {
+    .Call(`_itp_log_cpp`, x, pars)
+}
+
 #' Create an external pointer to a C++ function
 #'
 #' This function is used in \code{\link[itp]{itp-package}} to create
