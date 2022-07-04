@@ -4,6 +4,8 @@ using namespace Rcpp;
 
 // [[Rcpp::interfaces(r, cpp)]]
 
+//' @keywords internal
+//' @rdname itp-internal
 // [[Rcpp::export]]
 List itp_cpp(const SEXP& f, const List& pars, double& a, double& b,
              double& ya, double& yb, const double& epsilon, const double& k1,
