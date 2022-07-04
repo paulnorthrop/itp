@@ -2,9 +2,9 @@
 # (a) (b-a) / 2 is no larger than epsilon
 # (b) f(root) is close to zero
 
-wrap_itpC <- function(f, interval, ..., epsilon = 1e-10,
+wrap_itp_c <- function(f, interval, ..., epsilon = 1e-10,
                       k1 = 0.2 / (interval[2] - interval[1]), k2 = 2, n0 = 1) {
-  itpC(f = f, pars = list(...), a = interval[1], b = interval[2],
+  itp_c(f = f, pars = list(...), a = interval[1], b = interval[2],
        epsilon = epsilon, k1 = k1, k2 = k2, n0 = n0)
 }
 
@@ -27,14 +27,14 @@ test_that("Wiki cubic: if (a,b) good enough then stop, iter", {
 test_that("Wiki cubic: if (a,b) good enough then stop, root", {
   testthat::expect_equal(res2$root, res$root)
 })
-# Repeat for itpC()
+# Repeat for itp_c()
 # If (a,b) satisfy the convergence criterion then we stop immediately
 wiki_ptr <- xptr_create("wiki")
-res2 <- wrap_itpC(wiki_ptr, c(res$a, res$b))
-test_that("Wiki cubic: if (a,b) good enough then stop, iter, itpC", {
+res2 <- wrap_itp_c(wiki_ptr, c(res$a, res$b))
+test_that("Wiki cubic: if (a,b) good enough then stop, iter, itp_c", {
   testthat::expect_equal(res2$iter, 0)
 })
-test_that("Wiki cubic: if (a,b) good enough then stop, root, itpC", {
+test_that("Wiki cubic: if (a,b) good enough then stop, root, itp_c", {
   testthat::expect_equal(res2$root, res$root)
 })
 
@@ -159,13 +159,13 @@ res <- itp(function(x) x, c(0, 1))
 test_that("Linear: solution at b", {
   testthat::expect_equal(c(res$iter, res$root, res$f.root), c(0, 0, 0))
 })
-# Repeat for itpC()
+# Repeat for itp_c()
 linear_ptr <- xptr_create("linear")
-res <- wrap_itpC(linear_ptr, c(-1, 0))
-test_that("Linear: solution at a, itpC", {
+res <- wrap_itp_c(linear_ptr, c(-1, 0))
+test_that("Linear: solution at a, itp_c", {
   testthat::expect_equal(c(res$iter, res$root, res$f.root), c(0, 0, 0))
 })
-res <- wrap_itpC(linear_ptr, c(0, 1))
-test_that("Linear: solution at b, itpC", {
+res <- wrap_itp_c(linear_ptr, c(0, 1))
+test_that("Linear: solution at b, itp_c", {
   testthat::expect_equal(c(res$iter, res$root, res$f.root), c(0, 0, 0))
 })

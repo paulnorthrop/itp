@@ -62,12 +62,12 @@ xptr_eval <- function(x, pars, xpsexp) {
 #' @return Add Value
 #' @examples
 #' wiki_ptr <- xptr_create("wiki")
-#' x <- itpC(f = wiki_ptr, pars = list(), a = 1, b = 2, epsilon = 0.0005,
-#'           k1 = 0.2)
+#' x <- itp_c(f = wiki_ptr, pars = list(), a = 1, b = 2, epsilon = 0.0005,
+#'            k1 = 0.2)
 #' @return Add return
 #' @export
-itpC <- function(f, pars, a, b, epsilon = 1e-10, k1 = 0.2, k2 = 2.0, n0 = 1.0) {
-    .Call(`_itp_itpC`, f, pars, a, b, epsilon, k1, k2, n0)
+itp_c <- function(f, pars, a, b, epsilon = 1e-10, k1 = 0.2, k2 = 2.0, n0 = 1.0) {
+    .Call(`_itp_itp_c`, f, pars, a, b, epsilon, k1, k2, n0)
 }
 
 wiki_cpp <- function(x, pars) {

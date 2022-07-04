@@ -28,14 +28,14 @@ using namespace Rcpp;
 //' @return Add Value
 //' @examples
 //' wiki_ptr <- xptr_create("wiki")
-//' x <- itpC(f = wiki_ptr, pars = list(), a = 1, b = 2, epsilon = 0.0005,
-//'           k1 = 0.2)
+//' x <- itp_c(f = wiki_ptr, pars = list(), a = 1, b = 2, epsilon = 0.0005,
+//'            k1 = 0.2)
 //' @return Add return
 //' @export
 // [[Rcpp::export]]
-List itpC(const SEXP& f, const List& pars, double& a, double& b,
-          const double& epsilon = 1e-10, const double& k1 = 0.2,
-          const double& k2 = 2.0, const double& n0 = 1.0) {
+List itp_c(const SEXP& f, const List& pars, double& a, double& b,
+           const double& epsilon = 1e-10, const double& k1 = 0.2,
+           const double& k2 = 2.0, const double& n0 = 1.0) {
   // Check that a < b
   if (a >= b) {
     stop("a must be less than b") ;

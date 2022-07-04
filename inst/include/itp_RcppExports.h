@@ -66,17 +66,17 @@ namespace itp {
         return Rcpp::as<double >(rcpp_result_gen);
     }
 
-    inline List itpC(const SEXP& f, const List& pars, double& a, double& b, const double& epsilon = 1e-10, const double& k1 = 0.2, const double& k2 = 2.0, const double& n0 = 1.0) {
-        typedef SEXP(*Ptr_itpC)(SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP);
-        static Ptr_itpC p_itpC = NULL;
-        if (p_itpC == NULL) {
-            validateSignature("List(*itpC)(const SEXP&,const List&,double&,double&,const double&,const double&,const double&,const double&)");
-            p_itpC = (Ptr_itpC)R_GetCCallable("itp", "_itp_itpC");
+    inline List itp_c(const SEXP& f, const List& pars, double& a, double& b, const double& epsilon = 1e-10, const double& k1 = 0.2, const double& k2 = 2.0, const double& n0 = 1.0) {
+        typedef SEXP(*Ptr_itp_c)(SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP);
+        static Ptr_itp_c p_itp_c = NULL;
+        if (p_itp_c == NULL) {
+            validateSignature("List(*itp_c)(const SEXP&,const List&,double&,double&,const double&,const double&,const double&,const double&)");
+            p_itp_c = (Ptr_itp_c)R_GetCCallable("itp", "_itp_itp_c");
         }
         RObject rcpp_result_gen;
         {
             RNGScope RCPP_rngScope_gen;
-            rcpp_result_gen = p_itpC(Shield<SEXP>(Rcpp::wrap(f)), Shield<SEXP>(Rcpp::wrap(pars)), Shield<SEXP>(Rcpp::wrap(a)), Shield<SEXP>(Rcpp::wrap(b)), Shield<SEXP>(Rcpp::wrap(epsilon)), Shield<SEXP>(Rcpp::wrap(k1)), Shield<SEXP>(Rcpp::wrap(k2)), Shield<SEXP>(Rcpp::wrap(n0)));
+            rcpp_result_gen = p_itp_c(Shield<SEXP>(Rcpp::wrap(f)), Shield<SEXP>(Rcpp::wrap(pars)), Shield<SEXP>(Rcpp::wrap(a)), Shield<SEXP>(Rcpp::wrap(b)), Shield<SEXP>(Rcpp::wrap(epsilon)), Shield<SEXP>(Rcpp::wrap(k1)), Shield<SEXP>(Rcpp::wrap(k2)), Shield<SEXP>(Rcpp::wrap(n0)));
         }
         if (rcpp_result_gen.inherits("interrupted-error"))
             throw Rcpp::internal::InterruptedException();
