@@ -17,6 +17,11 @@ test_that("f(a) or f(b) not finite", {
 # Lambert
 lambert_ptr <- xptr_create("lambert")
 
+# a >= b
+test_that("Lambert: a >= b", {
+  testthat::expect_error(wrap_itpC(lambert_ptr, c(1, -1)))
+})
+
 # End point error
 test_that("Lambert: end point error", {
   testthat::expect_error(wrap_itpC(lambert_ptr, c(-1, 0)))
