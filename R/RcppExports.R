@@ -38,6 +38,37 @@ xptr_eval <- function(x, pars, xpsexp) {
     .Call(`_itp_xptr_eval`, x, pars, xpsexp)
 }
 
+#' ITP method using C++
+#'
+#' All in C++
+#' @param f An external pointer to a C++ function that evaluates the function
+#'   \eqn{f}
+#' @param pars A list of additional arguments to the function.  This may be an
+#'   empty list.
+#' @param a,b Numeric scalar. Lower (\code{a}) and upper \code{b} limits of
+#'   the interval to be searched for a root.
+#' @param epsilon A positive numeric scalar. The desired accuracy of the root.
+#'   The algorithm continues until the width of the bracketing interval for the
+#'   root is less than or equal to \code{2 * epsilon}. The value of
+#'   \code{epsilon} should be greater than
+#'   \ifelse{html}{2\out{<sup>-63</sup>}\code{(b-a)}}{\eqn{2^{-63}}(\code{b-a})}
+#'   to avoid integer overflow.
+#' @param k1,k2,n0 the values of the tuning parameters
+#'   \ifelse{html}{\eqn{\kappa}\out{<sub>1</sub>}}{\eqn{\kappa_1}},
+#'   \ifelse{html}{\eqn{\kappa}\out{<sub>2</sub>}}{\eqn{\kappa_2}},
+#'   \ifelse{html}{\eqn{n}\out{<sub>0</sub>}}{\eqn{n_0}}.
+#'   See \strong{Details}.
+#' @details Add details
+#' @return Add Value
+#' @examples
+#' wiki_ptr <- xptr_create("wiki")
+#' x <- itpC(f = wiki_ptr, pars = list(), a = 1, b = 2, epsilon = 0.0005,
+#'           k1 = 0.2)
+#' @return Add return
+itpC <- function(f, pars, a, b, epsilon = 1e-10, k1 = 0.2, k2 = 2.0, n0 = 1.0) {
+    .Call(`_itp_itpC`, f, pars, a, b, epsilon, k1, k2, n0)
+}
+
 wiki_cpp <- function(x, pars) {
     .Call(`_itp_wiki_cpp`, x, pars)
 }
