@@ -2,6 +2,12 @@
 # (a) (b-a) / 2 is no larger than epsilon
 # (b) f(root) is close to zero
 
+wrap_itpC <- function(f, interval, ..., epsilon = 1e-10,
+                      k1 = 0.2 / (interval[2] - interval[1]), k2 = 2, n0 = 1) {
+  itpC(f = f, pars = list(...), a = interval[1], b = interval[2],
+       epsilon = epsilon, k1 = k1, k2 = k2, n0 = n0)
+}
+
 epsilon <- 1e-10
 
 # The example used in the Wikipedia entry for the ITP method
@@ -15,10 +21,20 @@ test_that("Wiki cubic: f approx 0", {
 })
 # If (a,b) satisfy the convergence criterion then we stop immediately
 res2 <- itp(wiki, c(res$a, res$b), k1 = 0.1, n0 = 1, epsilon = epsilon)
-test_that("Wiki cubic: if (a,b) good enough then stop immediately, iter", {
+test_that("Wiki cubic: if (a,b) good enough then stop, iter", {
   testthat::expect_equal(res2$iter, 0)
 })
-test_that("Wiki cubic: if (a,b) good enough then stop immediately, root", {
+test_that("Wiki cubic: if (a,b) good enough then stop, root", {
+  testthat::expect_equal(res2$root, res$root)
+})
+# Repeat for itpC()
+# If (a,b) satisfy the convergence criterion then we stop immediately
+wiki_ptr <- xptr_create("wiki")
+res2 <- wrap_itpC(wiki_ptr, c(res$a, res$b))
+test_that("Wiki cubic: if (a,b) good enough then stop, iter, itpC", {
+  testthat::expect_equal(res2$iter, 0)
+})
+test_that("Wiki cubic: if (a,b) good enough then stop, root, itpC", {
   testthat::expect_equal(res2$root, res$root)
 })
 
@@ -31,7 +47,6 @@ test_that("-Wiki cubic: tolerance", {
 test_that("-Wiki cubic: f approx 0", {
   testthat::expect_equal(res$f.root, 0)
 })
-
 
 # Lambert
 
@@ -142,5 +157,15 @@ test_that("Linear: solution at a", {
 })
 res <- itp(function(x) x, c(0, 1))
 test_that("Linear: solution at b", {
+  testthat::expect_equal(c(res$iter, res$root, res$f.root), c(0, 0, 0))
+})
+# Repeat for itpC()
+linear_ptr <- xptr_create("linear")
+res <- wrap_itpC(linear_ptr, c(-1, 0))
+test_that("Linear: solution at a, itpC", {
+  testthat::expect_equal(c(res$iter, res$root, res$f.root), c(0, 0, 0))
+})
+res <- wrap_itpC(linear_ptr, c(0, 1))
+test_that("Linear: solution at b, itpC", {
   testthat::expect_equal(c(res$iter, res$root, res$f.root), c(0, 0, 0))
 })
