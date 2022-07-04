@@ -87,6 +87,21 @@ itp(lambert_ptr, c(-1, 1))
 #>     0.5671   2.048e-12           8
 ```
 
+Also provided is the function `itp_c`, which is equivalent to `itp`, but
+the calculations are performed entirely using C++, and the arguments
+differ slightly: `itp_c` has a named required argument `pars` rather
+than `...` and it does not have the arguments `interval`, `f.a` or
+`f.b`.
+
+``` r
+# Calling itp_c()
+res <- itp_c(lambert_ptr, pars = list(), a = -1, b = 1)
+res
+#> function:  
+#>       root     f(root)  iterations  
+#>     0.5671   2.048e-12           8
+```
+
 #### A discontinuous function
 
 The staircase function
