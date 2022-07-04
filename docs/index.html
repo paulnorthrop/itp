@@ -124,6 +124,14 @@
 <span class="co">#&gt; function: lambert_ptr </span>
 <span class="co">#&gt;       root     f(root)  iterations  </span>
 <span class="co">#&gt;     0.5671   2.048e-12           8</span></code></pre></div>
+<p>Also provided is the function <code>itp_c</code>, which is equivalent to <code>itp</code>, but the calculations are performed entirely using C++, and the arguments differ slightly: <code>itp_c</code> has a named required argument <code>pars</code> rather than <code>...</code> and it does not have the arguments <code>interval</code>, <code>f.a</code> or <code>f.b</code>.</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Calling itp_c()</span>
+<span class="va">res</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/itp_c.html">itp_c</a></span><span class="op">(</span><span class="va">lambert_ptr</span>, pars <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>, a <span class="op">=</span> <span class="op">-</span><span class="fl">1</span>, b <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>
+<span class="va">res</span>
+<span class="co">#&gt; function:  </span>
+<span class="co">#&gt;       root     f(root)  iterations  </span>
+<span class="co">#&gt;     0.5671   2.048e-12           8</span></code></pre></div>
 </div>
 <div class="section level4">
 <h4 id="a-discontinuous-function">A discontinuous function<a class="anchor" aria-label="anchor" href="#a-discontinuous-function"></a>
@@ -131,7 +139,7 @@
 <p>The staircase function <img src="https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&amp;space;%5Cbg_white&amp;space;s%28x%29%20%3D%20%5Clceil%2010%20x%20-%201%20%5Crceil%20%2B%201%2F2" title="s(x) = \lceil 10 x - 1 \rceil + 1/2" alt="s(x) = \lceil 10 x - 1 \rceil + 1/2"> is discontinuous.</p>
 <p><img src="reference/figures/README-staircase-1.png" style="display: block; margin: auto;"></p>
 <p>The <code>itp</code> function finds the discontinuity at <img src="https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&amp;space;%5Cbg_white&amp;space;x%20%3D%200" title="x = 0" alt="x = 0"> at which the sign of the function changes. The value of 0.5 returned for the root <code>res$root</code> is the midpoint of the bracketing interval <code>[res$a, res$b]</code> at convergence.</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Staircase</span>
 <span class="va">staircase</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">ceiling</a></span><span class="op">(</span><span class="fl">10</span> <span class="op">*</span> <span class="va">x</span> <span class="op">-</span> <span class="fl">1</span><span class="op">)</span> <span class="op">+</span> <span class="fl">1</span> <span class="op">/</span> <span class="fl">2</span>
 <span class="va">res</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/itp.html">itp</a></span><span class="op">(</span><span class="va">staircase</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span>
@@ -148,7 +156,7 @@
 <p>The Warsaw function <img src="https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&amp;space;%5Cbg_white&amp;space;w%28x%29%20%3D%20I%28x%20%3E%20-1%29%5Cleft%281%20%2B%20%5Csin%5Cleft%28%5Cfrac%7B1%7D%7B1%2Bx%7D%5Cright%29%5Cright%29-1" title="w(x) = I(x &gt; -1)\left(1 + \sin\left(\frac{1}{1+x}\right)\right)-1" alt="w(x) = I(x &gt; -1)\left(1 + \sin\left(\frac{1}{1+x}\right)\right)-1"> has multiple roots.</p>
 <p><img src="reference/figures/README-warsaw-1.png" style="display: block; margin: auto;"></p>
 <p>When the initial interval is <img src="https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&amp;space;%5Cbg_white&amp;space;%5B-1%2C%201%5D" title="[-1, 1]" alt="[-1, 1]"> the <code>itp</code> function finds the root <img src="https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&amp;space;%5Cbg_white&amp;space;x%20%5Capprox%20-0.6817" title="x \approx -0.6817" alt="x \approx -0.6817">. There are other roots that could be found from a different initial interval.</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Warsaw</span>
 <span class="va">warsaw</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html" class="external-link">ifelse</a></span><span class="op">(</span><span class="va">x</span> <span class="op">&gt;</span> <span class="op">-</span><span class="fl">1</span>, <span class="fu"><a href="https://rdrr.io/r/base/Trig.html" class="external-link">sin</a></span><span class="op">(</span><span class="fl">1</span> <span class="op">/</span> <span class="op">(</span><span class="va">x</span> <span class="op">+</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span>, <span class="op">-</span><span class="fl">1</span><span class="op">)</span>
 <span class="fu"><a href="reference/itp.html">itp</a></span><span class="op">(</span><span class="va">warsaw</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span>
@@ -161,7 +169,7 @@
 <h3 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h3>
 <p>To get the current released version from CRAN:</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"itp"</span><span class="op">)</span></code></pre></div>
 </div>
 <div class="section level3">

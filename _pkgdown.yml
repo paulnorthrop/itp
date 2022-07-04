@@ -16,6 +16,7 @@ reference:
     desc: ~
     contents:
       - "itp"
+      - "itp_c"
   - title: External C++ pointers
     desc: ~
     contents:
