@@ -3,6 +3,7 @@
 \docType{package}
 \name{itp-package}
 \alias{itp-package}
+\alias{_PACKAGE}
 \title{itp: The Interpolate, Truncate, Project (ITP) Root-Finding Algorithm}
 \description{
 Implements the Interpolate, Truncate, Project (ITP) root-finding
@@ -39,4 +40,8 @@ Oliveira, I. F. D. and Takahashi, R. H. C. (2021). An Enhancement
 \code{\link{xptr_create}} and \code{\link{xptr_eval}} for
   creating external pointers to the C++ functions used as examples in this
   package and evaluating those functions.
+}
+\author{
+\strong{Maintainer}: Paul J. Northrop \email{p.northrop@ucl.ac.uk} [copyright holder]
+
 }

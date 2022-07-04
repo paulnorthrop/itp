@@ -28,7 +28,7 @@
 #'   creating external pointers to the C++ functions used as examples in this
 #'   package and evaluating those functions.
 #' @docType package
-#' @name itp-package
+#' @aliases itp-package
 #' @useDynLib itp, .registration = TRUE
 #' @importFrom Rcpp sourceCpp
-NULL
+"_PACKAGE"
