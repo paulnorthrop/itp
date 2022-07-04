@@ -25,7 +25,7 @@
 #' @param epsilon A positive numeric scalar. The desired accuracy of the root.
 #'   The algorithm continues until the width of the bracketing interval for the
 #'   root is less than or equal to \code{2 * epsilon}.
-#' @param k1,k2,n0 the values of the tuning parameters
+#' @param k1,k2,n0 Numeric scalars. The values of the tuning parameters
 #'   \ifelse{html}{\eqn{\kappa}\out{<sub>1</sub>}}{\eqn{\kappa_1}},
 #'   \ifelse{html}{\eqn{\kappa}\out{<sub>2</sub>}}{\eqn{\kappa_2}},
 #'   \ifelse{html}{\eqn{n}\out{<sub>0</sub>}}{\eqn{n_0}}.
@@ -60,7 +60,7 @@
 #'   the \code{itp} function, may result in a smaller number of iterations.
 #'
 #'   The default values of the other tuning parameters
-#'   (\code{epsilon = 1e-10, k1 = 0.1, k2 = 2 / (b - a)}) are set based on
+#'   (\code{epsilon = 1e-10, k1 = 0.2 / (b - a), k2 = 2}) are set based on
 #'   arguments made in Oliveira and Takahashi (2021).
 #' @return An object (a list) of class \code{"itp"} containing the following
 #'   components:
@@ -77,7 +77,7 @@
 #'     the root occurs at one of the input endpoints \code{a} or \code{b} then
 #'     \code{iter = 0} and \code{estim.prec = NA}.
 #'
-#'   The return object also has the attributes \code{f} (the input R function
+#'   The returned object also has the attributes \code{f} (the input R function
 #'   or pointer to a C++ function \code{f}), \code{f_args} (a list of
 #'   additional arguments to \code{f} provided in \code{...}), \code{f_name}
 #'   (a function name extracted from \code{as.character(substitute(f))} or the

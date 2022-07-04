@@ -42,7 +42,7 @@ of opposite signs.}
 The algorithm continues until the width of the bracketing interval for the
 root is less than or equal to \code{2 * epsilon}.}
 
-\item{k1, k2, n0}{the values of the tuning parameters
+\item{k1, k2, n0}{Numeric scalars. The values of the tuning parameters
 \ifelse{html}{\eqn{\kappa}\out{<sub>1</sub>}}{\eqn{\kappa_1}},
 \ifelse{html}{\eqn{\kappa}\out{<sub>2</sub>}}{\eqn{\kappa_2}},
 \ifelse{html}{\eqn{n}\out{<sub>0</sub>}}{\eqn{n_0}}.
@@ -64,7 +64,7 @@ An object (a list) of class \code{"itp"} containing the following
     the root occurs at one of the input endpoints \code{a} or \code{b} then
     \code{iter = 0} and \code{estim.prec = NA}.
 
-  The return object also has the attributes \code{f} (the input R function
+  The returned object also has the attributes \code{f} (the input R function
   or pointer to a C++ function \code{f}), \code{f_args} (a list of
   additional arguments to \code{f} provided in \code{...}), \code{f_name}
   (a function name extracted from \code{as.character(substitute(f))} or the
