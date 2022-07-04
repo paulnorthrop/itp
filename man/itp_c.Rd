@@ -43,7 +43,7 @@ An object (a list) of class \code{"itp"} with the same structure
 Performs one-dimensional root-finding using the ITP algorithm of
 Oliveira and Takahashi (2021). This function is equivalent to
 \code{\link{itp}} but calculations are performed entirely using C++, and
-the arguments differ slightly: \code{itp_c} has a named argument
+the arguments differ slightly: \code{itp_c} has a named required argument
 \code{pars} rather than \code{...} and it does not have the arguments
 \code{interval}, \code{f.a} or \code{f.b}.
 }

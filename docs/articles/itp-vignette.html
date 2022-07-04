@@ -33,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">itp</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">1.1.0</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">1.1.0.9000</span>
       </span>
     </div>
 
@@ -81,7 +81,7 @@
       <h1 data-toc-skip>Overview of the itp package</h1>
                         <h4 data-toc-skip class="author">Paul Northrop</h4>
             
-            <h4 data-toc-skip class="date">2022-07-02</h4>
+            <h4 data-toc-skip class="date">2022-07-04</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/paulnorthrop/itp/blob/HEAD/vignettes/itp-vignette.Rmd" class="external-link"><code>vignettes/itp-vignette.Rmd</code></a></small>
       <div class="hidden name"><code>itp-vignette.Rmd</code></div>
@@ -103,7 +103,7 @@
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://paulnorthrop.github.io/itp/" class="external-link">itp</a></span><span class="op">)</span></code></pre></div>
 <p>First, we consider supplying the argument <code>f</code> to <code>itp</code> using an R function. Then we show how to supply an external pointer to a C++ function. For the simple examples given in the <code>itp</code> package only a modest improvement in speed is observed (and expected). However, being able to call <code><a href="../reference/itp.html">itp()</a></code> on the C++ side may have benefits in more challenging problems.</p>
 <div class="section level2">
-<h2 id="supplying-an-r-function">Supplying an R function<a class="anchor" aria-label="anchor" href="#supplying-an-r-function"></a>
+<h2 id="supplying-to-itp-an-r-function">Supplying to <code>itp</code> an R function<a class="anchor" aria-label="anchor" href="#supplying-to-itp-an-r-function"></a>
 </h2>
 <div class="section level3">
 <h3 id="well-behaved-functions">Well-behaved functions<a class="anchor" aria-label="anchor" href="#well-behaved-functions"></a>
@@ -211,7 +211,7 @@
 </div>
 </div>
 <div class="section level2">
-<h2 id="supplying-an-external-pointer-to-a-c-function">Supplying an external pointer to a C++ function<a class="anchor" aria-label="anchor" href="#supplying-an-external-pointer-to-a-c-function"></a>
+<h2 id="supplying-to-itp-an-external-pointer-to-a-c-function">Supplying to <code>itp</code> an external pointer to a C++ function<a class="anchor" aria-label="anchor" href="#supplying-to-itp-an-external-pointer-to-a-c-function"></a>
 </h2>
 <p>The general approach follows the article <a href="https://gallery.rcpp.org/articles/passing-cpp-function-pointers/" class="external-link">Passing user-supplied C++ functions</a> in the <a href="https://gallery.rcpp.org/" class="external-link">Rcpp Gallery</a>. The user writes a C++ function to calculate <span class="math inline">\(f\)</span>. This function must have a particular structure. As an example consider the following function, which implements the Lambert function considered above.</p>
 <pre><code>double lambert_cpp(const double&amp; x, const List&amp; pars) {
@@ -262,10 +262,22 @@ SEXP xptr_create(std::string fstr) {
 </div>
 </div>
 <div class="section level2">
+<h2 id="c-function-itp_c">C++ function <code>itp_c</code><a class="anchor" aria-label="anchor" href="#c-function-itp_c"></a>
+</h2>
+<p>Also provided is the function <code>itp_c</code>, which is equivalent to <code>itp</code>, but the calculations are performed entirely using C++, and the arguments differ slightly: <code>itp_c</code> has a named required argument <code>pars</code> rather than <code>...</code> and it does not have the arguments <code>interval</code>, <code>f.a</code> or <code>f.b</code>.</p>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Calling itp_c()</span>
+<span class="va">res</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/itp_c.html">itp_c</a></span><span class="op">(</span><span class="va">lambert_ptr</span>, pars <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>, a <span class="op">=</span> <span class="op">-</span><span class="fl">1</span>, b <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>
+<span class="va">res</span>
+<span class="co">#&gt; function:  </span>
+<span class="co">#&gt;       root     f(root)  iterations  </span>
+<span class="co">#&gt;     0.5671   2.048e-12           8</span></code></pre></div>
+</div>
+<div class="section level2">
 <h2 id="plot-method">Plot method<a class="anchor" aria-label="anchor" href="#plot-method"></a>
 </h2>
 <p>Objects of class <code>itp</code> have a plot method that, by default, produces a plot of the function over the interval over which the root was sought and indicates the location of the root using dashed lines.</p>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">oldpar</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mar <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">4</span>, <span class="fl">4</span>, <span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">res</span>, main <span class="op">=</span> <span class="st">"Lambert"</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span><span class="va">oldpar</span><span class="op">)</span></code></pre></div>

@@ -23,7 +23,7 @@ discontinuity at which the function changes sign may be found."><!-- mathjax -->
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">itp</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">1.1.0</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">1.1.0.9000</span>
       </span>
     </div>
 
@@ -114,12 +114,9 @@ of opposite signs.</p></dd>
 <dt>epsilon</dt>
 <dd><p>A positive numeric scalar. The desired accuracy of the root.
 The algorithm continues until the width of the bracketing interval for the
-root is less than or equal to <code>2 * epsilon</code>. The value of
-<code>epsilon</code> should be greater than
-2<sup>-63</sup><code>(b-a)</code>
-to avoid integer overflow.</p></dd>
+root is less than or equal to <code>2 * epsilon</code>.</p></dd>
 <dt>k1, k2, n0</dt>
-<dd><p>the values of the tuning parameters
+<dd><p>Numeric scalars. The values of the tuning parameters
 \(\kappa\)<sub>1</sub>,
 \(\kappa\)<sub>2</sub>,
 \(n\)<sub>0</sub>.
@@ -145,9 +142,9 @@ See <strong>Details</strong>.</p></dd>
 <dt>estim.prec</dt>
 <dd><p>an approximate estimated precision for <code>root</code>,
     equal to the half the width of the final bracket for the root.</p></dd>
-</dl><p>If the root occurs at one of the input endpoints <code>a</code> or <code>b</code> then
+</dl><p>the root occurs at one of the input endpoints <code>a</code> or <code>b</code> then
 <code>iter = 0</code> and <code>estim.prec = NA</code>.
-  The return object also has the attributes <code>f</code> (the input R function
+  The returned object also has the attributes <code>f</code> (the input R function
   or pointer to a C++ function <code>f</code>), <code>f_args</code> (a list of
   additional arguments to <code>f</code> provided in <code>...</code>), <code>f_name</code>  (a function name extracted from <code>as.character(substitute(f))</code> or the
   form of the R function if <code>f</code> was not named), <code>used_c</code> (a
@@ -186,7 +183,7 @@ See <strong>Details</strong>.</p></dd>
   setting \(n\)<sub>0</sub>=1 used by
   the <code>itp</code> function, may result in a smaller number of iterations.</p>
 <p>The default values of the other tuning parameters
-  (<code>epsilon = 1e-10, k1 = 0.1, k2 = 2 / (b - a)</code>) are set based on
+  (<code>epsilon = 1e-10, k1 = 0.2 / (b - a), k2 = 2</code>) are set based on
   arguments made in Oliveira and Takahashi (2021).</p>
     </div>
     <div id="references">
@@ -213,17 +210,23 @@ See <strong>Details</strong>.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       root     f(root)  iterations  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      1.521   7.698e-06           5  </span>
 <span class="r-in"><span class="co"># The default setting (with k1 = 0.2) wins by 1 iteration</span></span>
-<span class="r-in"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu">itp</span><span class="op">(</span><span class="va">wiki</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span>, epsilon <span class="op">=</span> <span class="fl">0.0005</span>, n0 <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
+<span class="r-in"><span class="va">wres</span> <span class="op">&lt;-</span> <span class="fu">itp</span><span class="op">(</span><span class="va">wiki</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span>, epsilon <span class="op">=</span> <span class="fl">0.0005</span>, n0 <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
+<span class="r-in"><span class="va">wres</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> function: wiki </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       root     f(root)  iterations  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>      1.521   0.0001315           4  </span>
+<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">wres</span><span class="op">)</span></span>
+<span class="r-plt img"><img src="itp-1.png" alt="" width="700" height="433"></span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># Supplying an external pointer to a C++ function</span></span>
 <span class="r-in"><span class="va">wiki_ptr</span> <span class="op">&lt;-</span> <span class="fu"><a href="xptr_create.html">xptr_create</a></span><span class="op">(</span><span class="st">"wiki"</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">itp</span><span class="op">(</span>f <span class="op">=</span> <span class="va">wiki_ptr</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span>, epsilon <span class="op">=</span> <span class="fl">0.0005</span>, k1 <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span></span>
+<span class="r-in"><span class="va">wres_c</span> <span class="op">&lt;-</span> <span class="fu">itp</span><span class="op">(</span>f <span class="op">=</span> <span class="va">wiki_ptr</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span>, epsilon <span class="op">=</span> <span class="fl">0.0005</span>, k1 <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span></span>
+<span class="r-in"><span class="va">wres_c</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> function: wiki_ptr </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       root     f(root)  iterations  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      1.521   7.698e-06           5  </span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
-<span class="r-plt img"><img src="itp-1.png" alt="" width="700" height="433"></span>
+<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">wres_c</span><span class="op">)</span></span>
+<span class="r-plt img"><img src="itp-2.png" alt="" width="700" height="433"></span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co">#### ----- Some examples from Table 1 of Oliveira and Takahashi (2021)</span></span>
 <span class="r-in"></span>
