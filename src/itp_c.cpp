@@ -4,44 +4,74 @@ using namespace Rcpp;
 
 // [[Rcpp::interfaces(r, cpp)]]
 
-//' ITP method using C++
+//' The Interpolate, Truncate, Project (ITP) root-finding algorithm
 //'
-//' All in C++
+//' Performs one-dimensional root-finding using the ITP algorithm of
+//' Oliveira and Takahashi (2021). This function is equivalent to
+//' \code{\link{itp}} but calculations are performed entirely using C++, and
+//' the arguments differ slightly: \code{itp_c} has a named argument
+//' \code{pars} rather than \code{...} and it does not have the arguments
+//' \code{interval}, \code{f.a} or \code{f.b}.
+//' @param f An R function or an external pointer to a C++ function.  For the
+//'   latter see the article
+//'   \href{https://gallery.rcpp.org/articles/passing-cpp-function-pointers/}{
+//'   Passing user-supplied C++ functions} in the
+//'   \href{https://gallery.rcpp.org/}{Rcpp Gallery}. The function for which the
+//'   root is sought.
 //' @param f An external pointer to a C++ function that evaluates the function
-//'   \eqn{f}
+//'   \eqn{f}.
 //' @param pars A list of additional arguments to the function.  This may be an
 //'   empty list.
-//' @param a,b Numeric scalar. Lower (\code{a}) and upper \code{b} limits of
+//' @param a,b Numeric scalars. Lower (\code{a}) and upper \code{b} limits of
 //'   the interval to be searched for a root.
 //' @param epsilon A positive numeric scalar. The desired accuracy of the root.
 //'   The algorithm continues until the width of the bracketing interval for the
-//'   root is less than or equal to \code{2 * epsilon}. The value of
-//'   \code{epsilon} should be greater than
-//'   \ifelse{html}{2\out{<sup>-63</sup>}\code{(b-a)}}{\eqn{2^{-63}}(\code{b-a})}
-//'   to avoid integer overflow.
-//' @param k1,k2,n0 the values of the tuning parameters
+//'   root is less than or equal to \code{2 * epsilon}.
+//' @param k1,k2,n0 Numeric scalars. The values of the tuning parameters
 //'   \ifelse{html}{\eqn{\kappa}\out{<sub>1</sub>}}{\eqn{\kappa_1}},
 //'   \ifelse{html}{\eqn{\kappa}\out{<sub>2</sub>}}{\eqn{\kappa_2}},
 //'   \ifelse{html}{\eqn{n}\out{<sub>0</sub>}}{\eqn{n_0}}.
-//'   See \strong{Details}.
-//' @details Add details
-//' @return Add Value
+//'   See the \strong{Details} section of \code{\link{itp}}.
+//'
+//'   The default value for \code{k1} in \code{\link{itp_c}} is set as
+//'   the inadmissible value of \code{-1}
+//'   (in reality \ifelse{html}{\eqn{\kappa}\out{<sub>1</sub>}}{\eqn{\kappa_1}}
+//'   must be positive) as a device to set the same default value for \code{k1}
+//'   as \code{\link{itp}}, that is, \code{k1 = 0.2 / (b - a)}.  If the input
+//'   value of \code{k1} is less than or equal to 0 then, inside
+//'   \code{\link{itp_c}}, \code{k1 = 0.2 / (b - a)} is set.
+//' @details For details see \code{\link{itp}}.
+//' @return An object (a list) of class \code{"itp"} with the same structure
+//'   as detailed in the \strong{Value} section of \code{\link{itp}}, except
+//'   that the attribute \code{f_name} is empty (equal to \code{""}).
+//' @references Oliveira, I. F. D. and Takahashi, R. H. C. (2021). An Enhancement
+//'   of the Bisection Method Average Performance Preserving Minmax Optimality,
+//'   \emph{ACM Transactions on Mathematical Software}, \strong{47}(1), 1-24.
+//'   \doi{10.1145/3423597}
+//' @seealso \code{\link{print.itp}} and \code{\link{plot.itp}} for print and
+//'   plot methods for objects of class \code{"itp"} returned from \code{itp_c}
+//'   or \code{itp}.
 //' @examples
 //' wiki_ptr <- xptr_create("wiki")
-//' x <- itp_c(f = wiki_ptr, pars = list(), a = 1, b = 2, epsilon = 0.0005,
-//'            k1 = 0.2)
-//' @return Add return
+//' wres <- itp_c(f = wiki_ptr, pars = list(), a = 1, b = 2, epsilon = 0.0005,
+//'               k1 = 0.2)
+//' wres
+//' plot(wres. main = "Wiki")
 //' @export
 // [[Rcpp::export]]
 List itp_c(const SEXP& f, const List& pars, double& a, double& b,
-           const double& epsilon = 1e-10, const double& k1 = 0.2,
+           const double& epsilon = 1e-10, const double& k1 = -1.0,
            const double& k2 = 2.0, const double& n0 = 1.0) {
   // Check that a < b
   if (a >= b) {
     stop("a must be less than b") ;
   }
+  // If k1 <=0 then the default value of k1, based on a and b
+  double k1set ;
   if (k1 <= 0.0) {
-    stop("k1 must be positive") ;
+    k1set = 0.2 / (b - a) ;
+  } else {
+    k1set = k1 ;
   }
   if (k2 < 1.0 || k2 >= 1.0 + (1.0 + sqrt(5.0)) / 2.0) {
     stop("k2 must be in [ 1, 1 + (1 + sqrt(5)) / 2 )") ;
@@ -49,10 +79,6 @@ List itp_c(const SEXP& f, const List& pars, double& a, double& b,
   if (n0 < 0.0) {
     stop("n0 must be non-negative") ;
   }
-// Perhaps set a default value for k1 ...?
-//  if (k1.size() == 0) {
-//    k1 = 0.2 / (b - a) ;
-//  }
   // Save the input values of a and b for use in plot.itp
   double input_a = a ;
   double input_b = b ;
@@ -119,7 +145,7 @@ List itp_c(const SEXP& f, const List& pars, double& a, double& b,
     x12 = (a + b) * 0.5 ;
     // Equation (13)
     int sigma = (x12 > xf) - (x12 < xf) ;
-    delta = k1 * pow(b - a, k2) ;
+    delta = k1set * pow(b - a, k2) ;
     // Equation (14)
     if (delta <= fabs(x12 - xf)) {
       xt = xf + sigma * delta ;

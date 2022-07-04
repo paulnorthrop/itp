@@ -115,7 +115,7 @@ Page 8 of Oliveira and Takahashi (2021) describes the ITP
   the \code{itp} function, may result in a smaller number of iterations.
 
   The default values of the other tuning parameters
-  (\code{epsilon = 1e-10, k1 = 0.1, k2 = 2 / (b - a)}) are set based on
+  (\code{epsilon = 1e-10, k1 = 0.2 / (b - a), k2 = 2}) are set based on
   arguments made in Oliveira and Takahashi (2021).
 }
 \examples{

@@ -2,46 +2,69 @@
 % Please edit documentation in R/RcppExports.R
 \name{itp_c}
 \alias{itp_c}
-\title{ITP method using C++}
+\title{The Interpolate, Truncate, Project (ITP) root-finding algorithm}
 \usage{
-itp_c(f, pars, a, b, epsilon = 1e-10, k1 = 0.2, k2 = 2, n0 = 1)
+itp_c(f, pars, a, b, epsilon = 1e-10, k1 = -1, k2 = 2, n0 = 1)
 }
 \arguments{
 \item{f}{An external pointer to a C++ function that evaluates the function
-\eqn{f}}
+\eqn{f}.}
 
 \item{pars}{A list of additional arguments to the function.  This may be an
 empty list.}
 
-\item{a, b}{Numeric scalar. Lower (\code{a}) and upper \code{b} limits of
+\item{a, b}{Numeric scalars. Lower (\code{a}) and upper \code{b} limits of
 the interval to be searched for a root.}
 
 \item{epsilon}{A positive numeric scalar. The desired accuracy of the root.
 The algorithm continues until the width of the bracketing interval for the
-root is less than or equal to \code{2 * epsilon}. The value of
-\code{epsilon} should be greater than
-\ifelse{html}{2\out{<sup>-63</sup>}\code{(b-a)}}{\eqn{2^{-63}}(\code{b-a})}
-to avoid integer overflow.}
+root is less than or equal to \code{2 * epsilon}.}
 
-\item{k1, k2, n0}{the values of the tuning parameters
-\ifelse{html}{\eqn{\kappa}\out{<sub>1</sub>}}{\eqn{\kappa_1}},
-\ifelse{html}{\eqn{\kappa}\out{<sub>2</sub>}}{\eqn{\kappa_2}},
-\ifelse{html}{\eqn{n}\out{<sub>0</sub>}}{\eqn{n_0}}.
-See \strong{Details}.}
+\item{k1, k2, n0}{Numeric scalars. The values of the tuning parameters
+  \ifelse{html}{\eqn{\kappa}\out{<sub>1</sub>}}{\eqn{\kappa_1}},
+  \ifelse{html}{\eqn{\kappa}\out{<sub>2</sub>}}{\eqn{\kappa_2}},
+  \ifelse{html}{\eqn{n}\out{<sub>0</sub>}}{\eqn{n_0}}.
+  See the \strong{Details} section of \code{\link{itp}}.
+
+  The default value for \code{k1} in \code{\link{itp_c}} is set as
+  the inadmissible value of \code{-1}
+  (in reality \ifelse{html}{\eqn{\kappa}\out{<sub>1</sub>}}{\eqn{\kappa_1}}
+  must be positive) as a device to set the same default value for \code{k1}
+  as \code{\link{itp}}, that is, \code{k1 = 0.2 / (b - a)}.  If the input
+  value of \code{k1} is less than or equal to 0 then, inside
+  \code{\link{itp_c}}, \code{k1 = 0.2 / (b - a)} is set.}
 }
 \value{
-Add Value
-
-Add return
+An object (a list) of class \code{"itp"} with the same structure
+  as detailed in the \strong{Value} section of \code{\link{itp}}, except
+  that the attribute \code{f_name} is empty (equal to \code{""}).
 }
 \description{
-All in C++
+Performs one-dimensional root-finding using the ITP algorithm of
+Oliveira and Takahashi (2021). This function is equivalent to
+\code{\link{itp}} but calculations are performed entirely using C++, and
+the arguments differ slightly: \code{itp_c} has a named argument
+\code{pars} rather than \code{...} and it does not have the arguments
+\code{interval}, \code{f.a} or \code{f.b}.
 }
 \details{
-Add details
+For details see \code{\link{itp}}.
 }
 \examples{
 wiki_ptr <- xptr_create("wiki")
-x <- itp_c(f = wiki_ptr, pars = list(), a = 1, b = 2, epsilon = 0.0005,
-           k1 = 0.2)
+wres <- itp_c(f = wiki_ptr, pars = list(), a = 1, b = 2, epsilon = 0.0005,
+              k1 = 0.2)
+wres
+plot(wres. main = "Wiki")
+}
+\references{
+Oliveira, I. F. D. and Takahashi, R. H. C. (2021). An Enhancement
+  of the Bisection Method Average Performance Preserving Minmax Optimality,
+  \emph{ACM Transactions on Mathematical Software}, \strong{47}(1), 1-24.
+  \doi{10.1145/3423597}
+}
+\seealso{
+\code{\link{print.itp}} and \code{\link{plot.itp}} for print and
+  plot methods for objects of class \code{"itp"} returned from \code{itp_c}
+  or \code{itp}.
 }

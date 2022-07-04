@@ -45,11 +45,6 @@ test_that("Lambert: a >= b", {
   testthat::expect_error(wrap_itp_c(lambert_ptr, a = 1, b = -1))
 })
 
-# k1 <= 0
-test_that("Lambert: k1 <= 0", {
-  testthat::expect_error(wrap_itp_c(lambert_ptr, c(-1, 1), k1 = -1))
-})
-
 # Inappropriate k2, not in [ 1, 1 + (1 + sqrt(5)) / 2 )
 test_that("Lambert: k2 = 0.99", {
   testthat::expect_error(wrap_itp_c(lambert_ptr, c(-1, 1), k2 = 0.99))

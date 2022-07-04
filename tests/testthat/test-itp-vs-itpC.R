@@ -74,3 +74,24 @@ res2 <- wrap_itp_c(staircase_ptr, c(-1, 1))
 test_that("Staircase: R vs C++ in (-1,1)", {
   testthat::expect_equal(res1, res2, ignore_attr = TRUE)
 })
+
+#### Check that we get the same results as the default if we supply k1 <= 0
+
+## Wiki
+
+# Default k1for itp_c (k1 = -1.0)
+res1 <- itp(wiki, c(1, 2))
+res2 <- wrap_itp_c(wiki_ptr, c(1, 2))
+test_that("Wiki: R vs C++, defaults", {
+  testthat::expect_equal(res1, res2, ignore_attr = TRUE)
+})
+# k1 = 0.0
+res2 <- wrap_itp_c(wiki_ptr, c(1, 2), k1 = 0)
+test_that("Wiki: R vs C++, k1 supplied = 0", {
+  testthat::expect_equal(res1, res2, ignore_attr = TRUE)
+})
+# k1 = -3.1
+res2 <- wrap_itp_c(wiki_ptr, c(1, 2), k1 = -3.1)
+test_that("Wiki: R vs C++, k1 supplied = -3.1", {
+  testthat::expect_equal(res1, res2, ignore_attr = TRUE)
+})

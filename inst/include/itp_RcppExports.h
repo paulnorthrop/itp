@@ -66,7 +66,7 @@ namespace itp {
         return Rcpp::as<double >(rcpp_result_gen);
     }
 
-    inline List itp_c(const SEXP& f, const List& pars, double& a, double& b, const double& epsilon = 1e-10, const double& k1 = 0.2, const double& k2 = 2.0, const double& n0 = 1.0) {
+    inline List itp_c(const SEXP& f, const List& pars, double& a, double& b, const double& epsilon = 1e-10, const double& k1 = -1.0, const double& k2 = 2.0, const double& n0 = 1.0) {
         typedef SEXP(*Ptr_itp_c)(SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP);
         static Ptr_itp_c p_itp_c = NULL;
         if (p_itp_c == NULL) {
