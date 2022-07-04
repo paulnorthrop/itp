@@ -1,4 +1,4 @@
-# Check that results from R and C++ agree
+# Check that results from itp() and itpC() agree
 
 wrap_itpC <- function(f, interval, ..., epsilon = 1e-10,
                       k1 = 0.2 / (interval[2] - interval[1]), k2 = 2, n0 = 1) {

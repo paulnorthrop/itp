@@ -1,4 +1,4 @@
-# Check that errors are triggered
+# Check that errors are triggered in itp()
 
 # f not finite at both end points
 test_that("f(a) or f(b) not finite", {
