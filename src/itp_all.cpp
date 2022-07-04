@@ -31,6 +31,7 @@ using namespace Rcpp;
 //' x <- itpC(f = wiki_ptr, pars = list(), a = 1, b = 2, epsilon = 0.0005,
 //'           k1 = 0.2)
 //' @return Add return
+//' @export
 // [[Rcpp::export]]
 List itpC(const SEXP& f, const List& pars, double& a, double& b,
           const double& epsilon = 1e-10, const double& k1 = 0.2,
