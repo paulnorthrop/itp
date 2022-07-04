@@ -1,4 +1,4 @@
-#' The Interpolate, Truncate, Project (ITP) root-finding algorithm
+#' The ITP root-finding algorithm
 #'
 #' Performs one-dimensional root-finding using the ITP algorithm of
 #' Oliveira and Takahashi (2021).  The function \code{itp} searches an

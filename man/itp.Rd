@@ -2,7 +2,7 @@
 % Please edit documentation in R/itp.R
 \name{itp}
 \alias{itp}
-\title{The Interpolate, Truncate, Project (ITP) root-finding algorithm}
+\title{The ITP root-finding algorithm}
 \usage{
 itp(
   f,

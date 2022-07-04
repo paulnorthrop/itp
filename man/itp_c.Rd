@@ -2,7 +2,7 @@
 % Please edit documentation in R/RcppExports.R
 \name{itp_c}
 \alias{itp_c}
-\title{The Interpolate, Truncate, Project (ITP) root-finding algorithm}
+\title{The ITP root-finding algorithm using C++}
 \usage{
 itp_c(f, pars, a, b, epsilon = 1e-10, k1 = -1, k2 = 2, n0 = 1)
 }

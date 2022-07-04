@@ -40,7 +40,7 @@ xptr_eval <- function(x, pars, xpsexp) {
     .Call(`_itp_xptr_eval`, x, pars, xpsexp)
 }
 
-#' The Interpolate, Truncate, Project (ITP) root-finding algorithm
+#' The ITP root-finding algorithm using C++
 #'
 #' Performs one-dimensional root-finding using the ITP algorithm of
 #' Oliveira and Takahashi (2021). This function is equivalent to
