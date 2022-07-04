@@ -45,7 +45,7 @@ xptr_eval <- function(x, pars, xpsexp) {
 #' Performs one-dimensional root-finding using the ITP algorithm of
 #' Oliveira and Takahashi (2021). This function is equivalent to
 #' \code{\link{itp}} but calculations are performed entirely using C++, and
-#' the arguments differ slightly: \code{itp_c} has a named argument
+#' the arguments differ slightly: \code{itp_c} has a named required argument
 #' \code{pars} rather than \code{...} and it does not have the arguments
 #' \code{interval}, \code{f.a} or \code{f.b}.
 #' @param f An R function or an external pointer to a C++ function.  For the
@@ -89,10 +89,9 @@ xptr_eval <- function(x, pars, xpsexp) {
 #'   or \code{itp}.
 #' @examples
 #' wiki_ptr <- xptr_create("wiki")
-#' wres <- itp_c(f = wiki_ptr, pars = list(), a = 1, b = 2, epsilon = 0.0005,
-#'               k1 = 0.2)
+#' wres <- itp_c(f = wiki_ptr, pars = list(), a = 1, b = 2, epsilon = 0.0005)
 #' wres
-#' plot(wres. main = "Wiki")
+#' plot(wres, main = "Wiki")
 #' @export
 itp_c <- function(f, pars, a, b, epsilon = 1e-10, k1 = -1.0, k2 = 2.0, n0 = 1.0) {
     .Call(`_itp_itp_c`, f, pars, a, b, epsilon, k1, k2, n0)

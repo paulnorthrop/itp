@@ -45,7 +45,7 @@ library(itp)
 
 First, we consider supplying the argument `f` to `itp` using an R function.  Then we show how to supply an external pointer to a C++ function. For the simple examples given in the `itp` package only a modest improvement in speed is observed (and expected).  However, being able to call `itp()` on the C++ side may have benefits in more challenging problems.  
 
-## Supplying an R function
+## Supplying to `itp` an R function
 
 ### Well-behaved functions
 
@@ -154,7 +154,7 @@ par(oldpar)
 
 In terms of a naive comparison based on the number of iterations `itp` and `uniroot` perform similarly, except in the repeated-root "Polynomial 3" example, where `itp` requires fewer iterations.  
 
-## Supplying an external pointer to a C++ function
+## Supplying to `itp` an external pointer to a C++ function
 
 The general approach follows the article [Passing user-supplied C++ functions](https://gallery.rcpp.org/articles/passing-cpp-function-pointers/) in the [Rcpp Gallery](https://gallery.rcpp.org/). The user writes a C++ function to calculate $f$. This function must have a particular structure.  As an example consider the following function, which implements the Lambert function considered above.
 
@@ -206,6 +206,16 @@ We repeat the Lambert example, obtaining the same results as above when we used 
 # Lambert, using an external pointer to a C++ function
 lambert_ptr <- xptr_create("lambert")
 res <- itp(lambert_ptr, c(-1, 1))
+res
+```
+
+## C++ function `itp_c`
+
+Also provided is the function `itp_c`, which is equivalent to `itp`, but the calculations are performed entirely using C++, and the arguments differ slightly: `itp_c` has a named required argument `pars` rather than `...` and it does not have the arguments `interval`, `f.a` or `f.b`.
+
+```{r lambert_root_itp_c}
+# Calling itp_c()
+res <- itp_c(lambert_ptr, pars = list(), a = -1, b = 1)
 res
 ```
 

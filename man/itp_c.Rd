@@ -52,10 +52,9 @@ For details see \code{\link{itp}}.
 }
 \examples{
 wiki_ptr <- xptr_create("wiki")
-wres <- itp_c(f = wiki_ptr, pars = list(), a = 1, b = 2, epsilon = 0.0005,
-              k1 = 0.2)
+wres <- itp_c(f = wiki_ptr, pars = list(), a = 1, b = 2, epsilon = 0.0005)
 wres
-plot(wres. main = "Wiki")
+plot(wres, main = "Wiki")
 }
 \references{
 Oliveira, I. F. D. and Takahashi, R. H. C. (2021). An Enhancement
