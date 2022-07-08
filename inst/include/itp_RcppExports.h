@@ -66,11 +66,11 @@ namespace itp {
         return Rcpp::as<double >(rcpp_result_gen);
     }
 
-    inline List itp_c(const SEXP& f, const List& pars, double& a, double& b, const double& epsilon = 1e-10, const double& k1 = -1.0, const double& k2 = 2.0, const double& n0 = 1.0) {
+    inline List itp_c(const SEXP& f, const List& pars, const double& a, const double& b, const double& epsilon = 1e-10, const double& k1 = -1.0, const double& k2 = 2.0, const double& n0 = 1.0) {
         typedef SEXP(*Ptr_itp_c)(SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP);
         static Ptr_itp_c p_itp_c = NULL;
         if (p_itp_c == NULL) {
-            validateSignature("List(*itp_c)(const SEXP&,const List&,double&,double&,const double&,const double&,const double&,const double&)");
+            validateSignature("List(*itp_c)(const SEXP&,const List&,const double&,const double&,const double&,const double&,const double&,const double&)");
             p_itp_c = (Ptr_itp_c)R_GetCCallable("itp", "_itp_itp_c");
         }
         RObject rcpp_result_gen;

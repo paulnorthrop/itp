@@ -58,7 +58,7 @@ using namespace Rcpp;
 //' plot(wres, main = "Wiki")
 //' @export
 // [[Rcpp::export]]
-List itp_c(const SEXP& f, const List& pars, double& a, double& b,
+List itp_c(const SEXP& f, const List& pars, const double& a, const double& b,
            const double& epsilon = 1e-10, const double& k1 = -1.0,
            const double& k2 = 2.0, const double& n0 = 1.0) {
   // Check that a < b
@@ -78,9 +78,6 @@ List itp_c(const SEXP& f, const List& pars, double& a, double& b,
   if (n0 < 0.0) {
     stop("n0 must be non-negative") ;
   }
-  // Save the input values of a and b for use in plot.itp
-  double input_a = a ;
-  double input_b = b ;
   // Unwrap pointer to untransformed target log-density.
   typedef double (*funcPtr)(const double& x, const List& pars) ;
   XPtr<funcPtr> xpfun(f) ;
@@ -137,14 +134,17 @@ List itp_c(const SEXP& f, const List& pars, double& a, double& b,
   // Initialise the counter k and implement the loop
   int k = 0 ;
   double xf, x12, delta, rk, xt, xITP, yITP ;
-  while (b - a > 2.0 * epsilon) {
+  // Leave the input a and b unmodified
+  double new_a = a ;
+  double new_b = b ;
+  while (new_b - new_a > 2.0 * epsilon) {
     // Interpolation. Regular falsi, equation (5)
-    xf = (yb * a - ya * b) / (yb - ya) ;
+    xf = (yb * new_a - ya * new_b) / (yb - ya) ;
     // Truncation
-    x12 = (a + b) * 0.5 ;
+    x12 = (new_a + new_b) * 0.5 ;
     // Equation (13)
     int sigma = (x12 > xf) - (x12 < xf) ;
-    delta = k1set * pow(b - a, k2) ;
+    delta = k1set * pow(new_b - new_a, k2) ;
     // Equation (14)
     if (delta <= fabs(x12 - xf)) {
       xt = xf + sigma * delta ;
@@ -152,7 +152,7 @@ List itp_c(const SEXP& f, const List& pars, double& a, double& b,
       xt = x12 ;
     }
     // Projection, equation (15)
-    rk = for_rk - (b - a) * 0.5 ;
+    rk = for_rk - (new_b - new_a) * 0.5 ;
     if (fabs(xt - x12) <= rk) {
       xITP = xt ;
     } else {
@@ -161,33 +161,33 @@ List itp_c(const SEXP& f, const List& pars, double& a, double& b,
     // Update (a, b)
     yITP = fun(xITP, pars) ;
     if (yITP * signyb > 0.0) {
-      b = xITP ;
+      new_b = xITP ;
       yb = yITP ;
     } else if (yITP * signyb < 0.0) {
-      a = xITP ;
+      new_a = xITP ;
       ya = yITP ;
     } else {
-      a = xITP ;
+      new_a = xITP ;
       ya = yITP ;
-      b = xITP ;
+      new_b = xITP ;
       yb = yITP ;
     }
-    root = (a + b) * 0.5 ;
+    root = (new_a + new_b) * 0.5 ;
     // Update the first term of rk
     for_rk *= 0.5 ;
     k += 1 ;
   }
   froot = fun(root, pars) ;
-  estimprec = (b - a) * 0.5 ;
+  estimprec = (new_b - new_a) * 0.5 ;
   List val = List::create(Named("root") = root, Named("f.root") = froot,
-                          Named("iter") = k, Named("a") = a, Named("b") = b,
-                          Named("f.a") = ya, Named("f.b") = yb,
-                          Named("estim.prec") = estimprec) ;
+                          Named("iter") = k, Named("a") = new_a,
+                          Named("b") = new_b, Named("f.a") = ya,
+                          Named("f.b") = yb, Named("estim.prec") = estimprec) ;
   val.attr("class") = "itp" ;
   val.attr("f") = f ;
   val.attr("f_args") = pars ;
-  val.attr("input_a") = input_a ;
-  val.attr("input_b") = input_b ;
+  val.attr("input_a") = a ;
+  val.attr("input_b") = b ;
   val.attr("f_name") = "" ;
   val.attr("used_c") = true ;
   return val ;

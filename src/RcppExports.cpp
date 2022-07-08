@@ -94,14 +94,14 @@ RcppExport SEXP _itp_xptr_eval(SEXP xSEXP, SEXP parsSEXP, SEXP xpsexpSEXP) {
     return rcpp_result_gen;
 }
 // itp_c
-List itp_c(const SEXP& f, const List& pars, double& a, double& b, const double& epsilon, const double& k1, const double& k2, const double& n0);
+List itp_c(const SEXP& f, const List& pars, const double& a, const double& b, const double& epsilon, const double& k1, const double& k2, const double& n0);
 static SEXP _itp_itp_c_try(SEXP fSEXP, SEXP parsSEXP, SEXP aSEXP, SEXP bSEXP, SEXP epsilonSEXP, SEXP k1SEXP, SEXP k2SEXP, SEXP n0SEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::traits::input_parameter< const SEXP& >::type f(fSEXP);
     Rcpp::traits::input_parameter< const List& >::type pars(parsSEXP);
-    Rcpp::traits::input_parameter< double& >::type a(aSEXP);
-    Rcpp::traits::input_parameter< double& >::type b(bSEXP);
+    Rcpp::traits::input_parameter< const double& >::type a(aSEXP);
+    Rcpp::traits::input_parameter< const double& >::type b(bSEXP);
     Rcpp::traits::input_parameter< const double& >::type epsilon(epsilonSEXP);
     Rcpp::traits::input_parameter< const double& >::type k1(k1SEXP);
     Rcpp::traits::input_parameter< const double& >::type k2(k2SEXP);
@@ -455,7 +455,7 @@ static int _itp_RcppExport_validate(const char* sig) {
     if (signatures.empty()) {
         signatures.insert("List(*itp_cpp)(const SEXP&,const List&,double&,double&,double&,double&,const double&,const double&,const double&,double&,double&)");
         signatures.insert("double(*xptr_eval)(const double&,const List&,SEXP)");
-        signatures.insert("List(*itp_c)(const SEXP&,const List&,double&,double&,const double&,const double&,const double&,const double&)");
+        signatures.insert("List(*itp_c)(const SEXP&,const List&,const double&,const double&,const double&,const double&,const double&,const double&)");
         signatures.insert("double(*wiki_cpp)(const double&,const List&)");
         signatures.insert("double(*neg_wiki_cpp)(const double&,const List&)");
         signatures.insert("double(*lambert_cpp)(const double&,const List&)");
