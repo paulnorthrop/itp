@@ -96,27 +96,25 @@ List itp_c(const SEXP& f, const List& pars, const double& a, const double& b,
     root = (a + b) * 0.5 ;
     froot = fun(root, pars) ;
     estimprec = (b - a) * 0.5 ;
-    List val =  List::create(Named("root") = root, Named("f.root") = froot,
-                             Named("iter") = 0, Named("a") = a, Named("b") = b,
-                             Named("f.a") = ya, Named("f.b") = yb,
-                             Named("estim.prec") = estimprec) ;
+    List val =  List::create(_("root") = root, _("f.root") = froot,
+                             _("iter") = 0, _("a") = a, _("b") = b,
+                             _("f.a") = ya, _("f.b") = yb,
+                             _("estim.prec") = estimprec) ;
     val.attr("class") = "itp" ;
     return val ;
   }
   // Check whether the root lies on a limit of the input interval
   if (ya == 0.0) {
-    List val =  List::create(Named("root") = a, Named("f.root") = 0.0,
-                             Named("iter") = 0, Named("a") = a, Named("b") = b,
-                             Named("f.a") = ya, Named("f.b") = yb,
-                             Named("estim.prec") = NA_REAL) ;
+    List val =  List::create(_("root") = a, _("f.root") = 0.0, _("iter") = 0,
+                             _("a") = a, _("b") = b, _("f.a") = ya,
+                             _("f.b") = yb, _("estim.prec") = NA_REAL) ;
     val.attr("class") = "itp" ;
     return val ;
   }
   if (yb == 0.0) {
-    List val = List::create(Named("root") = b, Named("f.root") = 0.0,
-                            Named("iter") = 0, Named("a") = a, Named("b") = b,
-                            Named("f.a") = ya, Named("f.b") = yb,
-                            Named("estim.prec") = NA_REAL) ;
+    List val = List::create(_("root") = b, _("f.root") = 0.0, _("iter") = 0,
+                            _("a") = a, _("b") = b, _("f.a") = ya,
+                            _("f.b") = yb, _("estim.prec") = NA_REAL) ;
     val.attr("class") = "itp" ;
     return val ;
   }
@@ -179,10 +177,9 @@ List itp_c(const SEXP& f, const List& pars, const double& a, const double& b,
   }
   froot = fun(root, pars) ;
   estimprec = (new_b - new_a) * 0.5 ;
-  List val = List::create(Named("root") = root, Named("f.root") = froot,
-                          Named("iter") = k, Named("a") = new_a,
-                          Named("b") = new_b, Named("f.a") = ya,
-                          Named("f.b") = yb, Named("estim.prec") = estimprec) ;
+  List val = List::create(_("root") = root, _("f.root") = froot, _("iter") = k,
+                          _("a") = new_a, _("b") = new_b, _("f.a") = ya,
+                          _("f.b") = yb, _("estim.prec") = estimprec) ;
   val.attr("class") = "itp" ;
   val.attr("f") = f ;
   val.attr("f_args") = pars ;

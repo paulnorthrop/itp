@@ -59,10 +59,9 @@ List itp_cpp(const SEXP& f, const List& pars, double& a, double& b,
   }
   froot = fun(root, pars) ;
   estimprec = (b - a) * 0.5 ;
-  return List::create(Named("root") = root, Named("f.root") = froot,
-                      Named("iter") = k, Named("a") = a, Named("b") = b,
-                      Named("f.a") = ya, Named("f.b") = yb,
-                      Named("estim.prec") = estimprec) ;
+  return List::create(_("root") = root, _("f.root") = froot, _("iter") = k,
+                      _("a") = a, _("b") = b, _("f.a") = ya, _("f.b") = yb,
+                      _("estim.prec") = estimprec) ;
 }
 
 //' Call a C++ function using an external pointer
