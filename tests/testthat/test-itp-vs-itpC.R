@@ -79,7 +79,7 @@ test_that("Staircase: R vs C++ in (-1,1)", {
 
 ## Wiki
 
-# Default k1for itp_c (k1 = -1.0)
+# Default k1 for itp_c (k1 = -1.0)
 res1 <- itp(wiki, c(1, 2))
 res2 <- wrap_itp_c(wiki_ptr, c(1, 2))
 test_that("Wiki: R vs C++, defaults", {
