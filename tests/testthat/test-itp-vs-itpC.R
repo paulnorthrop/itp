@@ -1,7 +1,7 @@
 # Check that results from itp() and itp_c() agree
 
 wrap_itp_c <- function(f, interval, ..., epsilon = 1e-10,
-                      k1 = 0.2 / (interval[2] - interval[1]), k2 = 2, n0 = 1) {
+                       k1 = 0.2 / (interval[2] - interval[1]), k2 = 2, n0 = 1) {
   itp_c(f = f, pars = list(...), a = interval[1], b = interval[2],
        epsilon = epsilon, k1 = k1, k2 = k2, n0 = n0)
 }
