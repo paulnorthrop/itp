@@ -67,6 +67,8 @@ lambert_ptr <- xptr_create("lambert")
 itp(lambert_ptr, c(-1, 1))
 ```
 
+#### The function `itp_c`
+
 Also provided is the function `itp_c`, which is equivalent to `itp`, but the calculations are performed entirely using C++, and the arguments differ slightly: `itp_c` has a named required argument `pars` rather than `...` and it does not have the arguments `interval`, `f.a` or `f.b`.
 
 ```{r lambert_root_itp_c}
