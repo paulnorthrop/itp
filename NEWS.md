@@ -1,4 +1,4 @@
-# itp 1.2.1
+# itp 1.2.0
 
 ## New features
 
