@@ -44,7 +44,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">itp</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">1.1.0.9000</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">1.2.1</span>
       </span>
     </div>
 
@@ -124,6 +124,11 @@
 <span class="co">#&gt; function: lambert_ptr </span>
 <span class="co">#&gt;       root     f(root)  iterations  </span>
 <span class="co">#&gt;     0.5671   2.048e-12           8</span></code></pre></div>
+</div>
+<div class="section level4">
+<h4 id="the-function-itp_c">The function <code>itp_c</code>
+<a class="anchor" aria-label="anchor" href="#the-function-itp_c"></a>
+</h4>
 <p>Also provided is the function <code>itp_c</code>, which is equivalent to <code>itp</code>, but the calculations are performed entirely using C++, and the arguments differ slightly: <code>itp_c</code> has a named required argument <code>pars</code> rather than <code>...</code> and it does not have the arguments <code>interval</code>, <code>f.a</code> or <code>f.b</code>.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Calling itp_c()</span>

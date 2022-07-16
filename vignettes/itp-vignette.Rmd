@@ -211,7 +211,7 @@ res
 
 ## C++ function `itp_c`
 
-Also provided is the function `itp_c`, which is equivalent to `itp`, but the calculations are performed entirely using C++, and the arguments differ slightly: `itp_c` has a named required argument `pars` rather than `...` and it does not have the arguments `interval`, `f.a` or `f.b`.
+Also provided is the function `itp_c`, which is equivalent to `itp`, but the calculations are performed entirely using C++, and the arguments differ slightly: `itp_c` has a named required argument `pars` rather than `...` and it does not have the arguments `interval`, `f.a` or `f.b`. This may be useful if you wish to call an ITP function on the C++ side. 
 
 ```{r lambert_root_itp_c}
 # Calling itp_c()

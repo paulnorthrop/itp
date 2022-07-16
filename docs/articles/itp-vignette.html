@@ -33,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">itp</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">1.1.0.9000</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">1.2.1</span>
       </span>
     </div>
 
@@ -81,7 +81,7 @@
       <h1 data-toc-skip>Overview of the itp package</h1>
                         <h4 data-toc-skip class="author">Paul Northrop</h4>
             
-            <h4 data-toc-skip class="date">2022-07-04</h4>
+            <h4 data-toc-skip class="date">2022-07-16</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/paulnorthrop/itp/blob/HEAD/vignettes/itp-vignette.Rmd" class="external-link"><code>vignettes/itp-vignette.Rmd</code></a></small>
       <div class="hidden name"><code>itp-vignette.Rmd</code></div>
@@ -264,7 +264,7 @@ SEXP xptr_create(std::string fstr) {
 <div class="section level2">
 <h2 id="c-function-itp_c">C++ function <code>itp_c</code><a class="anchor" aria-label="anchor" href="#c-function-itp_c"></a>
 </h2>
-<p>Also provided is the function <code>itp_c</code>, which is equivalent to <code>itp</code>, but the calculations are performed entirely using C++, and the arguments differ slightly: <code>itp_c</code> has a named required argument <code>pars</code> rather than <code>...</code> and it does not have the arguments <code>interval</code>, <code>f.a</code> or <code>f.b</code>.</p>
+<p>Also provided is the function <code>itp_c</code>, which is equivalent to <code>itp</code>, but the calculations are performed entirely using C++, and the arguments differ slightly: <code>itp_c</code> has a named required argument <code>pars</code> rather than <code>...</code> and it does not have the arguments <code>interval</code>, <code>f.a</code> or <code>f.b</code>. This may be useful if you wish to call an ITP function on the C++ side.</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Calling itp_c()</span>
 <span class="va">res</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/itp_c.html">itp_c</a></span><span class="op">(</span><span class="va">lambert_ptr</span>, pars <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>, a <span class="op">=</span> <span class="op">-</span><span class="fl">1</span>, b <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>
