@@ -1,6 +1,6 @@
 # Check that for some continuous example functions that
-# (a) (b-a) / 2 is no larger than epsilon
-# (b) f(root) is close to zero
+#  (a) (b-a) / 2 is no larger than epsilon
+#  (b) f(root) is close to zero
 
 wrap_itp_c <- function(f, interval, ..., epsilon = 1e-10,
                       k1 = 0.2 / (interval[2] - interval[1]), k2 = 2, n0 = 1) {
