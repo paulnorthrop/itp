@@ -135,8 +135,8 @@ log_cpp <- function(x, pars) {
 #' external pointers to the C++ functions used as examples to illustrate the
 #' use of the function \code{\link{itp}}.  These pointers are passed as the
 #' argument \code{f} to \code{\link{itp}}.  To create their own examples
-#' the user will need to create their own C++ function a function that is
-#' similar to \code{xptr_create}.
+#' the user will need to create their own C++ function(s) and a function that
+#' is similar to \code{xptr_create}.
 #'
 #' @param fstr A string indicating the C++ function required.
 #' @details See the vignette
