@@ -13,12 +13,12 @@ xptr_create(fstr)
 The external pointer.
 }
 \description{
-This function is used in \code{\link[itp]{itp-package}} to create
-external pointers to the C++ functions used as examples to illustrate the
-use of the function \code{\link{itp}}.  These pointers are passed as the
-argument \code{f} to \code{\link{itp}}.  To create their own examples
-the user will need to create their own C++ function(s) and a function that
-is similar to \code{xptr_create}.
+This function is used in the \code{\link[itp:itp-package]{itp}} package to
+create external pointers to the C++ functions used as examples to
+illustrate the use of the function \code{\link{itp}}.  These pointers are
+passed as the argument \code{f} to \code{\link{itp}}.  To create their own
+examples the user will need to create their own C++ function(s) and a
+function that is similar to \code{xptr_create}.
 }
 \details{
 See the vignette

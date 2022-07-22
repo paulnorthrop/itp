@@ -61,12 +61,12 @@ double log_cpp(const double& x, const List& pars) {
 
 //' Create an external pointer to a C++ function
 //'
-//' This function is used in \code{\link[itp]{itp-package}} to create
-//' external pointers to the C++ functions used as examples to illustrate the
-//' use of the function \code{\link{itp}}.  These pointers are passed as the
-//' argument \code{f} to \code{\link{itp}}.  To create their own examples
-//' the user will need to create their own C++ function(s) and a function that
-//' is similar to \code{xptr_create}.
+//' This function is used in the \code{\link[itp:itp-package]{itp}} package to
+//' create external pointers to the C++ functions used as examples to
+//' illustrate the use of the function \code{\link{itp}}.  These pointers are
+//' passed as the argument \code{f} to \code{\link{itp}}.  To create their own
+//' examples the user will need to create their own C++ function(s) and a
+//' function that is similar to \code{xptr_create}.
 //'
 //' @param fstr A string indicating the C++ function required.
 //' @details See the vignette
