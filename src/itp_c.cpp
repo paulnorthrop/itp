@@ -126,8 +126,8 @@ List itp_c(const SEXP& f, const List& pars, const double& a, const double& b,
   }
   // Set for_rk
   // M_LOG2E is 1/log_e(2). log_2(x) = log_e(x) / log_e(2) = log_e(x) * M_LOG2E
-  double log2e = log(epsilon) * M_LOG2E ;
-  double log2bma = log(b - a) * M_LOG2E ;
+  double log2e = log2(epsilon);
+  double log2bma = log2(b - a);
   double for_rk = pow(2.0, n0 - 1 + log2e + std::ceil(log2bma - log2e)) ;
   // Initialise the counter k and implement the loop
   int k = 0 ;
