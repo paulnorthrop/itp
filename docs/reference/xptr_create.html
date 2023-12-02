@@ -22,7 +22,7 @@ function that is similar to xptr_create."><!-- mathjax --><script src="https://c
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">itp</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">1.2.0</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">1.2.1</span>
       </span>
     </div>
 
@@ -73,17 +73,20 @@ function that is similar to <code>xptr_create</code>.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">xptr_create</span><span class="op">(</span><span class="va">fstr</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">xptr_create</span><span class="op">(</span><span class="va">fstr</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>fstr</dt>
 <dd><p>A string indicating the C++ function required.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>The external pointer.</p>
+    
+
+<p>The external pointer.</p>
     </div>
     <div id="details">
     <h2>Details</h2>
@@ -104,8 +107,8 @@ user_fns.cpp</a> for information.</p>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">lambert_ptr</span> <span class="op">&lt;-</span> <span class="fu">xptr_create</span><span class="op">(</span><span class="st">"lambert"</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">res</span> <span class="op">&lt;-</span> <span class="fu"><a href="itp.html">itp</a></span><span class="op">(</span><span class="va">lambert_ptr</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">lambert_ptr</span> <span class="op">&lt;-</span> <span class="fu">xptr_create</span><span class="op">(</span><span class="st">"lambert"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">res</span> <span class="op">&lt;-</span> <span class="fu"><a href="itp.html">itp</a></span><span class="op">(</span><span class="va">lambert_ptr</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -120,7 +123,7 @@ user_fns.cpp</a> for information.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer></div>

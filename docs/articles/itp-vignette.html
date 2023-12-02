@@ -33,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">itp</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">1.2.0</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">1.2.1</span>
       </span>
     </div>
 
@@ -79,9 +79,10 @@
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Overview of the itp package</h1>
-                        <h4 data-toc-skip class="author">Paul Northrop</h4>
+                        <h4 data-toc-skip class="author">Paul
+Northrop</h4>
             
-            <h4 data-toc-skip class="date">2022-07-22</h4>
+            <h4 data-toc-skip class="date">2023-12-02</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/paulnorthrop/itp/blob/HEAD/vignettes/itp-vignette.Rmd" class="external-link"><code>vignettes/itp-vignette.Rmd</code></a></small>
       <div class="hidden name"><code>itp-vignette.Rmd</code></div>
@@ -90,53 +91,81 @@
 
     
     
-<p>The Interpolate, Truncate, Project (ITP) root-finding algorithm was developed in <span class="citation">Oliveira and Takahashi (2020)</span>. It’s performance compares favourably with existing methods on both well-behaved functions and ill-behaved functions while retaining the worst-case reliability of the bisection method. For details see the authors’ <a href="https://www.growkudos.com/publications/10.1145%25252F3423597/reader" class="external-link">Kudos summary</a> and the Wikipedia article <a href="https://en.wikipedia.org/wiki/ITP_method" class="external-link">ITP method</a>.</p>
-<p>The <code>itp</code> function implements the ITP method to find a root <span class="math inline">\(x^*\)</span> of the function <span class="math inline">\(f: \mathbb{R} \rightarrow \mathbb{R}\)</span> in the interval <span class="math inline">\([a, b]\)</span>, where <span class="math inline">\(f(a)f(b) &lt; 0\)</span>. If <span class="math inline">\(f\)</span> is continuous over <span class="math inline">\([a, b]\)</span> then <span class="math inline">\(f(x^*) = 0\)</span>. If <span class="math inline">\(f\)</span> is discontinuous over <span class="math inline">\([a, b]\)</span> then <span class="math inline">\(x^*\)</span> may be an estimate of a point of discontinuity at which the sign of <span class="math inline">\(f\)</span> changes, that is, <span class="math inline">\(f(x^* - \delta)f(x^* + \delta) \leq 0\)</span>, where <span class="math inline">\(0 \leq \delta \leq \epsilon\)</span> for some tolerance value <span class="math inline">\(\epsilon\)</span>.</p>
-<p>We use some of the examples presented in Table 1 of <span class="citation">Oliveira and Takahashi (2020)</span> to illustrate the use of this function and run the examples using the <code>uniroot</code> function in the <code>stats</code> package as a means of comparison, using a convergence tolerance of <span class="math inline">\(10^{-10}\)</span> in both cases. The <code>itp</code> function uses the following default values of the tuning parameters: <span class="math inline">\(\kappa_1 = 0.2 / (b - a)\)</span>, <span class="math inline">\(\kappa_2 = 2\)</span> and <span class="math inline">\(n_0 = 1\)</span>, but these may be changed by the user. See Sections 2 and 3 of <span class="citation">Oliveira and Takahashi (2020)</span> for information. The following function prints output from <code>uniroot</code> in the same style as the output from <code>itp</code>.</p>
+<p>The Interpolate, Truncate, Project (ITP) root-finding algorithm was
+developed in <span class="citation">Oliveira and Takahashi
+(2020)</span>. It’s performance compares favourably with existing
+methods on both well-behaved functions and ill-behaved functions while
+retaining the worst-case reliability of the bisection method. For
+details see the authors’ <a href="https://www.growkudos.com/publications/10.1145%25252F3423597/reader" class="external-link">Kudos
+summary</a> and the Wikipedia article <a href="https://en.wikipedia.org/wiki/ITP_method" class="external-link">ITP method</a>.</p>
+<p>The <code>itp</code> function implements the ITP method to find a
+root <span class="math inline">\(x^*\)</span> of the function <span class="math inline">\(f: \mathbb{R} \rightarrow \mathbb{R}\)</span> in
+the interval <span class="math inline">\([a, b]\)</span>, where <span class="math inline">\(f(a)f(b) &lt; 0\)</span>. If <span class="math inline">\(f\)</span> is continuous over <span class="math inline">\([a, b]\)</span> then <span class="math inline">\(f(x^*) = 0\)</span>. If <span class="math inline">\(f\)</span> is discontinuous over <span class="math inline">\([a, b]\)</span> then <span class="math inline">\(x^*\)</span> may be an estimate of a point of
+discontinuity at which the sign of <span class="math inline">\(f\)</span> changes, that is, <span class="math inline">\(f(x^* - \delta)f(x^* + \delta) \leq 0\)</span>,
+where <span class="math inline">\(0 \leq \delta \leq \epsilon\)</span>
+for some tolerance value <span class="math inline">\(\epsilon\)</span>.</p>
+<p>We use some of the examples presented in Table 1 of <span class="citation">Oliveira and Takahashi (2020)</span> to illustrate the
+use of this function and run the examples using the <code>uniroot</code>
+function in the <code>stats</code> package as a means of comparison,
+using a convergence tolerance of <span class="math inline">\(10^{-10}\)</span> in both cases. The
+<code>itp</code> function uses the following default values of the
+tuning parameters: <span class="math inline">\(\kappa_1 = 0.2 / (b -
+a)\)</span>, <span class="math inline">\(\kappa_2 = 2\)</span> and <span class="math inline">\(n_0 = 1\)</span>, but these may be changed by the
+user. See Sections 2 and 3 of <span class="citation">Oliveira and
+Takahashi (2020)</span> for information. The following function prints
+output from <code>uniroot</code> in the same style as the output from
+<code>itp</code>.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># Method to print part of uniroot output</span>
-<span class="va">print.list</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">digits</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="fl">3L</span>, <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"digits"</span><span class="op">)</span> <span class="op">-</span> <span class="fl">3L</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
-  <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"root"</span>, <span class="st">"f(root)"</span>, <span class="st">"iterations"</span><span class="op">)</span>
-  <span class="fu"><a href="https://rdrr.io/r/base/print.default.html" class="external-link">print.default</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/format.html" class="external-link">format</a></span><span class="op">(</span><span class="va">x</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span>, digits <span class="op">=</span> <span class="va">digits</span><span class="op">)</span>, print.gap <span class="op">=</span> <span class="fl">2L</span>, quote <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
-<span class="op">}</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># Method to print part of uniroot output</span></span>
+<span><span class="va">print.list</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">digits</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="fl">3L</span>, <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"digits"</span><span class="op">)</span> <span class="op">-</span> <span class="fl">3L</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"root"</span>, <span class="st">"f(root)"</span>, <span class="st">"iterations"</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/print.default.html" class="external-link">print.default</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/format.html" class="external-link">format</a></span><span class="op">(</span><span class="va">x</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span>, digits <span class="op">=</span> <span class="va">digits</span><span class="op">)</span>, print.gap <span class="op">=</span> <span class="fl">2L</span>, quote <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span><span class="op">}</span></span></code></pre></div>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://paulnorthrop.github.io/itp/" class="external-link">itp</a></span><span class="op">)</span></code></pre></div>
-<p>First, we consider supplying the argument <code>f</code> to <code>itp</code> using an R function. Then we show how to supply an external pointer to a C++ function. For the simple examples given in the <code>itp</code> package only a modest improvement in speed is observed (and expected). However, being able to call <code><a href="../reference/itp.html">itp()</a></code> on the C++ side may have benefits in more challenging problems.</p>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://paulnorthrop.github.io/itp/" class="external-link">itp</a></span><span class="op">)</span></span></code></pre></div>
+<p>First, we consider supplying the argument <code>f</code> to
+<code>itp</code> using an R function. Then we show how to supply an
+external pointer to a C++ function. For the simple examples given in the
+<code>itp</code> package only a modest improvement in speed is observed
+(and expected). However, being able to call <code><a href="../reference/itp.html">itp()</a></code> on the
+C++ side may have benefits in more challenging problems.</p>
 <div class="section level2">
 <h2 id="supplying-to-itp-an-r-function">Supplying to <code>itp</code> an R function<a class="anchor" aria-label="anchor" href="#supplying-to-itp-an-r-function"></a>
 </h2>
 <div class="section level3">
 <h3 id="well-behaved-functions">Well-behaved functions<a class="anchor" aria-label="anchor" href="#well-behaved-functions"></a>
 </h3>
-<p>These functions are infinitely differentiable and contain only one simple root over <span class="math inline">\([−1, 1]\)</span>.</p>
+<p>These functions are infinitely differentiable and contain only one
+simple root over <span class="math inline">\([−1, 1]\)</span>.</p>
 <div class="section level4">
 <h4 id="lambert-fx-x-ex---1">Lambert: <span class="math inline">\(f(x) = x e^x - 1\)</span><a class="anchor" aria-label="anchor" href="#lambert-fx-x-ex---1"></a>
 </h4>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># Lambert</span>
-<span class="va">lambert</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="va">x</span> <span class="op">*</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">exp</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">-</span> <span class="fl">1</span>
-<span class="fu"><a href="../reference/itp.html">itp</a></span><span class="op">(</span><span class="va">lambert</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; function: lambert </span>
-<span class="co">#&gt;       root     f(root)  iterations  </span>
-<span class="co">#&gt;     0.5671   2.048e-12           8</span>
-<span class="fu"><a href="https://rdrr.io/r/stats/uniroot.html" class="external-link">uniroot</a></span><span class="op">(</span><span class="va">lambert</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span>, tol <span class="op">=</span> <span class="fl">1e-10</span><span class="op">)</span>
-<span class="co">#&gt;       root     f(root)  iterations  </span>
-<span class="co">#&gt;     0.5671  -8.623e-12           8</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># Lambert</span></span>
+<span><span class="va">lambert</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="va">x</span> <span class="op">*</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">exp</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">-</span> <span class="fl">1</span></span>
+<span><span class="fu"><a href="../reference/itp.html">itp</a></span><span class="op">(</span><span class="va">lambert</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; function: lambert </span></span>
+<span><span class="co">#&gt;       root     f(root)  iterations  </span></span>
+<span><span class="co">#&gt;     0.5671   2.048e-12           8</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/uniroot.html" class="external-link">uniroot</a></span><span class="op">(</span><span class="va">lambert</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span>, tol <span class="op">=</span> <span class="fl">1e-10</span><span class="op">)</span></span>
+<span><span class="co">#&gt;       root     f(root)  iterations  </span></span>
+<span><span class="co">#&gt;     0.5671  -8.623e-12           8</span></span></code></pre></div>
 <p><img src="itp-vignette_files/figure-html/unnamed-chunk-4-1.png" width="480" style="display: block; margin: auto;"></p>
 </div>
 <div class="section level4">
-<h4 id="trigonometric-1-fx-tanx---1-10">Trigonometric 1: <span class="math inline">\(f(x) = \tan(x - 1 / 10)\)</span><a class="anchor" aria-label="anchor" href="#trigonometric-1-fx-tanx---1-10"></a>
+<h4 id="trigonometric-1-fx-tanx---1-10">Trigonometric 1: <span class="math inline">\(f(x) = \tan(x - 1 /
+10)\)</span><a class="anchor" aria-label="anchor" href="#trigonometric-1-fx-tanx---1-10"></a>
 </h4>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># Trigonometric 1</span>
-<span class="va">trig1</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/Trig.html" class="external-link">tan</a></span><span class="op">(</span><span class="va">x</span> <span class="op">-</span> <span class="fl">1</span> <span class="op">/</span><span class="fl">10</span><span class="op">)</span>
-<span class="fu"><a href="../reference/itp.html">itp</a></span><span class="op">(</span><span class="va">trig1</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; function: trig1 </span>
-<span class="co">#&gt;       root     f(root)  iterations  </span>
-<span class="co">#&gt;        0.1  -8.238e-14           8</span>
-<span class="fu"><a href="https://rdrr.io/r/stats/uniroot.html" class="external-link">uniroot</a></span><span class="op">(</span><span class="va">trig1</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span>, tol <span class="op">=</span> <span class="fl">1e-10</span><span class="op">)</span>
-<span class="co">#&gt;       root     f(root)  iterations  </span>
-<span class="co">#&gt;        0.1   6.212e-14           8</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># Trigonometric 1</span></span>
+<span><span class="va">trig1</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/Trig.html" class="external-link">tan</a></span><span class="op">(</span><span class="va">x</span> <span class="op">-</span> <span class="fl">1</span> <span class="op">/</span><span class="fl">10</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/itp.html">itp</a></span><span class="op">(</span><span class="va">trig1</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; function: trig1 </span></span>
+<span><span class="co">#&gt;       root     f(root)  iterations  </span></span>
+<span><span class="co">#&gt;        0.1  -8.238e-14           8</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/uniroot.html" class="external-link">uniroot</a></span><span class="op">(</span><span class="va">trig1</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span>, tol <span class="op">=</span> <span class="fl">1e-10</span><span class="op">)</span></span>
+<span><span class="co">#&gt;       root     f(root)  iterations  </span></span>
+<span><span class="co">#&gt;        0.1   6.212e-14           8</span></span></code></pre></div>
 <p><img src="itp-vignette_files/figure-html/unnamed-chunk-6-1.png" width="480" style="display: block; margin: auto;"></p>
 </div>
 </div>
@@ -144,81 +173,100 @@
 <h3 id="ill-behaved-functions">Ill-behaved functions<a class="anchor" aria-label="anchor" href="#ill-behaved-functions"></a>
 </h3>
 <div class="section level4">
-<h4 id="polynomial-3-non-simple-root-fx-106-x---1-3">Polynomial 3 (non-simple root): <span class="math inline">\(f(x) = (10^6 x - 1) ^ 3\)</span><a class="anchor" aria-label="anchor" href="#polynomial-3-non-simple-root-fx-106-x---1-3"></a>
+<h4 id="polynomial-3-non-simple-root-fx-106-x---1-3">Polynomial 3 (non-simple root): <span class="math inline">\(f(x) =
+(10^6 x - 1) ^ 3\)</span><a class="anchor" aria-label="anchor" href="#polynomial-3-non-simple-root-fx-106-x---1-3"></a>
 </h4>
 <p>This function has a non-simple root at <span class="math inline">\(10^{-6}\)</span>, with a multiplicity of 3.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># Polynomial 3</span>
-<span class="va">poly3</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">(</span><span class="va">x</span> <span class="op">*</span> <span class="fl">1e6</span> <span class="op">-</span> <span class="fl">1</span><span class="op">)</span> <span class="op">^</span> <span class="fl">3</span>
-<span class="fu"><a href="../reference/itp.html">itp</a></span><span class="op">(</span><span class="va">poly3</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; function: poly3 </span>
-<span class="co">#&gt;       root     f(root)  iterations  </span>
-<span class="co">#&gt;      1e-06   -1.25e-13          36</span>
-<span class="co"># Using n0 = 0 leads to (slightly) fewer iterations, in this example</span>
-<span class="va">poly3</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">(</span><span class="va">x</span> <span class="op">*</span> <span class="fl">1e6</span> <span class="op">-</span> <span class="fl">1</span><span class="op">)</span> <span class="op">^</span> <span class="fl">3</span>
-<span class="fu"><a href="../reference/itp.html">itp</a></span><span class="op">(</span><span class="va">poly3</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span>, n0 <span class="op">=</span> <span class="fl">0</span><span class="op">)</span>
-<span class="co">#&gt; function: poly3 </span>
-<span class="co">#&gt;       root     f(root)  iterations  </span>
-<span class="co">#&gt;      1e-06  -6.739e-14          35</span>
-<span class="fu"><a href="https://rdrr.io/r/stats/uniroot.html" class="external-link">uniroot</a></span><span class="op">(</span><span class="va">poly3</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span>, tol <span class="op">=</span> <span class="fl">1e-10</span><span class="op">)</span>
-<span class="co">#&gt;       root     f(root)  iterations  </span>
-<span class="co">#&gt;      1e-06   1.771e-17          65</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># Polynomial 3</span></span>
+<span><span class="va">poly3</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">(</span><span class="va">x</span> <span class="op">*</span> <span class="fl">1e6</span> <span class="op">-</span> <span class="fl">1</span><span class="op">)</span> <span class="op">^</span> <span class="fl">3</span></span>
+<span><span class="fu"><a href="../reference/itp.html">itp</a></span><span class="op">(</span><span class="va">poly3</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; function: poly3 </span></span>
+<span><span class="co">#&gt;       root     f(root)  iterations  </span></span>
+<span><span class="co">#&gt;      1e-06   -1.25e-13          36</span></span>
+<span><span class="co"># Using n0 = 0 leads to (slightly) fewer iterations, in this example</span></span>
+<span><span class="va">poly3</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">(</span><span class="va">x</span> <span class="op">*</span> <span class="fl">1e6</span> <span class="op">-</span> <span class="fl">1</span><span class="op">)</span> <span class="op">^</span> <span class="fl">3</span></span>
+<span><span class="fu"><a href="../reference/itp.html">itp</a></span><span class="op">(</span><span class="va">poly3</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span>, n0 <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span>
+<span><span class="co">#&gt; function: poly3 </span></span>
+<span><span class="co">#&gt;       root     f(root)  iterations  </span></span>
+<span><span class="co">#&gt;      1e-06  -6.739e-14          35</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/uniroot.html" class="external-link">uniroot</a></span><span class="op">(</span><span class="va">poly3</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span>, tol <span class="op">=</span> <span class="fl">1e-10</span><span class="op">)</span></span>
+<span><span class="co">#&gt;       root     f(root)  iterations  </span></span>
+<span><span class="co">#&gt;      1e-06   1.771e-17          65</span></span></code></pre></div>
 <p><img src="itp-vignette_files/figure-html/unnamed-chunk-8-1.png" width="480" style="display: block; margin: auto;"></p>
 </div>
 <div class="section level4">
-<h4 id="staircase-discontinuous-fx-lceil-10-x---1-rceil-12">Staircase (discontinuous): <span class="math inline">\(f(x) = \lceil 10 x - 1 \rceil + 1/2\)</span><a class="anchor" aria-label="anchor" href="#staircase-discontinuous-fx-lceil-10-x---1-rceil-12"></a>
+<h4 id="staircase-discontinuous-fx-lceil-10-x---1-rceil-12">Staircase (discontinuous): <span class="math inline">\(f(x) = \lceil
+10 x - 1 \rceil + 1/2\)</span><a class="anchor" aria-label="anchor" href="#staircase-discontinuous-fx-lceil-10-x---1-rceil-12"></a>
 </h4>
-<p>This function has discontinuities, including one at the location of the root.</p>
+<p>This function has discontinuities, including one at the location of
+the root.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># Staircase</span>
-<span class="va">staircase</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">ceiling</a></span><span class="op">(</span><span class="fl">10</span> <span class="op">*</span> <span class="va">x</span> <span class="op">-</span> <span class="fl">1</span><span class="op">)</span> <span class="op">+</span> <span class="fl">1</span> <span class="op">/</span> <span class="fl">2</span>
-<span class="fu"><a href="../reference/itp.html">itp</a></span><span class="op">(</span><span class="va">staircase</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; function: staircase </span>
-<span class="co">#&gt;       root     f(root)  iterations  </span>
-<span class="co">#&gt;  7.404e-11         0.5          31</span>
-<span class="fu"><a href="https://rdrr.io/r/stats/uniroot.html" class="external-link">uniroot</a></span><span class="op">(</span><span class="va">staircase</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span>, tol <span class="op">=</span> <span class="fl">1e-10</span><span class="op">)</span>
-<span class="co">#&gt;       root     f(root)  iterations  </span>
-<span class="co">#&gt; -3.739e-11        -0.5          31</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># Staircase</span></span>
+<span><span class="va">staircase</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">ceiling</a></span><span class="op">(</span><span class="fl">10</span> <span class="op">*</span> <span class="va">x</span> <span class="op">-</span> <span class="fl">1</span><span class="op">)</span> <span class="op">+</span> <span class="fl">1</span> <span class="op">/</span> <span class="fl">2</span></span>
+<span><span class="fu"><a href="../reference/itp.html">itp</a></span><span class="op">(</span><span class="va">staircase</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; function: staircase </span></span>
+<span><span class="co">#&gt;       root     f(root)  iterations  </span></span>
+<span><span class="co">#&gt;  7.404e-11         0.5          31</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/uniroot.html" class="external-link">uniroot</a></span><span class="op">(</span><span class="va">staircase</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span>, tol <span class="op">=</span> <span class="fl">1e-10</span><span class="op">)</span></span>
+<span><span class="co">#&gt;       root     f(root)  iterations  </span></span>
+<span><span class="co">#&gt; -3.739e-11        -0.5          31</span></span></code></pre></div>
 <p><img src="itp-vignette_files/figure-html/unnamed-chunk-10-1.png" width="480" style="display: block; margin: auto;"></p>
 </div>
 <div class="section level4">
-<h4 id="warsaw-multiple-roots-fx-ix--1left1-sinleftfrac11xrightright-1">Warsaw (multiple roots): <span class="math inline">\(f(x) = I(x &gt; -1)\left(1 + \sin\left(\frac{1}{1+x}\right)\right)-1\)</span><a class="anchor" aria-label="anchor" href="#warsaw-multiple-roots-fx-ix--1left1-sinleftfrac11xrightright-1"></a>
+<h4 id="warsaw-multiple-roots-fx-ix--1left1-sinleftfrac11xrightright-1">Warsaw (multiple roots): <span class="math inline">\(f(x) = I(x &gt;
+-1)\left(1 + \sin\left(\frac{1}{1+x}\right)\right)-1\)</span><a class="anchor" aria-label="anchor" href="#warsaw-multiple-roots-fx-ix--1left1-sinleftfrac11xrightright-1"></a>
 </h4>
 <p>This function has multiple roots: we find two of them.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># Warsaw</span>
-<span class="va">warsaw</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html" class="external-link">ifelse</a></span><span class="op">(</span><span class="va">x</span> <span class="op">&gt;</span> <span class="op">-</span><span class="fl">1</span>, <span class="fu"><a href="https://rdrr.io/r/base/Trig.html" class="external-link">sin</a></span><span class="op">(</span><span class="fl">1</span> <span class="op">/</span> <span class="op">(</span><span class="va">x</span> <span class="op">+</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span>, <span class="op">-</span><span class="fl">1</span><span class="op">)</span>
-<span class="co"># Function increasing over the interval</span>
-<span class="fu"><a href="../reference/itp.html">itp</a></span><span class="op">(</span><span class="va">warsaw</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; function: warsaw </span>
-<span class="co">#&gt;       root     f(root)  iterations  </span>
-<span class="co">#&gt;    -0.6817  -5.472e-11          11</span>
-<span class="fu"><a href="https://rdrr.io/r/stats/uniroot.html" class="external-link">uniroot</a></span><span class="op">(</span><span class="va">warsaw</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span>, tol <span class="op">=</span> <span class="fl">1e-10</span><span class="op">)</span>
-<span class="co">#&gt;       root     f(root)  iterations  </span>
-<span class="co">#&gt;    -0.6817  -3.216e-16           9</span>
-<span class="co"># Function decreasing over the interval</span>
-<span class="fu"><a href="../reference/itp.html">itp</a></span><span class="op">(</span><span class="va">warsaw</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.85</span>, <span class="op">-</span><span class="fl">0.8</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; function: warsaw </span>
-<span class="co">#&gt;       root     f(root)  iterations  </span>
-<span class="co">#&gt;    -0.8408   6.494e-11           8</span>
-<span class="fu"><a href="https://rdrr.io/r/stats/uniroot.html" class="external-link">uniroot</a></span><span class="op">(</span><span class="va">warsaw</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.85</span>, <span class="op">-</span><span class="fl">0.8</span><span class="op">)</span>, tol <span class="op">=</span> <span class="fl">1e-10</span><span class="op">)</span>
-<span class="co">#&gt;       root     f(root)  iterations  </span>
-<span class="co">#&gt;    -0.8408  -3.021e-12           6</span></code></pre></div>
-<pre><code><span class="co">#&gt; Warning in sin(1/(x + 1)): NaNs produced</span></code></pre>
+<code class="sourceCode R"><span><span class="co"># Warsaw</span></span>
+<span><span class="va">warsaw</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html" class="external-link">ifelse</a></span><span class="op">(</span><span class="va">x</span> <span class="op">&gt;</span> <span class="op">-</span><span class="fl">1</span>, <span class="fu"><a href="https://rdrr.io/r/base/Trig.html" class="external-link">sin</a></span><span class="op">(</span><span class="fl">1</span> <span class="op">/</span> <span class="op">(</span><span class="va">x</span> <span class="op">+</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span>, <span class="op">-</span><span class="fl">1</span><span class="op">)</span></span>
+<span><span class="co"># Function increasing over the interval</span></span>
+<span><span class="fu"><a href="../reference/itp.html">itp</a></span><span class="op">(</span><span class="va">warsaw</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; function: warsaw </span></span>
+<span><span class="co">#&gt;       root     f(root)  iterations  </span></span>
+<span><span class="co">#&gt;    -0.6817  -5.472e-11          11</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/uniroot.html" class="external-link">uniroot</a></span><span class="op">(</span><span class="va">warsaw</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span>, tol <span class="op">=</span> <span class="fl">1e-10</span><span class="op">)</span></span>
+<span><span class="co">#&gt;       root     f(root)  iterations  </span></span>
+<span><span class="co">#&gt;    -0.6817  -3.216e-16           9</span></span>
+<span><span class="co"># Function decreasing over the interval</span></span>
+<span><span class="fu"><a href="../reference/itp.html">itp</a></span><span class="op">(</span><span class="va">warsaw</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.85</span>, <span class="op">-</span><span class="fl">0.8</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; function: warsaw </span></span>
+<span><span class="co">#&gt;       root     f(root)  iterations  </span></span>
+<span><span class="co">#&gt;    -0.8408   6.494e-11           8</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/uniroot.html" class="external-link">uniroot</a></span><span class="op">(</span><span class="va">warsaw</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.85</span>, <span class="op">-</span><span class="fl">0.8</span><span class="op">)</span>, tol <span class="op">=</span> <span class="fl">1e-10</span><span class="op">)</span></span>
+<span><span class="co">#&gt;       root     f(root)  iterations  </span></span>
+<span><span class="co">#&gt;    -0.8408  -3.021e-12           6</span></span></code></pre></div>
+<pre><code><span><span class="co">#&gt; Warning in sin(1/(x + 1)): NaNs produced</span></span></code></pre>
 <p><img src="itp-vignette_files/figure-html/unnamed-chunk-12-1.png" width="480" style="display: block; margin: auto;"></p>
-<p>In terms of a naive comparison based on the number of iterations <code>itp</code> and <code>uniroot</code> perform similarly, except in the repeated-root “Polynomial 3” example, where <code>itp</code> requires fewer iterations.</p>
+<p>In terms of a naive comparison based on the number of iterations
+<code>itp</code> and <code>uniroot</code> perform similarly, except in
+the repeated-root “Polynomial 3” example, where <code>itp</code>
+requires fewer iterations.</p>
 </div>
 </div>
 </div>
 <div class="section level2">
-<h2 id="supplying-to-itp-an-external-pointer-to-a-c-function">Supplying to <code>itp</code> an external pointer to a C++ function<a class="anchor" aria-label="anchor" href="#supplying-to-itp-an-external-pointer-to-a-c-function"></a>
+<h2 id="supplying-to-itp-an-external-pointer-to-a-c-function">Supplying to <code>itp</code> an external pointer to a C++
+function<a class="anchor" aria-label="anchor" href="#supplying-to-itp-an-external-pointer-to-a-c-function"></a>
 </h2>
-<p>The general approach follows the article <a href="https://gallery.rcpp.org/articles/passing-cpp-function-pointers/" class="external-link">Passing user-supplied C++ functions</a> in the <a href="https://gallery.rcpp.org/" class="external-link">Rcpp Gallery</a>. The user writes a C++ function to calculate <span class="math inline">\(f\)</span>. This function must have a particular structure. As an example consider the following function, which implements the Lambert function considered above.</p>
+<p>The general approach follows the article <a href="https://gallery.rcpp.org/articles/passing-cpp-function-pointers/" class="external-link">Passing
+user-supplied C++ functions</a> in the <a href="https://gallery.rcpp.org/" class="external-link">Rcpp Gallery</a>. The user writes a C++
+function to calculate <span class="math inline">\(f\)</span>. This
+function must have a particular structure. As an example consider the
+following function, which implements the Lambert function considered
+above.</p>
 <pre><code>double lambert_cpp(const double&amp; x, const List&amp; pars) {
   return x * exp(x) - 1.0 ;
 }</code></pre>
-<p>The function returns a value of double type and has two arguments: the first is the main argument and is of double type and the second is a list containing the values of additional parameters whose values are not specified inside the function. This list must be present, even if an empty list will be passed to the function. This allows the user to change the values of any parameters in <span class="math inline">\(f\)</span> without editing the function.</p>
-<p>One way to provide C++ functions is to create them in a file, say <code>user_fns.cpp</code>. Example content is provided below.</p>
+<p>The function returns a value of double type and has two arguments:
+the first is the main argument and is of double type and the second is a
+list containing the values of additional parameters whose values are not
+specified inside the function. This list must be present, even if an
+empty list will be passed to the function. This allows the user to
+change the values of any parameters in <span class="math inline">\(f\)</span> without editing the function.</p>
+<p>One way to provide C++ functions is to create them in a file, say
+<code>user_fns.cpp</code>. Example content is provided below.</p>
 <pre><code>#include &lt;Rcpp.h&gt;
 using namespace Rcpp;
 
@@ -243,44 +291,64 @@ SEXP xptr_create(std::string fstr) {
   else
     return(XPtr&lt;funcPtr&gt;(R_NilValue)) ;
 }</code></pre>
-<p>The full file is available on the <a href="https://raw.githubusercontent.com/paulnorthrop/itp/main/src/user_fns.cpp" class="external-link">itp Github page</a>. The functions in this file are compiled and made available to R, either using the <code><a href="https://rdrr.io/pkg/Rcpp/man/sourceCpp.html" class="external-link">Rcpp::sourceCpp</a></code> function (e.g. <code>Rcpp::sourceCpp("user_fns.cpp")</code>) or using RStudio’s Source button on the editor toolbar. The example content below also includes the function <code>xptr_create</code>, which creates an external pointer to a C++ function. It is this external pointer that is passed to <code>itp</code>. If the user has written a C++ function, say <code>new_name</code>, then they need to add to <code>xptr_create</code> (or their own version of this function) two lines of code:</p>
+<p>The full file is available on the <a href="https://raw.githubusercontent.com/paulnorthrop/itp/main/src/user_fns.cpp" class="external-link">itp
+Github page</a>. The functions in this file are compiled and made
+available to R, either using the <code><a href="https://rdrr.io/pkg/Rcpp/man/sourceCpp.html" class="external-link">Rcpp::sourceCpp</a></code> function
+(e.g. <code>Rcpp::sourceCpp("user_fns.cpp")</code>) or using RStudio’s
+Source button on the editor toolbar. The example content below also
+includes the function <code>xptr_create</code>, which creates an
+external pointer to a C++ function. It is this external pointer that is
+passed to <code>itp</code>. If the user has written a C++ function, say
+<code>new_name</code>, then they need to add to <code>xptr_create</code>
+(or their own version of this function) two lines of code:</p>
 <pre><code>else if (fstr == "new_name")  
   return(Rcpp::XPtr&lt;funcPtr&gt;(new funcPtr(&amp;new_name))) ;</code></pre>
-<p>to create an external pointer for <code>new_name</code> using <code>create_xptr</code>.</p>
+<p>to create an external pointer for <code>new_name</code> using
+<code>create_xptr</code>.</p>
 <div class="section level3">
 <h3 id="lambert-fx-x-ex---1-1">Lambert: <span class="math inline">\(f(x) = x e^x - 1\)</span><a class="anchor" aria-label="anchor" href="#lambert-fx-x-ex---1-1"></a>
 </h3>
-<p>We repeat the Lambert example, obtaining the same results as above when we used an R function to supply the function.</p>
+<p>We repeat the Lambert example, obtaining the same results as above
+when we used an R function to supply the function.</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># Lambert, using an external pointer to a C++ function</span>
-<span class="va">lambert_ptr</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/xptr_create.html">xptr_create</a></span><span class="op">(</span><span class="st">"lambert"</span><span class="op">)</span>
-<span class="va">res</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/itp.html">itp</a></span><span class="op">(</span><span class="va">lambert_ptr</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span>
-<span class="va">res</span>
-<span class="co">#&gt; function: lambert_ptr </span>
-<span class="co">#&gt;       root     f(root)  iterations  </span>
-<span class="co">#&gt;     0.5671   2.048e-12           8</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># Lambert, using an external pointer to a C++ function</span></span>
+<span><span class="va">lambert_ptr</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/xptr_create.html">xptr_create</a></span><span class="op">(</span><span class="st">"lambert"</span><span class="op">)</span></span>
+<span><span class="va">res</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/itp.html">itp</a></span><span class="op">(</span><span class="va">lambert_ptr</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">res</span></span>
+<span><span class="co">#&gt; function: lambert_ptr </span></span>
+<span><span class="co">#&gt;       root     f(root)  iterations  </span></span>
+<span><span class="co">#&gt;     0.5671   2.048e-12           8</span></span></code></pre></div>
 </div>
 </div>
 <div class="section level2">
 <h2 id="c-function-itp_c">C++ function <code>itp_c</code><a class="anchor" aria-label="anchor" href="#c-function-itp_c"></a>
 </h2>
-<p>Also provided is the function <code>itp_c</code>, which is equivalent to <code>itp</code>, but the calculations are performed entirely using C++, and the arguments differ slightly: <code>itp_c</code> has a named required argument <code>pars</code> rather than <code>...</code> and it does not have the arguments <code>interval</code>, <code>f.a</code> or <code>f.b</code>. This may be useful if you wish to call an ITP function on the C++ side.</p>
+<p>Also provided is the function <code>itp_c</code>, which is equivalent
+to <code>itp</code>, but the calculations are performed entirely using
+C++, and the arguments differ slightly: <code>itp_c</code> has a named
+required argument <code>pars</code> rather than <code>...</code> and it
+does not have the arguments <code>interval</code>, <code>f.a</code> or
+<code>f.b</code>. This may be useful if you wish to call an ITP function
+on the C++ side.</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># Calling itp_c()</span>
-<span class="va">res</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/itp_c.html">itp_c</a></span><span class="op">(</span><span class="va">lambert_ptr</span>, pars <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>, a <span class="op">=</span> <span class="op">-</span><span class="fl">1</span>, b <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>
-<span class="va">res</span>
-<span class="co">#&gt; function:  </span>
-<span class="co">#&gt;       root     f(root)  iterations  </span>
-<span class="co">#&gt;     0.5671   2.048e-12           8</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># Calling itp_c()</span></span>
+<span><span class="va">res</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/itp_c.html">itp_c</a></span><span class="op">(</span><span class="va">lambert_ptr</span>, pars <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>, a <span class="op">=</span> <span class="op">-</span><span class="fl">1</span>, b <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
+<span><span class="va">res</span></span>
+<span><span class="co">#&gt; function:  </span></span>
+<span><span class="co">#&gt;       root     f(root)  iterations  </span></span>
+<span><span class="co">#&gt;     0.5671   2.048e-12           8</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="plot-method">Plot method<a class="anchor" aria-label="anchor" href="#plot-method"></a>
 </h2>
-<p>Objects of class <code>itp</code> have a plot method that, by default, produces a plot of the function over the interval over which the root was sought and indicates the location of the root using dashed lines.</p>
+<p>Objects of class <code>itp</code> have a plot method that, by
+default, produces a plot of the function over the interval over which
+the root was sought and indicates the location of the root using dashed
+lines.</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">oldpar</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mar <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">4</span>, <span class="fl">4</span>, <span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">res</span>, main <span class="op">=</span> <span class="st">"Lambert"</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span><span class="va">oldpar</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">oldpar</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mar <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">4</span>, <span class="fl">4</span>, <span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">res</span>, main <span class="op">=</span> <span class="st">"Lambert"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span><span class="va">oldpar</span><span class="op">)</span></span></code></pre></div>
 <p><img src="itp-vignette_files/figure-html/plot_itp-1.png" width="480" style="display: block; margin: auto;"></p>
 </div>
 <div class="section level2">
@@ -290,7 +358,10 @@ SEXP xptr_create(std::string fstr) {
    MathJax.Hub.Config({  "HTML-CSS": { minScaleAdjust: 125, availableFonts: [] }  });
 </script><div id="refs" class="references csl-bib-body hanging-indent">
 <div id="ref-OliveiraTakahashi2021" class="csl-entry">
-Oliveira, I. F. D., and R. H. C. Takahashi. 2020. <span>“An Enhancement of the Bisection Method Average Performance Preserving Minmax Optimality.”</span> <em>ACM Trans. Math. Softw.</em> 47 (1). New York, NY, USA: Association for Computing Machinery. doi:<a href="https://doi.org/10.1145/3423597" class="external-link">10.1145/3423597</a>.
+Oliveira, I. F. D., and R. H. C. Takahashi. 2020. <span>“An Enhancement
+of the Bisection Method Average Performance Preserving Minmax
+Optimality.”</span> <em>ACM Trans. Math. Softw.</em> 47 (1). New York,
+NY, USA: Association for Computing Machinery. doi:<a href="https://doi.org/10.1145/3423597" class="external-link">10.1145/3423597</a>.
 </div>
 </div>
 </div>
@@ -313,7 +384,7 @@ Oliveira, I. F. D., and R. H. C. Takahashi. 2020. <span>“An Enhancement of the
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer>

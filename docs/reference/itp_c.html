@@ -22,7 +22,7 @@ interval, f.a or f.b."><!-- mathjax --><script src="https://cdnjs.cloudflare.com
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">itp</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">1.2.0</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">1.2.1</span>
       </span>
     </div>
 
@@ -73,7 +73,7 @@ the arguments differ slightly: <code>itp_c</code> has a named required argument
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">itp_c</span><span class="op">(</span><span class="va">f</span>, <span class="va">pars</span>, <span class="va">a</span>, <span class="va">b</span>, epsilon <span class="op">=</span> <span class="fl">1e-10</span>, k1 <span class="op">=</span> <span class="op">-</span><span class="fl">1</span>, k2 <span class="op">=</span> <span class="fl">2</span>, n0 <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">itp_c</span><span class="op">(</span><span class="va">f</span>, <span class="va">pars</span>, <span class="va">a</span>, <span class="va">b</span>, epsilon <span class="op">=</span> <span class="fl">1e-10</span>, k1 <span class="op">=</span> <span class="op">-</span><span class="fl">1</span>, k2 <span class="op">=</span> <span class="fl">2</span>, n0 <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -81,16 +81,24 @@ the arguments differ slightly: <code>itp_c</code> has a named required argument
     <dl><dt>f</dt>
 <dd><p>An external pointer to a C++ function that evaluates the function
 \(f\).</p></dd>
+
+
 <dt>pars</dt>
 <dd><p>A list of additional arguments to the function.  This may be an
 empty list.</p></dd>
+
+
 <dt>a, b</dt>
 <dd><p>Numeric scalars. Lower (<code>a</code>) and upper <code>b</code> limits of
 the interval to be searched for a root.</p></dd>
+
+
 <dt>epsilon</dt>
 <dd><p>A positive numeric scalar. The desired accuracy of the root.
 The algorithm continues until the width of the bracketing interval for the
 root is less than or equal to <code>2 * epsilon</code>.</p></dd>
+
+
 <dt>k1, k2, n0</dt>
 <dd><p>Numeric scalars. The values of the tuning parameters
   \(\kappa\)<sub>1</sub>,
@@ -104,10 +112,13 @@ root is less than or equal to <code>2 * epsilon</code>.</p></dd>
   as <code><a href="itp.html">itp</a></code>, that is, <code>k1 = 0.2 / (b - a)</code>.  If the input
   value of <code>k1</code> is less than or equal to 0 then, inside
   <code>itp_c</code>, <code>k1 = 0.2 / (b - a)</code> is set.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>An object (a list) of class <code>"itp"</code> with the same structure
+    
+
+<p>An object (a list) of class <code>"itp"</code> with the same structure
   as detailed in the <strong>Value</strong> section of <code><a href="itp.html">itp</a></code>, except
   that the attribute <code>f_name</code> is empty (equal to <code>""</code>).</p>
     </div>
@@ -120,7 +131,7 @@ root is less than or equal to <code>2 * epsilon</code>.</p></dd>
     <p>Oliveira, I. F. D. and Takahashi, R. H. C. (2021). An Enhancement
   of the Bisection Method Average Performance Preserving Minmax Optimality,
   <em>ACM Transactions on Mathematical Software</em>, <strong>47</strong>(1), 1-24.
-  doi: <a href="https://doi.org/10.1145/3423597" class="external-link">10.1145/3423597</a></p>
+  <a href="https://doi.org/10.1145/3423597" class="external-link">doi:10.1145/3423597</a></p>
     </div>
     <div id="see-also">
     <h2>See also</h2>
@@ -131,13 +142,13 @@ root is less than or equal to <code>2 * epsilon</code>.</p></dd>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">wiki_ptr</span> <span class="op">&lt;-</span> <span class="fu"><a href="xptr_create.html">xptr_create</a></span><span class="op">(</span><span class="st">"wiki"</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">wres</span> <span class="op">&lt;-</span> <span class="fu">itp_c</span><span class="op">(</span>f <span class="op">=</span> <span class="va">wiki_ptr</span>, pars <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>, a <span class="op">=</span> <span class="fl">1</span>, b <span class="op">=</span> <span class="fl">2</span>, epsilon <span class="op">=</span> <span class="fl">0.0005</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">wres</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">wiki_ptr</span> <span class="op">&lt;-</span> <span class="fu"><a href="xptr_create.html">xptr_create</a></span><span class="op">(</span><span class="st">"wiki"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">wres</span> <span class="op">&lt;-</span> <span class="fu">itp_c</span><span class="op">(</span>f <span class="op">=</span> <span class="va">wiki_ptr</span>, pars <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>, a <span class="op">=</span> <span class="fl">1</span>, b <span class="op">=</span> <span class="fl">2</span>, epsilon <span class="op">=</span> <span class="fl">0.0005</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">wres</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> function:  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       root     f(root)  iterations  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      1.521   0.0001315           4  </span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">wres</span>, main <span class="op">=</span> <span class="st">"Wiki"</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">wres</span>, main <span class="op">=</span> <span class="st">"Wiki"</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="itp_c-1.png" alt="" width="700" height="433"></span>
 </code></pre></div>
     </div>
@@ -153,7 +164,7 @@ root is less than or equal to <code>2 * epsilon</code>.</p></dd>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer></div>
