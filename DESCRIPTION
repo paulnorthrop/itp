@@ -1,8 +1,8 @@
 Package: itp
 Type: Package
 Title: The Interpolate, Truncate, Project (ITP) Root-Finding Algorithm
-Version: 1.2.0
-Date: 2022-07-16
+Version: 1.2.1
+Date: 2023-12-02
 Authors@R: person(c("Paul", "J."), "Northrop", email = "p.northrop@ucl.ac.uk",
   role = c("aut", "cre", "cph"))
 Description: Implements the Interpolate, Truncate, Project (ITP) root-finding 
@@ -19,7 +19,7 @@ Description: Implements the Interpolate, Truncate, Project (ITP) root-finding
     Takahashi (2021). 
 License: GPL (>= 2)
 Encoding: UTF-8
-RoxygenNote: 7.2.0
+RoxygenNote: 7.2.3
 Imports: Rcpp (>= 1.0.8)
 LinkingTo: Rcpp
 Suggests: 
