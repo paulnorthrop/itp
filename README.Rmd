@@ -19,7 +19,7 @@ knitr::opts_chunk$set(
 
 [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/paulnorthrop/itp?branch=main&svg=true)](https://ci.appveyor.com/project/paulnorthrop/itp)
 [![R-CMD-check](https://github.com/paulnorthrop/itp/workflows/R-CMD-check/badge.svg)](https://github.com/paulnorthrop/itp/actions)
-[![Coverage Status](https://codecov.io/github/paulnorthrop/itp/coverage.svg?branch=main)](https://codecov.io/github/paulnorthrop/itp?branch=main)
+[![Coverage Status](https://codecov.io/github/paulnorthrop/itp/coverage.svg?branch=main)](https://app.codecov.io/github/paulnorthrop/itp?branch=main)
 [![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/itp)](https://cran.r-project.org/package=itp)
 [![Downloads (monthly)](https://cranlogs.r-pkg.org/badges/itp?color=brightgreen)](https://cran.r-project.org/package=itp)
 [![Downloads (total)](https://cranlogs.r-pkg.org/badges/grand-total/itp?color=brightgreen)](https://cran.r-project.org/package=itp)
