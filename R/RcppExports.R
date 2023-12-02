@@ -161,5 +161,5 @@ xptr_create <- function(fstr) {
 
 # Register entry points for exported C++ functions
 methods::setLoadAction(function(ns) {
-    .Call('_itp_RcppExport_registerCCallable', PACKAGE = 'itp')
+    .Call(`_itp_RcppExport_registerCCallable`)
 })
