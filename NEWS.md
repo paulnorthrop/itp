@@ -1,3 +1,9 @@
+# itp 1.2.1.9000
+
+## Bug fixes and minor improvements
+
+* The formatting of 'x star' in the README file has been changed so that it renders correctly on GitHub.
+
 # itp 1.2.1
 
 ## Bug fixes and minor improvements
