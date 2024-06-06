@@ -46,11 +46,11 @@ The Lambert function $l(x) = xe^x - 1$ is continuous.
 
 <img src="man/figures/README-lambert-1.png" style="display: block; margin: auto;" />
 
-The `itp` function finds an estimate of the root, that is, $x^{*}$ for
-which $f(x^{*})$ is (approximately) equal to 0. The algorithm continues
-until the length of the interval that brackets the root is smaller than
-$2 \epsilon$, where $\epsilon$ is a user-supplied tolerance. The default
-is $\epsilon = 10^{-10}$.
+The `itp` function finds an estimate of the root, that is, $x^{\ast}$
+for which $f(x^{\ast})$ is (approximately) equal to 0. The algorithm
+continues until the length of the interval that brackets the root is
+smaller than $2 \epsilon$, where $\epsilon$ is a user-supplied
+tolerance. The default is $\epsilon = 10^{-10}$.
 
 First, we supply an R function that evaluates the Lambert function.
 
