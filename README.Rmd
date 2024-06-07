@@ -131,3 +131,7 @@ install.packages("itp")
 ### Vignette
 
 See the [Overview of the itp package](https://paulnorthrop.github.io/itp/articles/itp-vignette.html) vignette, which can also be accessed using `vignette("itp-vignette", package = "itp")`.
+
+<script type="text/x-mathjax-config">
+   MathJax.Hub.Config({  "HTML-CSS": { minScaleAdjust: 125, availableFonts: [] }  });
+</script>
