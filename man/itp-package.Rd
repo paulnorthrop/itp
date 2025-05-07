@@ -3,7 +3,6 @@
 \docType{package}
 \name{itp-package}
 \alias{itp-package}
-\alias{_PACKAGE}
 \title{itp: The Interpolate, Truncate, Project (ITP) Root-Finding Algorithm}
 \description{
 Implements the Interpolate, Truncate, Project (ITP) root-finding
