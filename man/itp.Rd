@@ -61,8 +61,9 @@ An object (a list) of class \code{"itp"} containing the following
     convergence.}
   \item{estim.prec}{an approximate estimated precision for \code{root},
     equal to the half the width of the final bracket for the root.}
-    the root occurs at one of the input endpoints \code{a} or \code{b} then
-    \code{iter = 0} and \code{estim.prec = NA}.
+
+  If the root occurs at one of the input endpoints \code{a} or \code{b} then
+  \code{iter = 0} and \code{estim.prec = NA}.
 
   The returned object also has the attributes \code{f} (the input R function
   or pointer to a C++ function \code{f}), \code{f_args} (a list of
