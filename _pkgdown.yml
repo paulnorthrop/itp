@@ -1,11 +1,14 @@
 destination: docs
 
+url: https://github.com/paulnorthrop/itp
+
 development:
-  mode: unreleased
+  mode: release
 
 template:
-  params:
-    bootswatch: paper
+  bootstrap: 5
+  bootswatch: flatly
+  math-rendering: mathjax
 
 reference:
   - title: Package

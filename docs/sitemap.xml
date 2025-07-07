@@ -1,57 +1,21 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>/404.html</loc>
-  </url>
-  <url>
-    <loc>/articles/index.html</loc>
-  </url>
-  <url>
-    <loc>/articles/itp-vignette.html</loc>
-  </url>
-  <url>
-    <loc>/authors.html</loc>
-  </url>
-  <url>
-    <loc>/index.html</loc>
-  </url>
-  <url>
-    <loc>/LICENSE.html</loc>
-  </url>
-  <url>
-    <loc>/news/index.html</loc>
-  </url>
-  <url>
-    <loc>/reference/create_xptr.html</loc>
-  </url>
-  <url>
-    <loc>/reference/index.html</loc>
-  </url>
-  <url>
-    <loc>/reference/itp-internal.html</loc>
-  </url>
-  <url>
-    <loc>/reference/itp-package.html</loc>
-  </url>
-  <url>
-    <loc>/reference/itp.html</loc>
-  </url>
-  <url>
-    <loc>/reference/itpPrint.html</loc>
-  </url>
-  <url>
-    <loc>/reference/itp_c.html</loc>
-  </url>
-  <url>
-    <loc>/reference/plot.itp.html</loc>
-  </url>
-  <url>
-    <loc>/reference/print.itp.html</loc>
-  </url>
-  <url>
-    <loc>/reference/xptr_create.html</loc>
-  </url>
-  <url>
-    <loc>/reference/xptr_eval.html</loc>
-  </url>
+<urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
+<url><loc>https://github.com/paulnorthrop/itp/404.html</loc></url>
+<url><loc>https://github.com/paulnorthrop/itp/articles/index.html</loc></url>
+<url><loc>https://github.com/paulnorthrop/itp/articles/itp-vignette.html</loc></url>
+<url><loc>https://github.com/paulnorthrop/itp/authors.html</loc></url>
+<url><loc>https://github.com/paulnorthrop/itp/index.html</loc></url>
+<url><loc>https://github.com/paulnorthrop/itp/LICENSE.html</loc></url>
+<url><loc>https://github.com/paulnorthrop/itp/news/index.html</loc></url>
+<url><loc>https://github.com/paulnorthrop/itp/reference/create_xptr.html</loc></url>
+<url><loc>https://github.com/paulnorthrop/itp/reference/index.html</loc></url>
+<url><loc>https://github.com/paulnorthrop/itp/reference/itp-internal.html</loc></url>
+<url><loc>https://github.com/paulnorthrop/itp/reference/itp-package.html</loc></url>
+<url><loc>https://github.com/paulnorthrop/itp/reference/itp.html</loc></url>
+<url><loc>https://github.com/paulnorthrop/itp/reference/itpPrint.html</loc></url>
+<url><loc>https://github.com/paulnorthrop/itp/reference/itp_c.html</loc></url>
+<url><loc>https://github.com/paulnorthrop/itp/reference/plot.itp.html</loc></url>
+<url><loc>https://github.com/paulnorthrop/itp/reference/print.itp.html</loc></url>
+<url><loc>https://github.com/paulnorthrop/itp/reference/xptr_create.html</loc></url>
+<url><loc>https://github.com/paulnorthrop/itp/reference/xptr_eval.html</loc></url>
 </urlset>
+
