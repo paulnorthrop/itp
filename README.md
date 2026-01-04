@@ -3,8 +3,6 @@
 
 # itp
 
-[![AppVeyor Build
-Status](https://ci.appveyor.com/api/projects/status/github/paulnorthrop/itp?branch=main&svg=true)](https://ci.appveyor.com/project/paulnorthrop/itp)
 [![R-CMD-check](https://github.com/paulnorthrop/itp/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/paulnorthrop/itp/actions/workflows/R-CMD-check.yaml)
 [![Coverage
 Status](https://codecov.io/github/paulnorthrop/itp/coverage.svg?branch=main)](https://app.codecov.io/github/paulnorthrop/itp?branch=main)

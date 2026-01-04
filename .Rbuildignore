@@ -2,7 +2,6 @@
 ^\.Rproj\.user$
 ^checks$
 ^README\.Rmd$
-^appveyor\.yml$
 ^pkgdown\.yml$
 ^doc$
 ^Meta$
