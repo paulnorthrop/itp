@@ -19,7 +19,7 @@ Description: Implements the Interpolate, Truncate, Project (ITP) root-finding
     Takahashi (2021). 
 License: GPL (>= 2)
 Encoding: UTF-8
-RoxygenNote: 7.3.2
+RoxygenNote: 7.3.3
 Imports: Rcpp (>= 1.0.8)
 LinkingTo: Rcpp
 Suggests: 
