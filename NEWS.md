@@ -1,7 +1,8 @@
-# itp 1.2.1.9000
+# itp 1.2.2
 
 ## Bug fixes and minor improvements
 
+* Implements the patch described in [Rcpp Issue #1406](https://github.com/RcppCore/Rcpp/issues/1406) to avoid masking of `Rf_error()`.
 * The formatting of 'x star' in the README file has been changed so that it renders correctly on GitHub.
 * A minor typo (missing "If" in "If the root ...") has been corrected in the **Value** section of the `itp()` help file.
 
