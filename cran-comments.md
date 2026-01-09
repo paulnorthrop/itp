@@ -5,7 +5,6 @@
 ## Test environments
 
 - macOS (R-release), ubuntu (R-oldrel, R-release, R-devel), windows (R-release) using the rcmdcheck package
-- macOS builder 
 - win-builder (R-devel, R-release and R-oldrelease)
 
 ## Downstream dependencies
