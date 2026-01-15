@@ -15,7 +15,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-# itp
+# itp <a href="https://paulnorthrop.github.io/itp/"><img src="man/figures/itp_logo.png" align="right" style="float:right; height:150px;" alt="itp logo"/></a>
 
 [![R-CMD-check](https://github.com/paulnorthrop/itp/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/paulnorthrop/itp/actions/workflows/R-CMD-check.yaml)
 [![Coverage Status](https://codecov.io/github/paulnorthrop/itp/coverage.svg?branch=main)](https://app.codecov.io/github/paulnorthrop/itp?branch=main)

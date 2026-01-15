@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# itp
+# itp <a href="https://paulnorthrop.github.io/itp/"><img src="man/figures/itp_logo.png" align="right" style="float:right; height:150px;" alt="itp logo"/></a>
 
 [![R-CMD-check](https://github.com/paulnorthrop/itp/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/paulnorthrop/itp/actions/workflows/R-CMD-check.yaml)
 [![Coverage
@@ -36,6 +36,7 @@ external pointer to a C++ function.
 
 ``` r
 library(itp)
+#> Warning: package 'itp' was built under R version 4.5.2
 ```
 
 #### A continuous function
