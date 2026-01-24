@@ -36,7 +36,6 @@ external pointer to a C++ function.
 
 ``` r
 library(itp)
-#> Warning: package 'itp' was built under R version 4.5.2
 ```
 
 #### A continuous function
